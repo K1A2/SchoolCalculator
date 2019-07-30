@@ -4,16 +4,52 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:layout_gravity="center_horizontal"
-        android:elevation="3dp"
-        android:background="@drawable/background_tabs"
-        app:tabTextColor="#FFFFFF"
-        app:tabIndicator="@drawable/background_tabsin"
-        app:tabIndicatorGravity="center"
-        android:layout_width="wrap_content"
-        android:id="@+id/score_tablayout"
-        android:layout_height="wrap_content"></com.google.android.material.tabs.TabLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/edit_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        android:background="@drawable/toolbar_background"
+        android:elevation="5dp"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="32dp"
+        android:clipToPadding="false">
+
+        <View
+            android:id="@+id/indicator"
+            android:elevation="4dp"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/background_tabsin"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/score_tablayout"
+            android:elevation="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/tab_bg"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="#ffffff"
+            app:tabIndicatorColor="@null"
+            app:tabRippleColor="@null"/>
+
+    </FrameLayout>
+
+    <!--<com.google.android.material.tabs.TabLayout-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:elevation="3dp"-->
+        <!--android:background="@drawable/background_tabs"-->
+        <!--app:tabTextColor="#FFFFFF"-->
+        <!--app:tabIndicator="@drawable/background_tabsin"-->
+        <!--app:tabIndicatorGravity="center"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:id="@+id/score_tablayout"-->
+        <!--android:layout_height="wrap_content"></com.google.android.material.tabs.TabLayout>-->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/score_viwewpager"

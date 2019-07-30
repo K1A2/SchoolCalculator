@@ -11,92 +11,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            app:cardElevation="2dp"
-            app:contentPadding="10dp"
-            app:cardUseCompatPadding="true"
+        <com.k1a2.schoolcalculator.view.CradGradeView
+            app:grade="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:padding="10dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1학기 성적 입력"
-                    android:textSize="17dp"
-                    android:fontFamily="@font/scdream3"
-                    android:textStyle="bold"
-                    android:textColor="#000000"/>
+        </com.k1a2.schoolcalculator.view.CradGradeView>
 
-                <View
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorDivider"/>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/grade1_recycler_grade"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-                <Button
-                    android:id="@+id/grade1_button_addgrade"
-                    android:layout_gravity="right"
-                    android:padding="3dp"
-                    android:text="과목 추가"
-                    android:textColor="#F18B8D"
-                    android:drawableTint="#F18B8D"
-                    android:drawableRight="@drawable/baseline_add_black_24"
-                    android:minHeight="0dp"
-                    android:minWidth="0dp"
-                    android:fontFamily="@font/scdream3"
-                    android:gravity="center_vertical"
-                    android:backgroundTint="#00FFFFFF"
-                    android:backgroundTintMode="add"
-                    android:elevation="0dp"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            app:cardElevation="2dp"
-            app:contentPadding="10dp"
-            app:cardUseCompatPadding="true"
+        <com.k1a2.schoolcalculator.view.CradGradeView
+            app:grade="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:padding="10dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2학기 성적 입력"
-                    android:textSize="17dp"
-                    android:fontFamily="@font/scdream3"
-                    android:textStyle="bold"
-                    android:textColor="#000000"/>
-
-            </LinearLayout>
-
-
-
-        </androidx.cardview.widget.CardView>
+        </com.k1a2.schoolcalculator.view.CradGradeView>
 
     </LinearLayout>
 

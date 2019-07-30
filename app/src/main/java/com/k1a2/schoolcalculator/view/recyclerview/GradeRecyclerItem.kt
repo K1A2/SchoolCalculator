@@ -1,4 +1,4 @@
-package com.k1a2.schoolcalculator.view
+package com.k1a2.schoolcalculator.view.recyclerview
 
 class GradeRecyclerItem {
     var subjectName: String? = null

@@ -13,38 +13,53 @@
         android:layout_height="match_parent">
 
         <EditText
+            android:fontFamily="@font/scdream3"
             android:singleLine="true"
             android:id="@+id/content_sunjectName"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:imeOptions="actionNext"
             android:hint="과목명"/>
 
         <EditText
+            android:fontFamily="@font/scdream3"
             android:singleLine="true"
             android:id="@+id/content_grade"
             android:gravity="center"
-            android:layout_width="match_parent"
+            android:layout_width="45dp"
+            android:inputType="number"
+            android:imeOptions="actionNext"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:hint="등급"/>
 
         <EditText
+            android:fontFamily="@font/scdream3"
             android:singleLine="true"
             android:id="@+id/content_point"
             android:gravity="center"
-            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_width="45dp"
+            android:imeOptions="actionDone"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:hint="단위"/>
 
         <Spinner
+            android:id="@+id/card_subject"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:entries="@array/subject"/>
+
+        <ImageButton
+            android:id="@+id/content_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:tint="#606060"
+            android:src="@drawable/baseline_delete_black_24"
+            android:background="@null"/>
 
     </LinearLayout>
 

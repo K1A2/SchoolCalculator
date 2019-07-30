@@ -1,10 +1,13 @@
 package com.k1a2.schoolcalculator.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -16,15 +19,19 @@ import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
+import com.k1a2.schoolcalculator.fragment.TabFragmentAdapter;
 
 public class ScoreEditActivity extends AppCompatActivity {
 
     private Fragment fragment_grade1 = null;
     private Fragment fragment_grade2 = null;
     private Fragment fragment_grade3 = null;
+    private View view_indicator = null;
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
+    private Toolbar toolbar = null;
 
+    private int indicatorWidth;
     private TabPagerAdapter tabPagerAdapter = null;
 
     @Override
@@ -34,6 +41,11 @@ public class ScoreEditActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.score_tablayout);
         viewPager = findViewById(R.id.score_viwewpager);
+        view_indicator = findViewById(R.id.indicator);
+        toolbar = findViewById(R.id.edit_toolbar);
+
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
 
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setText("1학년");
@@ -46,11 +58,45 @@ public class ScoreEditActivity extends AppCompatActivity {
         tabLayout.addTab(tab3);
 
         setPageAdapter();
+
+        viewPager.setOffscreenPageLimit(3);
+
+        tabLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                indicatorWidth = tabLayout.getWidth() / tabLayout.getTabCount();
+
+                FrameLayout.LayoutParams indicatorParams = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
+                indicatorParams.width = indicatorWidth;
+                view_indicator.setLayoutParams(indicatorParams);
+            }
+        });
     }
 
     private void setPageAdapter() {
         tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabPagerAdapter);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
+
+                //Multiply positionOffset with indicatorWidth to get translation
+                float translationOffset =  (positionOffset + position) * indicatorWidth ;
+                params.leftMargin = (int) translationOffset;
+                view_indicator.setLayoutParams(params);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
