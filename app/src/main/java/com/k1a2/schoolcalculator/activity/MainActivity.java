@@ -1,4 +1,4 @@
-package com.k1a2.schoolcalculator;
+package com.k1a2.schoolcalculator.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.k1a2.schoolcalculator.R;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 

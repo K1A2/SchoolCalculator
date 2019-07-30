@@ -1,15 +1,18 @@
-package com.k1a2.schoolcalculator;
+package com.k1a2.schoolcalculator.activity;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
@@ -103,30 +106,5 @@ public class ScoreEditActivity extends AppCompatActivity {
         public int getCount() {
             return 3;
         }
-//
-//        @Override
-//        public void getItem(Int): Fragment? {
-//                when (position) {
-//                0 -> {
-//            if (receieveFragment != null) return receieveFragment else {
-//                receieveFragment = RecieveFragment()
-//                return  receieveFragment
-//            }
-//        }
-//
-//        1 -> {
-//            if (sendFragment != null) return sendFragment else {
-//                sendFragment = SendFragment()
-//                return  sendFragment
-//            }
-//        }
-//
-//                else -> return null
-//            }
-//        }
-//
-//        override fun getCount(): Int {
-//            return 2
-//        }
     }
 }
