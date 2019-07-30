@@ -24,6 +24,7 @@ public class CradGradeView extends CardView {
     private RecyclerView recycler_grade = null;
     private Button button_addGrade = null;
 
+    private int level = 0;
     private GradeRecyclerAdapter gradeRecyclerAdapter = null;
 
     public CradGradeView(@NonNull Context context) {
@@ -89,6 +90,8 @@ public class CradGradeView extends CardView {
 
     private void setTypeArray(TypedArray typedArray) {
         final int int_grade = typedArray.getInt(R.styleable.CradGradeView_grade, 1);
+        level = typedArray.getInt(R.styleable.CradGradeView_level, 1);
+        gradeRecyclerAdapter.setLevel(level);
         text_grade.setText(int_grade + "학기 성적 입력");
         typedArray.recycle();
     }

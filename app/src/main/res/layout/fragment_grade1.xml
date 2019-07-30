@@ -13,6 +13,7 @@
 
         <com.k1a2.schoolcalculator.view.CradGradeView
             app:grade="1"
+            app:level="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -21,6 +22,7 @@
 
         <com.k1a2.schoolcalculator.view.CradGradeView
             app:grade="2"
+            app:level="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

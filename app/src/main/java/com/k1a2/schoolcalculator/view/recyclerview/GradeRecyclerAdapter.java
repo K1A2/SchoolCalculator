@@ -24,6 +24,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
 {
 
     private ArrayList<GradeRecyclerItem> listViewList = new  ArrayList<GradeRecyclerItem>();
+    private int level = 0;
 
     @NonNull
     @Override
@@ -103,6 +104,10 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
 
     public GradeRecyclerItem getItem(int position) {
         return listViewList.get(position);
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public void clearItem() {
