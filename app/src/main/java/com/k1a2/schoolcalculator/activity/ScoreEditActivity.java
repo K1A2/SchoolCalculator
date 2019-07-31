@@ -1,10 +1,13 @@
 package com.k1a2.schoolcalculator.activity;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,6 +17,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
@@ -39,13 +43,17 @@ public class ScoreEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_main);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         tabLayout = findViewById(R.id.score_tablayout);
         viewPager = findViewById(R.id.score_viwewpager);
         view_indicator = findViewById(R.id.indicator);
         toolbar = findViewById(R.id.edit_toolbar);
 
-        toolbar.setTitle("");
+        toolbar.setTitle("성적 입력하기");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_white_24);
 
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setText("1학년");
@@ -71,6 +79,17 @@ public class ScoreEditActivity extends AppCompatActivity {
                 view_indicator.setLayoutParams(indicatorParams);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home: {
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setPageAdapter() {

@@ -106,4 +106,19 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+    public ArrayList<Integer[]> getGP(String table) {
+        final ArrayList<Integer[]> values = new ArrayList<>();
+        final SQLiteDatabase db = getWritableDatabase();
+        try {
+            final Cursor cursor = db.rawQuery("SELECT grade, point FROM \'" + table + "\'", null);
+            for (int i = 0;i<cursor.getCount();i++) {
+                cursor.moveToPosition(i);
+                values.add(new Integer[]{cursor.getInt(0), cursor.getInt(1)});//0 = grade등급, 1= point단위
+            }
+            return values;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

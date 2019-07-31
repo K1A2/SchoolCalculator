@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="subject">
-        <item>국어 과목</item>
-        <item>수학 과목</item>
-        <item>과학탐구 과목</item>
-        <item>사회탐구 과목</item>
-        <item>기타 과목</item>
+        <item>국어</item>
+        <item>수학</item>
+        <item>영어</item>
+        <item>과학탐구</item>
+        <item>사회탐구</item>
+        <item>기타</item>
     </string-array>
 </resources>

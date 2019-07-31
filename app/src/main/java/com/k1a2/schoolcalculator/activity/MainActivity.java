@@ -15,6 +15,8 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.k1a2.schoolcalculator.R;
+import com.k1a2.schoolcalculator.database.DatabaseKey;
+import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -24,6 +26,8 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -32,10 +36,15 @@ public class MainActivity extends AppCompatActivity
     private Button button_editScore2 = null;
     private Button button_editScore3 = null;
 
+    private ScoreDatabaseHelper scoreDatabaseHelper = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        scoreDatabaseHelper = new ScoreDatabaseHelper(this, DatabaseKey.KEY_DB_NAME, null, 1);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -55,15 +64,25 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        //성적 추가하기 버튼들
         button_editScoreAll = (Button)findViewById(R.id.main_button_editScoreAll);
         button_editScore1 = (Button)findViewById(R.id.main_button_editScore1);
         button_editScore2 = (Button)findViewById(R.id.main_button_editScore2);
         button_editScore3 = (Button)findViewById(R.id.main_button_editScore3);
 
+        //리스너 연결
         button_editScoreAll.setOnClickListener(onScoreEditButton);
         button_editScore1.setOnClickListener(onScoreEditButton);
         button_editScore2.setOnClickListener(onScoreEditButton);
         button_editScore3.setOnClickListener(onScoreEditButton);
+
+        /**예제
+        //ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_11);
+         //ArrayList<Integer[]> b = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_12);
+         for(Integer[] r:a) {
+            r[0] = grade
+            r[1] = point
+         }**/
     }
 
     //카드 안 성적 입력하기 버튼 클릭 리스너
@@ -71,19 +90,19 @@ public class MainActivity extends AppCompatActivity
         @Override
         public void onClick(View view) {
             switch (view.getId()) {
-                case R.id.main_button_editScoreAll: {
+                case R.id.main_button_editScoreAll: {//일반
                     startScoreEditAvtivity(0);
                     break;
                 }
-                case R.id.main_button_editScore1: {
+                case R.id.main_button_editScore1: {//1학년
                     startScoreEditAvtivity(1);
                     break;
                 }
-                case  R.id.main_button_editScore2: {
+                case  R.id.main_button_editScore2: {//2학년
                     startScoreEditAvtivity(2);
                     break;
                 }
-                case R.id.main_button_editScore3: {
+                case R.id.main_button_editScore3: {//3학년
                     startScoreEditAvtivity(3);
                     break;
                 }
