@@ -1,9 +1,13 @@
 package com.k1a2.schoolcalculator.database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 public class ScoreDatabaseHelper extends SQLiteOpenHelper {
 
@@ -19,20 +23,19 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         final String r = DatabaseKey.KEY_TABLE_22;
         final String t = DatabaseKey.KEY_TABLE_31;
         final String y = DatabaseKey.KEY_TABLE_32;
-        sqLiteDatabase.execSQL("CREATE TABLE\"" + q +"\" (\"subject\" TEXT NOT NULL, \"grade\" INTEGER NOT NULL, \"point\" INTEGER NOT NULL, \"type\" INTEGER NOT NULL, \"position\" INTEGER NOT NULL);");
-        sqLiteDatabase.execSQL("CREATE TABLE\"" + w +"\" (\"subject\" TEXT NOT NULL, \"grade\" INTEGER NOT NULL, \"point\" INTEGER NOT NULL, \"type\" INTEGER NOT NULL, \"position\" INTEGER NOT NULL);");
-        sqLiteDatabase.execSQL("CREATE TABLE\"" + e +"\" (\"subject\" TEXT NOT NULL, \"grade\" INTEGER NOT NULL, \"point\" INTEGER NOT NULL, \"type\" INTEGER NOT NULL, \"position\" INTEGER NOT NULL);");
-        sqLiteDatabase.execSQL("CREATE TABLE\"" + r +"\" (\"subject\" TEXT NOT NULL, \"grade\" INTEGER NOT NULL, \"point\" INTEGER NOT NULL, \"type\" INTEGER NOT NULL, \"position\" INTEGER NOT NULL);");
-        sqLiteDatabase.execSQL("CREATE TABLE\"" + t +"\" (\"subject\" TEXT NOT NULL, \"grade\" INTEGER NOT NULL, \"point\" INTEGER NOT NULL, \"type\" INTEGER NOT NULL, \"position\" INTEGER NOT NULL);");
-        sqLiteDatabase.execSQL("CREATE TABLE\"" + y +"\" (\"subject\" TEXT NOT NULL, \"grade\" INTEGER NOT NULL, \"point\" INTEGER NOT NULL, \"type\" INTEGER NOT NULL, \"position\" INTEGER NOT NULL);");
-        sqLiteDatabase.execSQL("CREATE TABLE \"Type\" (\"_id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"type\" TEXT NOT NULL);");
-
-        final SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO \"Type\" VALUES (null, \'국어 과목\')");
-        db.execSQL("INSERT INTO \"Type\" VALUES (null, \'수학 과목\')");
-        db.execSQL("INSERT INTO \"Type\" VALUES (null, \'과학탐구 과목\')");
-        db.execSQL("INSERT INTO \"Type\" VALUES (null, \'사회탐구 과목\')");
-        db.execSQL("INSERT INTO \"Type\" VALUES (null, \'기타 과목\')");
+        sqLiteDatabase.execSQL("CREATE TABLE \'11\' (\'id\' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, grade INTEGER NOT NULL, point INTEGER NOT NULL, type INTEGER NOT NULL, position INTEGER NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE TABLE \'12\' (\'id\' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, grade INTEGER NOT NULL, point INTEGER NOT NULL, type INTEGER NOT NULL, position INTEGER NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE TABLE \'21\' (\'id\' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, grade INTEGER NOT NULL, point INTEGER NOT NULL, type INTEGER NOT NULL, position INTEGER NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE TABLE \'22\' (\'id\' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, grade INTEGER NOT NULL, point INTEGER NOT NULL, type INTEGER NOT NULL, position INTEGER NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE TABLE \'31\' (\'id\' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, grade INTEGER NOT NULL, point INTEGER NOT NULL, type INTEGER NOT NULL, position INTEGER NOT NULL);");
+        sqLiteDatabase.execSQL("CREATE TABLE \'32\' (\'id\' INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, subject TEXT NOT NULL, grade INTEGER NOT NULL, point INTEGER NOT NULL, type INTEGER NOT NULL, position INTEGER NOT NULL);");
+//        sqLiteDatabase.execSQL("CREATE TABLE \"Type\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"type\" TEXT NOT NULL);");
+//
+//        sqLiteDatabase.execSQL("INSERT INTO \"Type\" VALUES (null, \'국어 과목\')");
+//        sqLiteDatabase.execSQL("INSERT INTO \"Type\" VALUES (null, \'수학 과목\')");
+//        sqLiteDatabase.execSQL("INSERT INTO \"Type\" VALUES (null, \'과학탐구 과목\')");
+//        sqLiteDatabase.execSQL("INSERT INTO \"Type\" VALUES (null, \'사회탐구 과목\')");
+//        sqLiteDatabase.execSQL("INSERT INTO \"Type\" VALUES (null, \'기타 과목\')");
     }
 
     @Override
@@ -40,7 +43,67 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insert(String table, String subject, int grade, int point, int type) {
+    public boolean isExisit(String table, int position) {
+        final SQLiteDatabase db = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT EXISTS (SELECT * FROM \'" + table + "\' WHERE position = \'" + position + "\') as success", null);
+        cursor.moveToFirst();
+        if (cursor.getInt(0) == 1) {
+            cursor.close();
+            return  true;
+        } else {
+            cursor.close();
+            return  false;
+        }
+    }
 
+    public void insert(String table, String subject, int grade, int point, int type, int position) {
+        final SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("INSERT INTO \'" + table + "\' VALUES (null, \'" + subject + "\', \'" + grade + "\', \'" + point + "\', \'" + type + "\', \'" + position + "\');");
+    }
+
+    public void update(String table, String type, String value, int position) {
+        final SQLiteDatabase db = getWritableDatabase();
+        if (!type.equals(DatabaseKey.KEY_VALUE_SUBJECT)) {
+            if (!type.equals(DatabaseKey.KEY_VALUE_TYPE)) {
+                if (value.isEmpty()) {
+                    value = "1";
+                }
+            } else {
+                if (value.isEmpty()) {
+                    value = "0";
+                }
+            }
+            db.execSQL("UPDATE \'" + table + "\' SET " + type + " = \'" + Integer.parseInt(value) + "\' WHERE position = " + position +";");
+        } else {
+            db.execSQL("UPDATE \'" + table + "\' SET " + type + " = \'" + value + "\' WHERE position = " + position +";");
+        }
+    }
+
+    public void delete(String table, int position) {
+        final SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM \'" + table + "\' WHERE position=" + position + ";");
+        final Cursor cursor = db.rawQuery("SELECT * FROM \'" + table + "\'", null);
+        for (int i = 0;i<cursor.getCount();i++) {
+            cursor.moveToPosition(i);
+            final Cursor cursor1 = db.rawQuery("SELECT * FROM \'" + table + "\' " + "WHERE position = \'" + cursor.getInt(5) + "\';", null);
+            cursor1.moveToLast();
+            final int id = cursor1.getInt(0);
+            db.execSQL("UPDATE \'" + table + "\' SET position = " + i + " WHERE id = " + id + ";");
+        }
+    }
+
+    public ArrayList<String[]> getScores(String table) {
+        final ArrayList<String[]> values = new ArrayList<>();
+        final SQLiteDatabase db = getWritableDatabase();
+        try {
+            final Cursor cursor = db.rawQuery("SELECT * FROM \'" + table + "\'", null);
+            for (int i = 0;i<cursor.getCount();i++) {
+                cursor.moveToPosition(i);
+                values.add(new String[]{cursor.getString(1), String.valueOf(cursor.getInt(2)), String.valueOf(cursor.getInt(3)), String.valueOf(cursor.getInt(4))});
+            }
+            return values;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
