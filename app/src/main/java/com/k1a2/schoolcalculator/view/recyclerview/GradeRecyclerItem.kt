@@ -4,4 +4,5 @@ class GradeRecyclerItem {
     var subjectName: String? = null
     var rank: String? = null
     var point: String? = null
+    var type: Int = 0
 }

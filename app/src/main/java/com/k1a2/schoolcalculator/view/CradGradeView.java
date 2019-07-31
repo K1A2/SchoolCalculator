@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.k1a2.schoolcalculator.R;
+import com.k1a2.schoolcalculator.database.DatabaseKey;
+import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
 import com.k1a2.schoolcalculator.view.recyclerview.GradeRecyclerAdapter;
 import com.k1a2.schoolcalculator.view.recyclerview.GradeRecyclerItem;
+
+import java.util.ArrayList;
 
 public class CradGradeView extends CardView {
 
@@ -62,9 +66,10 @@ public class CradGradeView extends CardView {
             @Override
             public void onClick(View view) {
                 final GradeRecyclerItem gradeRecyclerItem = new GradeRecyclerItem();
-                gradeRecyclerItem.setPoint("");
-                gradeRecyclerItem.setRank("");
-                gradeRecyclerItem.setSubjectName("");
+                gradeRecyclerItem.setPoint("1");
+                gradeRecyclerItem.setRank("1");
+                gradeRecyclerItem.setSubjectName("국어");
+                gradeRecyclerItem.setType(0);
                 gradeRecyclerAdapter.addItem(gradeRecyclerItem);
             }
         });
@@ -93,6 +98,18 @@ public class CradGradeView extends CardView {
         level = typedArray.getInt(R.styleable.CradGradeView_level, 1);
         gradeRecyclerAdapter.setLevel(level);
         text_grade.setText(int_grade + "학기 성적 입력");
+        gradeRecyclerAdapter.setGrade(int_grade);
         typedArray.recycle();
+
+        final ScoreDatabaseHelper databaseHelper = new ScoreDatabaseHelper(getContext(), DatabaseKey.KEY_DB_NAME, null, 1);
+        final ArrayList<String[]> values = databaseHelper.getScores(String.valueOf(level)+String.valueOf(int_grade));
+        for (String[] s:values) {
+            final GradeRecyclerItem gradeRecyclerItem = new GradeRecyclerItem();
+            gradeRecyclerItem.setPoint(s[2]);
+            gradeRecyclerItem.setRank(s[1]);
+            gradeRecyclerItem.setSubjectName(s[0]);
+            gradeRecyclerItem.setType(Integer.parseInt(s[3]));
+            gradeRecyclerAdapter.addItem(gradeRecyclerItem);
+        }
     }
 }
