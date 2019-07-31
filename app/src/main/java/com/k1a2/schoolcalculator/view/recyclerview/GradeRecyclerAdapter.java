@@ -32,6 +32,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
     private ArrayList<GradeRecyclerItem> listViewList = new  ArrayList<GradeRecyclerItem>();
     private int level = 0;
     private int grade = 0;
+    private int itemHeight = 0;
     private String table = "";
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
@@ -64,6 +65,10 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
     @Override
     public void onLongItemClicked(@Nullable View view, int position) {
 
+    }
+
+    public int getItemHeight() {
+        return itemHeight;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -112,6 +117,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                 @Override
                 public void afterTextChanged(Editable editable) {
                     onScoreEdit(context, DatabaseKey.KEY_VALUE_SUBJECT, editable.toString(), getAdapterPosition());
+                    listViewList.get(getAdapterPosition()).setSubjectName(editable.toString());
                 }
             });
             gradeView.addTextChangedListener(new TextWatcher() {
@@ -128,6 +134,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                 @Override
                 public void afterTextChanged(Editable editable) {
                     onScoreEdit(context, DatabaseKey.KEY_VALUE_GRADE, editable.toString(), getAdapterPosition());
+                    listViewList.get(getAdapterPosition()).setRank(editable.toString());
                 }
             });
             pointView.addTextChangedListener(new TextWatcher() {
@@ -144,12 +151,14 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                 @Override
                 public void afterTextChanged(Editable editable) {
                     onScoreEdit(context, DatabaseKey.KEY_VALUE_POINT, editable.toString(), getAdapterPosition());
+                    listViewList.get(getAdapterPosition()).setPoint(editable.toString());
                 }
             });
             typeView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     onScoreEdit(context, DatabaseKey.KEY_VALUE_TYPE, String.valueOf(i), getAdapterPosition());
+                    listViewList.get(getAdapterPosition()).setType(i);
                 }
 
                 @Override

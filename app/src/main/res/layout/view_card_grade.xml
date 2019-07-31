@@ -12,7 +12,7 @@
         android:padding="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/view_card_text_grade"
@@ -77,7 +77,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/grade1_recycler_grade"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
         </androidx.recyclerview.widget.RecyclerView>
 
