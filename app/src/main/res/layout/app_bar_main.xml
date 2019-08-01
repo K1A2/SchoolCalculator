@@ -34,7 +34,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="종합 성적"
                     android:textSize="30dp"
-                    android:fontFamily="@font/scdream5"
+                    android:fontFamily="@font/scdream4"
                     android:textColor="#FFFFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3.6"
-                    android:fontFamily="@font/scdream5"
+                    android:fontFamily="@font/scdream3"
                     android:textSize="25dp"
                     android:textColor="#FFFFFF"/>
 
@@ -614,12 +614,12 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

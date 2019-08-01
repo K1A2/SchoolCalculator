@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity
     private Button button_editScore1 = null;
     private Button button_editScore2 = null;
     private Button button_editScore3 = null;
+    private DrawerLayout drawer = null;
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
@@ -48,15 +49,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+        drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -114,15 +115,19 @@ public class MainActivity extends AppCompatActivity
         Intent intent = new Intent(MainActivity.this, ScoreEditActivity.class);
         switch (mode) {
             case 0: {//all
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_ALL);
                 break;
             }
             case 1: {//1
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_FIRST);
                 break;
             }
             case 2: {//2
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_SECOND);
                 break;
             }
             case 3: {//3
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_THIRD);
                 break;
             }
         }
@@ -168,7 +173,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         switch (id) {
-
+            case R.id.nav_add: {
+                startScoreEditAvtivity(0);
+                break;
+            }
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -1,6 +1,8 @@
 package com.k1a2.schoolcalculator.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -82,6 +84,38 @@ public class ScoreEditActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        final Intent intent = getIntent();
+        switch (intent.getStringExtra(ActivityKey.KEY_ACTIVITY_MODE)) {
+            case ActivityKey.KEY_ACTIVITY_SCORE_ALL: {
+                tabLayout.getTabAt(0).select();
+                break;
+            }
+            case ActivityKey.KEY_ACTIVITY_SCORE_FIRST: {
+                tabLayout.getTabAt(0).select();
+                break;
+            }
+            case ActivityKey.KEY_ACTIVITY_SCORE_SECOND: {
+                tabLayout.getTabAt(1).select();
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
+                int width = tabLayout.getMeasuredWidth();
+                params.leftMargin = (int) width / 2;
+                view_indicator.setLayoutParams(params);
+                break;
+            }
+            case ActivityKey.KEY_ACTIVITY_SCORE_THIRD: {
+                tabLayout.getTabAt(2).select();
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
+                int width = tabLayout.getMeasuredWidth();
+                params.leftMargin = (int) width - view_indicator.getWidth();
+                view_indicator.setLayoutParams(params);
+                break;
+            }
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home: {
@@ -98,6 +132,7 @@ public class ScoreEditActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.e("scrolled", String.valueOf(position) + " " + String.valueOf(positionOffset) + " " + String.valueOf(positionOffsetPixels));
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
 
                 //Multiply positionOffset with indicatorWidth to get translation
