@@ -39,7 +39,102 @@ public class MainActivity extends AppCompatActivity
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
+
     @Override
+    protected void onStart() {
+        super.onStart();
+        getGrade(11);
+        getGrade(12);
+        getGrade(21);
+        getGrade(22);
+        getGrade(31);
+        getGrade(32);
+    }
+
+
+    //학기별 등급 산출 함수
+    private float getGrade(int type) {
+
+        float sumgrade = 0; // 등급, 단위수 곱한 후 합산
+        float sumpoint = 0;
+        float sumGP11 = 0;
+        float sumGP12 = 0;
+        float sumGP21 = 0;
+        float sumGP22 = 0;
+        float sumGP31 = 0;
+        float sumGP32 = 0;
+
+        switch (type) {
+            case 11: {
+                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_11);
+                for (Integer[] r : a) {
+                    sumgrade += r[1] * r[0];
+                    sumpoint += r[1];
+                }
+                sumGP11 = sumgrade / sumpoint;
+                return sumGP11;
+            }
+            case 12: {
+                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_12);
+                for (Integer[] r : a) {
+                    sumgrade += r[1] * r[0];
+                    sumpoint += r[1];
+                }
+                sumGP12 = sumgrade / sumpoint;
+                return sumGP12;
+            }
+            case 21: {
+                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_21);
+                for (Integer[] r : a) {
+                    sumgrade += r[1] * r[0];
+                    sumpoint += r[1];
+                }
+                sumGP21 = sumgrade / sumpoint;
+                return sumGP21;
+            }
+            case 22: {
+                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_22);
+                for (Integer[] r : a) {
+                    sumgrade += r[1] * r[0];
+                    sumpoint += r[1];
+                }
+                sumGP22 = sumgrade / sumpoint;
+                return sumGP22;
+            }
+            case 31: {
+                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_31);
+                for (Integer[] r : a) {
+                    sumgrade += r[1] * r[0];
+                    sumpoint += r[1];
+                }
+                sumGP31 = sumgrade / sumpoint;
+                return sumGP31;
+            }
+            case 32: {
+                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_32);
+                for (Integer[] r : a) {
+                    sumgrade += r[1] * r[0];
+                    sumpoint += r[1];
+                }
+                sumGP32 = sumgrade / sumpoint;
+                return sumGP32;
+            }
+        }
+        return 0;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -76,15 +171,9 @@ public class MainActivity extends AppCompatActivity
         button_editScore1.setOnClickListener(onScoreEditButton);
         button_editScore2.setOnClickListener(onScoreEditButton);
         button_editScore3.setOnClickListener(onScoreEditButton);
-
-        /* 예제
-        //ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_11);
-         //ArrayList<Integer[]> b = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_12);
-         for(Integer[] r:a) {
-            r[0] = grade
-            r[1] = point
-         } */
     }
+
+
 
     //카드 안 성적 입력하기 버튼 클릭 리스너
     private View.OnClickListener onScoreEditButton = new View.OnClickListener() {
