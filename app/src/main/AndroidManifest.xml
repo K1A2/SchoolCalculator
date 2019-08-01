@@ -27,6 +27,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activity.ScoreEditActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.PreferenceActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
