@@ -2,7 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="앱 정보">
 
-        <Preference android:title="폰트 정보" android:summary="이 앱의 폰트는 S-Core의 S-Core Dream 이라는 폰트를 사용했습니다.">
+        <Preference android:title="폰트 정보"
+            android:summary="이 앱의 폰트는 S-Core의 S-Core Dream 이라는 폰트를 사용했습니다.">
             <intent android:action="android.intent.action.VIEW" android:data="http://www.s-core.co.kr/who-we-are/font/"/>
         </Preference>
 
