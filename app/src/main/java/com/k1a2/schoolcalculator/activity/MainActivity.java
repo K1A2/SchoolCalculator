@@ -77,13 +77,13 @@ public class MainActivity extends AppCompatActivity
         button_editScore2.setOnClickListener(onScoreEditButton);
         button_editScore3.setOnClickListener(onScoreEditButton);
 
-        /**예제
+        /* 예제
         //ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_11);
          //ArrayList<Integer[]> b = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_12);
          for(Integer[] r:a) {
             r[0] = grade
             r[1] = point
-         }**/
+         } */
     }
 
     //카드 안 성적 입력하기 버튼 클릭 리스너
