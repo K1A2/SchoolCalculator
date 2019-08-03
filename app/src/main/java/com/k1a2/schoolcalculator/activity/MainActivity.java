@@ -3,10 +3,19 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -188,36 +197,46 @@ public class MainActivity extends AppCompatActivity
 
         //텍스트뷰에 함수 값 연결
         if (f11 == null) {
+            result11 = 0;
             textView11.setText("NaN");
         } else {
             result11 = (float) (Math.round(f11[0]/f11[1]*100)/100.0);
             textView11.setText(String.valueOf(result11));
         }
         if (f12 == null) {
+            result12 = 0;
             textView12.setText("NaN");
         } else {
             result12 = (float) (Math.round(f12[0]/f12[1]*100)/100.0);
             textView12.setText(String.valueOf(result12));
         }
         if (f21 == null) {
+            result21 = 0;
             textView21.setText("NaN");
         } else {
-            textView21.setText(String.valueOf(Math.round(f21[0]/f21[1]*100)/100.0));
+            result21 = (float) (Math.round(f21[0]/f21[1]*100)/100.0);
+            textView21.setText(String.valueOf(result21));
         }
         if (f22 == null) {
+            result22 = 0;
             textView22.setText("NaN");
         } else {
-            textView22.setText(String.valueOf(Math.round(f22[0]/f22[1]*100)/100.0));
+            result22 = (float) (Math.round(f22[0]/f22[1]*100)/100.0);
+            textView22.setText(String.valueOf(result22));
         }
         if (f31 == null) {
+            result31 = 0;
             textView31.setText("NaN");
         } else {
-            textView31.setText(String.valueOf(Math.round(f31[0]/f31[1]*100)/100.0));
+            result31 = (float) (Math.round(f31[0]/f31[1]*100)/100.0);
+            textView31.setText(String.valueOf(result31));
         }
         if (f32 == null) {
+            result32 = 0;
             textView32.setText("NaN");
         } else {
-            textView32.setText(String.valueOf(Math.round(f32[0]/f32[1]*100)/100.0));
+            result32 = (float) (Math.round(f32[0]/f32[1]*100)/100.0);
+            textView32.setText(String.valueOf(result32));
         }
         if (f11 !=  null&&f12 != null) {
             textSum1.setText(String.valueOf(Math.round((f11[0] + f12[0])/(f11[1] + f12[1])*100)/100.0));
@@ -305,7 +324,37 @@ public class MainActivity extends AppCompatActivity
         xArray.add("3학년 2학기");
 
         final ArrayList<Entry> data = new ArrayList<>();
-        data.add(new Entry());
+        data.add(new Entry(0, result11));
+        data.add(new Entry(1, result12));
+        data.add(new Entry(2, result21));
+        data.add(new Entry(3, result22));
+        data.add(new Entry(4, result31));
+        data.add(new Entry(5, result32));
+
+        LineDataSet lineDataSet = new LineDataSet(data, "성적");
+        lineDataSet.setColors(Color.RED);
+        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        lineDataSet.setDrawFilled(true);
+        lineDataSet.setDrawValues(false);
+
+        LineData lineData = new LineData(lineDataSet);
+        chart_analyze.setData(lineData);
+
+        ValueFormatter formatter = new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return xArray.get((int) value);
+            }
+        };
+
+
+        XAxis xAxis = chart_analyze.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setTextColor(Color.BLACK);
+        xAxis.setValueFormatter(formatter);
+
+        YAxis yAxis = chart_analyze.getAxisLeft();
+        yAxis.setTextColor(Color.BLACK);
     }
 
     //카드 안 성적 입력하기 버튼 클릭 리스너
