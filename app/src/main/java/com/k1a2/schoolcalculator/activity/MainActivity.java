@@ -25,6 +25,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity
     private Button button_editScore2 = null;
     private Button button_editScore3 = null;
     private DrawerLayout drawer = null;
+    private TextView textView11 = findViewById(R.id.main_11text);
+
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
@@ -66,69 +69,99 @@ public class MainActivity extends AppCompatActivity
 
         switch (type) {
             case 11: {
+
                 ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_11);
-                for (Integer[] r : a) {
-                    sumgrade += r[1] * r[0];
-                    sumpoint += r[1];
+                if (a==null)
+                {
+                    return 0;
+                }else {
+                    for (Integer[] r : a) {
+                        sumgrade += r[1] * r[0];
+                        sumpoint += r[1];
+                    }
+                    sumGP11 = sumgrade / sumpoint;
+                    return sumGP11;
                 }
-                sumGP11 = sumgrade / sumpoint;
-                return sumGP11;
+
+
             }
             case 12: {
                 ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_12);
-                for (Integer[] r : a) {
-                    sumgrade += r[1] * r[0];
-                    sumpoint += r[1];
+                if (a==null)
+                {
+                    return 0;
+                }else {
+                    for (Integer[] r : a) {
+                        sumgrade += r[1] * r[0];
+                        sumpoint += r[1];
+                    }
+                    sumGP12 = sumgrade / sumpoint;
+                    return sumGP12;
                 }
-                sumGP12 = sumgrade / sumpoint;
-                return sumGP12;
             }
             case 21: {
                 ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_21);
-                for (Integer[] r : a) {
-                    sumgrade += r[1] * r[0];
-                    sumpoint += r[1];
+                if (a==null)
+                {
+                    return 0;
+                }else {
+                    for (Integer[] r : a) {
+                        sumgrade += r[1] * r[0];
+                        sumpoint += r[1];
+                    }
+                    sumGP21 = sumgrade / sumpoint;
+                    return sumGP21;
                 }
-                sumGP21 = sumgrade / sumpoint;
-                return sumGP21;
             }
             case 22: {
                 ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_22);
-                for (Integer[] r : a) {
-                    sumgrade += r[1] * r[0];
-                    sumpoint += r[1];
+                if (a==null)
+                {
+                    return 0;
+                }else {
+                    for (Integer[] r : a) {
+                        sumgrade += r[1] * r[0];
+                        sumpoint += r[1];
+                    }
+                    sumGP22 = sumgrade / sumpoint;
+                    return sumGP22;
                 }
-                sumGP22 = sumgrade / sumpoint;
-                return sumGP22;
             }
             case 31: {
                 ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_31);
-                for (Integer[] r : a) {
-                    sumgrade += r[1] * r[0];
-                    sumpoint += r[1];
+                if (a==null)
+                {
+                    return 0;
+                }else {
+                    for (Integer[] r : a) {
+                        sumgrade += r[1] * r[0];
+                        sumpoint += r[1];
+                    }
+                    sumGP31 = sumgrade / sumpoint;
+                    return sumGP31;
                 }
-                sumGP31 = sumgrade / sumpoint;
-                return sumGP31;
             }
             case 32: {
                 ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_32);
-                for (Integer[] r : a) {
-                    sumgrade += r[1] * r[0];
-                    sumpoint += r[1];
+                if (a==null)
+                {
+                    return 0;
+                }else {
+                    for (Integer[] r : a) {
+                        sumgrade += r[1] * r[0];
+                        sumpoint += r[1];
+                    }
+                    sumGP32 = sumgrade / sumpoint;
+                    return sumGP32;
                 }
-                sumGP32 = sumgrade / sumpoint;
-                return sumGP32;
             }
         }
         return 0;
+
+
+
+
     }
-
-
-
-
-
-
-
 
 
 
@@ -166,11 +199,20 @@ public class MainActivity extends AppCompatActivity
         button_editScore2 = (Button)findViewById(R.id.main_button_editScore2);
         button_editScore3 = (Button)findViewById(R.id.main_button_editScore3);
 
+
+
         //리스너 연결
         button_editScoreAll.setOnClickListener(onScoreEditButton);
         button_editScore1.setOnClickListener(onScoreEditButton);
         button_editScore2.setOnClickListener(onScoreEditButton);
         button_editScore3.setOnClickListener(onScoreEditButton);
+
+
+        textView11.setText(String.valueOf(getGrade(11)));
+
+
+
+
     }
 
 
