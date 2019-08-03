@@ -1,6 +1,8 @@
 package com.k1a2.schoolcalculator.activity;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         scoreDatabaseHelper = new ScoreDatabaseHelper(this, DatabaseKey.KEY_DB_NAME, null, 1);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
+
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,6 +70,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
 
         //성적 추가하기 버튼들
         button_editScoreAll = (Button)findViewById(R.id.main_button_editScoreAll);
@@ -192,6 +198,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_add: {
                 startScoreEditAvtivity(0);
                 break;
+            }
+            case R.id.nav_search: {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
+                startActivity(intent);
             }
         }
 
