@@ -98,6 +98,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                     final int p = getAdapterPosition();
                     scoreDatabaseHelper.delete(String.valueOf(level)+String.valueOf(grade), getAdapterPosition());
                     removeItem(p);
+                    button_delete.setActivated(false);
                 }
             });
 

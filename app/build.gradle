@@ -37,7 +37,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
 repositories {
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }

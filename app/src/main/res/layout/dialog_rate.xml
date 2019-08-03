@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textSize="13dp"
+            android:text="1학년"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center_vertical"
+            android:text=":"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:textSize="13dp"
+            android:text="2학년"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center_vertical"
+            android:text=":"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:textSize="13dp"
+            android:text="3학년"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <EditText
+            android:fontFamily="@font/scdream3"
+            android:singleLine="true"
+            android:id="@+id/dialog_edit_r1"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:layout_width="match_parent"
+            android:inputType="number"
+            android:layout_height="match_parent"
+            android:imeOptions="actionNext"
+            android:layout_weight="1"
+            android:hint="1학년"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center_vertical"
+            android:text=":"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:fontFamily="@font/scdream3"
+            android:singleLine="true"
+            android:id="@+id/dialog_edit_r2"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:layout_weight="1"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeOptions="actionNext"
+            android:hint="2학년"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/scdream3"
+            android:gravity="center_vertical"
+            android:text=":"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:fontFamily="@font/scdream3"
+            android:singleLine="true"
+            android:id="@+id/dialog_edit_r3"
+            android:gravity="center"
+            android:textSize="13dp"
+            android:inputType="number"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:imeOptions="actionNext"
+            android:hint="3학년"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -112,11 +112,15 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         final SQLiteDatabase db = getWritableDatabase();
         try {
             final Cursor cursor = db.rawQuery("SELECT grade, point FROM \'" + table + "\'", null);
-            for (int i = 0;i<cursor.getCount();i++) {
-                cursor.moveToPosition(i);
-                values.add(new Integer[]{cursor.getInt(0), cursor.getInt(1)});//0 = grade등급, 1= point단위
+            if (cursor.getCount() == 0) {
+                return null;
+            } else {
+                for (int i = 0;i<cursor.getCount();i++) {
+                    cursor.moveToPosition(i);
+                    values.add(new Integer[]{cursor.getInt(0), cursor.getInt(1)});//0 = grade등급, 1= point단위
+                }
+                return values;
             }
-            return values;
         } catch (Exception e) {
             return null;
         }
