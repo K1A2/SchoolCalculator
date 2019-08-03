@@ -37,23 +37,24 @@ public class MainActivity extends AppCompatActivity
     private Button button_editScore2 = null;
     private Button button_editScore3 = null;
     private DrawerLayout drawer = null;
-    private TextView textView11 = findViewById(R.id.main_11text);
+
+
 
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         getGrade(11);
         getGrade(12);
         getGrade(21);
         getGrade(22);
         getGrade(31);
         getGrade(32);
-    }
 
+    }
 
     //학기별 등급 산출 함수
     private float getGrade(int type) {
@@ -155,11 +156,9 @@ public class MainActivity extends AppCompatActivity
                     return sumGP32;
                 }
             }
+
         }
         return 0;
-
-
-
 
     }
 
@@ -208,7 +207,23 @@ public class MainActivity extends AppCompatActivity
         button_editScore3.setOnClickListener(onScoreEditButton);
 
 
+        //평균등급 텍스트들
+        TextView textView11 = findViewById(R.id.main_11text);
+        TextView textView12 = findViewById(R.id.main_12text);
+        TextView textView21 = findViewById(R.id.main_21text);
+        TextView textView22 = findViewById(R.id.main_22text);
+        TextView textView31 = findViewById(R.id.main_31text);
+        TextView textView32 = findViewById(R.id.main_32text);
+
+        //텍스트뷰에 함수 값 연결
         textView11.setText(String.valueOf(getGrade(11)));
+        textView12.setText(String.valueOf(getGrade(12)));
+        textView21.setText(String.valueOf(getGrade(21)));
+        textView22.setText(String.valueOf(getGrade(22)));
+        textView31.setText(String.valueOf(getGrade(31)));
+        textView32.setText(String.valueOf(getGrade(32)));
+
+
 
 
 
