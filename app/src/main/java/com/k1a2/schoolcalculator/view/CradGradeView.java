@@ -75,6 +75,8 @@ public class CradGradeView extends CardView {
             }
         });
 
+
+
         addView(view);
     }
 

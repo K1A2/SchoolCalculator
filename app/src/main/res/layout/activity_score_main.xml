@@ -19,7 +19,10 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="32dp"
+        android:paddingTop="20dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="20dp"
         android:clipToPadding="false">
 
         <View
@@ -44,17 +47,6 @@
             app:tabRippleColor="@null"/>
 
     </FrameLayout>
-
-    <!--<com.google.android.material.tabs.TabLayout-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:elevation="3dp"-->
-        <!--android:background="@drawable/background_tabs"-->
-        <!--app:tabTextColor="#FFFFFF"-->
-        <!--app:tabIndicator="@drawable/background_tabsin"-->
-        <!--app:tabIndicatorGravity="center"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:id="@+id/score_tablayout"-->
-        <!--android:layout_height="wrap_content"></com.google.android.material.tabs.TabLayout>-->
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/score_viwewpager"

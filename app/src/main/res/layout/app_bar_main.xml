@@ -154,9 +154,10 @@
                         android:layout_height="1dp"
                         android:background="@color/colorDivider"/>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -164,16 +165,18 @@
                             android:gravity="center_horizontal"
                             android:layout_alignLeft="@id/main_center_activity"
                             android:layout_alignParentLeft="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1학년 평균 등급"
+                                android:text="1학년\n평균 등급"
                                 android:textSize="15dp"
+                                android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream3"
                                 android:textColor="#000000"/>
 
@@ -182,6 +185,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/main_1sumtext"
                                 android:textSize="15dp"
+                                android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream2"
                                 android:textColor="#000000"/>
 
@@ -191,15 +195,17 @@
                             android:id="@+id/main_center_activity"
                             android:layout_centerHorizontal="true"
                             android:gravity="center_horizontal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="2학년 평균 등급"
+                                android:text="2학년\n평균 등급"
+                                android:gravity="center_horizontal"
                                 android:textSize="15dp"
                                 android:fontFamily="@font/scdream3"
                                 android:textColor="#000000"/>
@@ -209,6 +215,7 @@
                                 android:layout_height="wrap_content"
                                 android:id="@+id/main_2sumtext"
                                 android:textSize="15dp"
+                                android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream2"
                                 android:textColor="#000000"/>
 
@@ -218,16 +225,18 @@
                             android:gravity="center_horizontal"
                             android:layout_alignRight="@id/main_center_activity"
                             android:layout_alignParentRight="true"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="3학년 평균 등급"
+                                android:text="3학년\n평균 등급"
                                 android:textSize="15dp"
+                                android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream3"
                                 android:textColor="#000000"/>
 
@@ -237,11 +246,12 @@
                                 android:id="@+id/main_3sumtext"
                                 android:fontFamily="@font/scdream2"
                                 android:textSize="15dp"
+                                android:gravity="center_horizontal"
                                 android:textColor="#000000"/>
 
                         </LinearLayout>
 
-                    </RelativeLayout>
+                    </LinearLayout>
 
                     <Button
                         android:id="@+id/main_button_editScoreAll"

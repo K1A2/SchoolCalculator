@@ -3,6 +3,7 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -29,6 +30,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.k1a2.schoolcalculator.CalculateGrade;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
@@ -176,19 +178,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void setGradeText() {
-        final float[] f11 = getGrade(11);
-        final float[] f12 = getGrade(12);
-        final float[] f21 = getGrade(21);
-        final float[] f22 = getGrade(22);
-        final float[] f31 = getGrade(31);
-        final float[] f32 = getGrade(32);
-
-        float result11 = 0;
-        float result12 = 0;
-        float result21 = 0;
-        float result22 = 0;
-        float result31 = 0;
-        float result32 = 0;
+        final CalculateGrade calculateGrade = new CalculateGrade(this);
 
         int r1 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_1, 0);
         int r2 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_2, 0);
@@ -201,144 +191,28 @@ public class MainActivity extends AppCompatActivity
         }
 
         //텍스트뷰에 함수 값 연결
-        if (f11 == null) {
-            result11 = 0;
-            textView11.setText("NaN");
+        textView11.setText(String.valueOf(calculateGrade.getResult11()));
+        textView12.setText(String.valueOf(calculateGrade.getResult12()));
+        textView21.setText(String.valueOf(calculateGrade.getResult21()));
+        textView22.setText(String.valueOf(calculateGrade.getResult22()));
+        textView31.setText(String.valueOf(calculateGrade.getResult31()));
+        textView32.setText(String.valueOf(calculateGrade.getResult32()));
+        textSum1.setText(String.valueOf(calculateGrade.getResult1()));
+        textSum2.setText(String.valueOf(calculateGrade.getResult2()));
+        textSum3.setText(String.valueOf(calculateGrade.getResult3()));
+        textViewAll.setText(String.valueOf(calculateGrade.getResultAll()));
+        textViewAllBar.setText(String.valueOf(calculateGrade.getResultAll()));
+        if (r1 == 1&&r2 == 1&&r3 == 1) {
+            text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
         } else {
-            result11 = (float) (Math.round(f11[0]/f11[1]*100)/100.0);
-            textView11.setText(String.valueOf(result11));
-        }
-        if (f12 == null) {
-            result12 = 0;
-            textView12.setText("NaN");
-        } else {
-            result12 = (float) (Math.round(f12[0]/f12[1]*100)/100.0);
-            textView12.setText(String.valueOf(result12));
-        }
-        if (f21 == null) {
-            result21 = 0;
-            textView21.setText("NaN");
-        } else {
-            result21 = (float) (Math.round(f21[0]/f21[1]*100)/100.0);
-            textView21.setText(String.valueOf(result21));
-        }
-        if (f22 == null) {
-            result22 = 0;
-            textView22.setText("NaN");
-        } else {
-            result22 = (float) (Math.round(f22[0]/f22[1]*100)/100.0);
-            textView22.setText(String.valueOf(result22));
-        }
-        if (f31 == null) {
-            result31 = 0;
-            textView31.setText("NaN");
-        } else {
-            result31 = (float) (Math.round(f31[0]/f31[1]*100)/100.0);
-            textView31.setText(String.valueOf(result31));
-        }
-        if (f32 == null) {
-            result32 = 0;
-            textView32.setText("NaN");
-        } else {
-            result32 = (float) (Math.round(f32[0]/f32[1]*100)/100.0);
-            textView32.setText(String.valueOf(result32));
-        }
-        if (f11 !=  null&&f12 != null) {
-            textSum1.setText(String.valueOf(Math.round((f11[0] + f12[0])/(f11[1] + f12[1])*100)/100.0));
-        } else if (f11 ==  null&&f12 != null) {
-            textSum1.setText(String.valueOf(Math.round(f12[0]/f12[1]*100)/100.0));
-        } else if (f11 !=  null&&f12 == null) {
-            textSum1.setText(String.valueOf(Math.round(f11[0]/f11[1]*100)/100.0));
-        } else {
-            textSum1.setText("NaN");
-        }
-        if (f21 !=  null&&f22 != null) {
-            textSum2.setText(String.valueOf(Math.round((f21[0] + f22[0])/(f21[1] + f22[1])*100)/100.0));
-        } else if (f21 ==  null&&f22 != null) {
-            textSum2.setText(String.valueOf(Math.round(f22[0]/f22[1]*100)/100.0));
-        } else if (f21 !=  null&&f22 == null) {
-            textSum2.setText(String.valueOf(Math.round(f21[0]/f21[1]*100)/100.0));
-        } else {
-            textSum2.setText("NaN");
-        }
-        if (f31 !=  null&&f32 != null) {
-            textSum3.setText(String.valueOf(Math.round((f31[0] + f32[0])/(f31[1] + f32[1])*100)/100.0));
-        } else if (f31 ==  null&&f32 != null) {
-            textSum3.setText(String.valueOf(Math.round(f32[0]/f32[1]*100)/100.0));
-        } else if (f31 !=  null&&f32 == null) {
-            textSum3.setText(String.valueOf(Math.round(f31[0]/f31[1]*100)/100.0));
-        } else {
-            textSum3.setText("NaN");
-        }
-        if (f11 == null&&f12 == null&&f21 == null&&f22 == null&&f31 == null&&f32 == null) {
-            textViewAll.setText("NaN");
-            textViewAllBar.setText("NaN");
-        } else {
-            float ap1 = 0;
-            float ag1 = 0;
-            float ap2 = 0;
-            float ag2 = 0;
-            float ap3 = 0;
-            float ag3 = 0;
-
-            if (f11 != null) {
-                ag1 += f11[0];
-                ap1 += f11[1];
-            }
-            if (f12 != null) {
-                ag1 += f12[0];
-                ap1 += f12[1];
-            }
-            if (f21 != null) {
-                ag2 += f21[0];
-                ap2 += f21[1];
-            }
-            if (f22 != null) {
-                ag2 += f22[0];
-                ap2 += f22[1];
-            }
-            if (f31 != null) {
-                ag3 += f31[0];
-                ap3 += f31[1];
-            }
-            if (f32 != null) {
-                ag3 += f32[0];
-                ap3 += f32[1];
-            }
-
-            if (r1 == 1&&r2 == 1&&r3 == 1) {
-                text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
-                final String c = String.valueOf(Math.round((ag1 + ag2 + ag3)/(ap1 + ap2 + ap3)*100)/100.0);
-                textViewAll.setText(c);
-                textViewAllBar.setText(c);
-            } else {
-                text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
-                final float rA = r1 + r2 + r3;
-                final String c = String.valueOf(Math.round(((ag1/ap1*r1/rA) + (ag2/ap2*r2/rA) + (ag3/ap3*r3/rA))*100)/100.0);
-                textViewAll.setText(c);
-                textViewAllBar.setText(c);
-            }
+            text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
         }
 
         chart_analyze.setDragEnabled(true);
         chart_analyze.setScaleEnabled(false);
 
-//        LimitLine upper_limit = new LimitLine(65f, "Danger");
-//        upper_limit.setLineWidth(4f);
-//        upper_limit.enableDashedLine(10f, 10f, 0f);
-//        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
-//        upper_limit.setTextSize(15f);
-//
-//        LimitLine lower_limit = new LimitLine(35f, "Too Low");
-//        lower_limit.setLineWidth(4f);
-//        lower_limit.enableDashedLine(10f, 10f, 10f);
-//        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
-//        lower_limit.setTextSize(15f);
-
         YAxis leftAxis = chart_analyze.getAxisLeft();
         leftAxis.removeAllLimitLines();
-//        leftAxis.addLimitLine(upper_limit);
-//        leftAxis.addLimitLine(lower_limit);
         leftAxis.setAxisMaximum(9.5f);
         leftAxis.setAxisMinimum(0f);
         leftAxis.enableGridDashedLine(10f, 10f, 0);
@@ -349,12 +223,12 @@ public class MainActivity extends AppCompatActivity
         chart_analyze.getAxisRight().setEnabled(false);
 
         final ArrayList<Entry> yvalue = new ArrayList<>();
-        yvalue.add(new Entry(0, result11));
-        yvalue.add(new Entry(1, result12));
-        yvalue.add(new Entry(2, result21));
-        yvalue.add(new Entry(3, result22));
-        yvalue.add(new Entry(4, result31));
-        yvalue.add(new Entry(5, result32));
+        yvalue.add(new Entry(0, calculateGrade.getResult11()));
+        yvalue.add(new Entry(1, calculateGrade.getResult12()));
+        yvalue.add(new Entry(2, calculateGrade.getResult21()));
+        yvalue.add(new Entry(3, calculateGrade.getResult22()));
+        yvalue.add(new Entry(4, calculateGrade.getResult31()));
+        yvalue.add(new Entry(5, calculateGrade.getResult32()));
         LineDataSet set1 = new LineDataSet(yvalue, "성적");
 
         set1.setFillAlpha(110);
@@ -372,7 +246,7 @@ public class MainActivity extends AppCompatActivity
 
         chart_analyze.setData(data);
 
-        String[] values = new String[] {"1학년\n1학기", "1학년\n2학기", "2학년\n1학기", "2학년\n2학기", "3학년\n1학기", "3학년\n2학기", ""};
+        String[] values = new String[] {"1-1", "1-2", "2-1", "2-2", "3-1", "3-2", ""};
 
         XAxis xAxis = chart_analyze.getXAxis();
         xAxis.setValueFormatter(new ValueFormatter() {
@@ -398,76 +272,6 @@ public class MainActivity extends AppCompatActivity
         chart_analyze.setHighlightPerTapEnabled(false);
         chart_analyze.animateY(1800, Easing.EaseOutSine);
         chart_analyze.invalidate();
-
-//        chart_analyze.setPinchZoom(false);
-//        chart_analyze.setScaleEnabled(false);
-//        chart_analyze.setHighlightPerTapEnabled(false);
-//        chart_analyze.setHighlightPerDragEnabled(false);
-//
-//        final ArrayList<String> xArray = new ArrayList<>();
-//        xArray.add("1학년 1학기");
-//        xArray.add("1학년 2학기");
-//        xArray.add("2학년 1학기");
-//        xArray.add("2학년 2학기");
-//        xArray.add("3학년 1학기");
-//        xArray.add("3학년 2학기");
-//
-//        final ArrayList<Entry> data = new ArrayList<>();
-//        data.add(new Entry(0, result11));
-//        data.add(new Entry(1, result12));
-//        data.add(new Entry(2, result21));
-//        data.add(new Entry(3, result22));
-//        data.add(new Entry(4, result31));
-//        data.add(new Entry(5, result32));
-//
-//        LineDataSet lineDataSet = new LineDataSet(data, "성적");
-//        lineDataSet.setColors(Color.RED);
-//        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-//        //lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-//        lineDataSet.setDrawValues(false);
-//
-//        LineData lineData = new LineData(lineDataSet);
-//        chart_analyze.setData(lineData);
-//        chart_analyze.invalidate();
-//        Description description = new Description();
-//        description.setText("");
-//        chart_analyze.setDescription(description);
-//
-//        ValueFormatter formatter = new ValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float value, AxisBase axis) {
-//                return xArray.get((int) value);
-//            }
-//
-//            @Override
-//            public String getAxisLabel(float value, AxisBase axis) {
-//                return xArray.get((int) value);
-//            }
-//        };
-//
-//        XAxis xAxis = chart_analyze.getXAxis();
-//        xAxis.setValueFormatter(formatter);
-//        xAxis.setGranularity(1f);
-//
-//        YAxis yAxis = chart_analyze.getAxisLeft();
-//        yAxis.setTextColor(Color.BLACK);
-//
-//        YAxis yAxis1 = chart_analyze.getAxisRight();
-//        yAxis1.setEnabled(false);
-    }
-
-    public class MyAxisValueFormatter implements IAxisValueFormatter {
-            private String[] mValues;
-            public MyAxisValueFormatter(String[] values) {
-
-                this.mValues = values;
-
-            }
-
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return mValues[(int) value];
-        }
     }
 
     //카드 안 성적 입력하기 버튼 클릭 리스너
@@ -561,6 +365,10 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_add: {
                 startScoreEditAvtivity(0);
                 break;
+            }
+            case R.id.nav_search: {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
+                startActivity(intent);
             }
         }
 
