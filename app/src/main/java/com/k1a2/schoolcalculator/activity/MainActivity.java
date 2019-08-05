@@ -3,11 +3,12 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -15,14 +16,13 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -45,8 +45,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -129,6 +127,13 @@ public class MainActivity extends AppCompatActivity
         button_editScore1.setOnClickListener(onScoreEditButton);
         button_editScore2.setOnClickListener(onScoreEditButton);
         button_editScore3.setOnClickListener(onScoreEditButton);
+
+        ((Button) findViewById(R.id.main_button_showAnalyze)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
+            }
+        });
 
         button_rate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -315,46 +320,154 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        final ArrayList<String> xArray = new ArrayList<>();
-        xArray.add("1학년 1학기");
-        xArray.add("1학년 2학기");
-        xArray.add("2학년 1학기");
-        xArray.add("2학년 2학기");
-        xArray.add("3학년 1학기");
-        xArray.add("3학년 2학기");
+        chart_analyze.setDragEnabled(true);
+        chart_analyze.setScaleEnabled(false);
 
-        final ArrayList<Entry> data = new ArrayList<>();
-        data.add(new Entry(0, result11));
-        data.add(new Entry(1, result12));
-        data.add(new Entry(2, result21));
-        data.add(new Entry(3, result22));
-        data.add(new Entry(4, result31));
-        data.add(new Entry(5, result32));
+//        LimitLine upper_limit = new LimitLine(65f, "Danger");
+//        upper_limit.setLineWidth(4f);
+//        upper_limit.enableDashedLine(10f, 10f, 0f);
+//        upper_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
+//        upper_limit.setTextSize(15f);
+//
+//        LimitLine lower_limit = new LimitLine(35f, "Too Low");
+//        lower_limit.setLineWidth(4f);
+//        lower_limit.enableDashedLine(10f, 10f, 10f);
+//        lower_limit.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_BOTTOM);
+//        lower_limit.setTextSize(15f);
 
-        LineDataSet lineDataSet = new LineDataSet(data, "성적");
-        lineDataSet.setColors(Color.RED);
-        lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
-        lineDataSet.setDrawFilled(true);
-        lineDataSet.setDrawValues(false);
+        YAxis leftAxis = chart_analyze.getAxisLeft();
+        leftAxis.removeAllLimitLines();
+//        leftAxis.addLimitLine(upper_limit);
+//        leftAxis.addLimitLine(lower_limit);
+        leftAxis.setAxisMaximum(9.5f);
+        leftAxis.setAxisMinimum(0f);
+        leftAxis.enableGridDashedLine(10f, 10f, 0);
+        leftAxis.setDrawLimitLinesBehindData(true);
+        leftAxis.setInverted(true);
+        leftAxis.setDrawAxisLine(false);
 
-        LineData lineData = new LineData(lineDataSet);
-        chart_analyze.setData(lineData);
+        chart_analyze.getAxisRight().setEnabled(false);
 
-        ValueFormatter formatter = new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return xArray.get((int) value);
-            }
-        };
+        final ArrayList<Entry> yvalue = new ArrayList<>();
+        yvalue.add(new Entry(0, result11));
+        yvalue.add(new Entry(1, result12));
+        yvalue.add(new Entry(2, result21));
+        yvalue.add(new Entry(3, result22));
+        yvalue.add(new Entry(4, result31));
+        yvalue.add(new Entry(5, result32));
+        LineDataSet set1 = new LineDataSet(yvalue, "성적");
 
+        set1.setFillAlpha(110);
+        set1.setLineWidth(3f);
+        //set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        set1.setCircleRadius(5f);
+        set1.setColors(ContextCompat.getColor(this, R.color.colorChartLine));
+        set1.setCircleColors(ContextCompat.getColor(this, R.color.colorChartLine));
+        set1.setValueTextSize(10f);
+
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+
+        LineData data = new LineData(dataSets);
+
+        chart_analyze.setData(data);
+
+        String[] values = new String[] {"1학년\n1학기", "1학년\n2학기", "2학년\n1학기", "2학년\n2학기", "3학년\n1학기", "3학년\n2학기", ""};
 
         XAxis xAxis = chart_analyze.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTextColor(Color.BLACK);
-        xAxis.setValueFormatter(formatter);
+        xAxis.setValueFormatter(new ValueFormatter() {
 
-        YAxis yAxis = chart_analyze.getAxisLeft();
-        yAxis.setTextColor(Color.BLACK);
+            @Override
+            public String getAxisLabel(float value, AxisBase axis) {
+                return values[(int) value];
+            }
+        });
+        xAxis.setGranularity(1f);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLinesBehindData(false);
+        xAxis.setDrawGridLines(false);
+        xAxis.setAxisMinimum(-0.2f);
+        xAxis.setAxisMaximum(5.2f);
+        xAxis.setAxisLineWidth(1f);
+
+        Description description = new Description();
+        description.setText("");
+
+        chart_analyze.setDescription(description);
+        chart_analyze.setHighlightPerDragEnabled(false);
+        chart_analyze.setHighlightPerTapEnabled(false);
+        chart_analyze.animateY(1800, Easing.EaseOutSine);
+        chart_analyze.invalidate();
+
+//        chart_analyze.setPinchZoom(false);
+//        chart_analyze.setScaleEnabled(false);
+//        chart_analyze.setHighlightPerTapEnabled(false);
+//        chart_analyze.setHighlightPerDragEnabled(false);
+//
+//        final ArrayList<String> xArray = new ArrayList<>();
+//        xArray.add("1학년 1학기");
+//        xArray.add("1학년 2학기");
+//        xArray.add("2학년 1학기");
+//        xArray.add("2학년 2학기");
+//        xArray.add("3학년 1학기");
+//        xArray.add("3학년 2학기");
+//
+//        final ArrayList<Entry> data = new ArrayList<>();
+//        data.add(new Entry(0, result11));
+//        data.add(new Entry(1, result12));
+//        data.add(new Entry(2, result21));
+//        data.add(new Entry(3, result22));
+//        data.add(new Entry(4, result31));
+//        data.add(new Entry(5, result32));
+//
+//        LineDataSet lineDataSet = new LineDataSet(data, "성적");
+//        lineDataSet.setColors(Color.RED);
+//        lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+//        //lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+//        lineDataSet.setDrawValues(false);
+//
+//        LineData lineData = new LineData(lineDataSet);
+//        chart_analyze.setData(lineData);
+//        chart_analyze.invalidate();
+//        Description description = new Description();
+//        description.setText("");
+//        chart_analyze.setDescription(description);
+//
+//        ValueFormatter formatter = new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float value, AxisBase axis) {
+//                return xArray.get((int) value);
+//            }
+//
+//            @Override
+//            public String getAxisLabel(float value, AxisBase axis) {
+//                return xArray.get((int) value);
+//            }
+//        };
+//
+//        XAxis xAxis = chart_analyze.getXAxis();
+//        xAxis.setValueFormatter(formatter);
+//        xAxis.setGranularity(1f);
+//
+//        YAxis yAxis = chart_analyze.getAxisLeft();
+//        yAxis.setTextColor(Color.BLACK);
+//
+//        YAxis yAxis1 = chart_analyze.getAxisRight();
+//        yAxis1.setEnabled(false);
+    }
+
+    public class MyAxisValueFormatter implements IAxisValueFormatter {
+            private String[] mValues;
+            public MyAxisValueFormatter(String[] values) {
+
+                this.mValues = values;
+
+            }
+
+        @Override
+        public String getFormattedValue(float value, AxisBase axis) {
+            return mValues[(int) value];
+        }
     }
 
     //카드 안 성적 입력하기 버튼 클릭 리스너

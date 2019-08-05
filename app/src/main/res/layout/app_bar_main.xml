@@ -288,10 +288,30 @@
                         android:textColor="#000000"/>
 
                     <com.github.mikephil.charting.charts.LineChart
+                        android:padding="5dp"
                         android:layout_marginTop="5dp"
                         android:id="@+id/main_chart_analyze"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"></com.github.mikephil.charting.charts.LineChart>
+                        android:layout_height="150dp"></com.github.mikephil.charting.charts.LineChart>
+
+                    <Button
+                        android:id="@+id/main_button_showAnalyze"
+                        android:layout_gravity="right"
+                            android:text="성적 분석 보기"
+                        android:padding="3dp"
+                        android:textColor="#F18B8D"
+                        android:drawableTint="#F18B8D"
+                        android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:fontFamily="@font/scdream3"
+                        android:gravity="center_vertical"
+                        android:backgroundTint="#00FFFFFF"
+                        android:backgroundTintMode="add"
+                        android:elevation="0dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 

@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorDivider">#613C3B3B</color>
+
+    <color name="colorChartLine">#F23535</color>
 </resources>
