@@ -159,7 +159,6 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
 
             Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
             startActivity(chooser);
-            Toast.makeText(this, "Succes Capture", Toast.LENGTH_SHORT).show();
             //아니면 멀쩡히 잘 온거
         }
     }
@@ -178,6 +177,10 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
                 if (fragment_analyzeT != null) {
                     fragment_analyzeT.requestView();
                 }
+                break;
+            }
+            case android.R.id.home: {
+                finish();
                 break;
             }
         }
