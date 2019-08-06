@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:fontFamily="@font/scdream3"
-        android:text="성적 계산기"
+        android:text="내신 계산기"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
