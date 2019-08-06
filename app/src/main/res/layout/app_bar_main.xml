@@ -308,7 +308,7 @@
                     <Button
                         android:id="@+id/main_button_showAnalyze"
                         android:layout_gravity="right"
-                            android:text="성적 분석 보기"
+                        android:text="성적 분석 보기"
                         android:padding="3dp"
                         android:textColor="#F18B8D"
                         android:drawableTint="#F18B8D"
@@ -341,13 +341,13 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1학년 평균 등급"
-                    android:textSize="17dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1학년 평균 등급"
+                        android:textSize="17dp"
                         android:fontFamily="@font/scdream3"
                         android:textStyle="bold"
-                    android:textColor="#000000"/>
+                        android:textColor="#000000"/>
 
                     <View
                         android:layout_marginTop="10dp"
@@ -689,18 +689,18 @@
             </androidx.cardview.widget.CardView>
 
             <!--<androidx.cardview.widget.CardView-->
-                <!--app:cardElevation="2dp"-->
-                <!--app:contentPadding="10dp"-->
-                <!--app:cardUseCompatPadding="true"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content">-->
+            <!--app:cardElevation="2dp"-->
+            <!--app:contentPadding="10dp"-->
+            <!--app:cardUseCompatPadding="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="목표 성적"-->
-                    <!--android:textSize="20dp"-->
-                    <!--android:textColor="#000000"/>-->
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="목표 성적"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textColor="#000000"/>-->
 
             <!--</androidx.cardview.widget.CardView>-->
 
@@ -709,11 +709,11 @@
     </androidx.core.widget.NestedScrollView>
 
     <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
