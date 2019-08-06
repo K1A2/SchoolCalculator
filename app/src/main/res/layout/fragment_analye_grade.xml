@@ -21,6 +21,7 @@
             app:contentPadding="10dp"
             app:cardUseCompatPadding="true"
             android:layout_width="match_parent"
+            android:id="@+id/fragment_analye_grade_cardview1"
             android:layout_height="wrap_content">
 
             <LinearLayout
