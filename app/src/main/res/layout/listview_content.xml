@@ -45,7 +45,7 @@
             android:layout_height="match_parent"
             android:hint="단위"/>
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/card_subject"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -63,11 +63,15 @@
 
         <ImageButton
             android:id="@+id/content_delete"
+            android:backgroundTint="#00FFFFFF"
+            android:backgroundTintMode="add"
             android:layout_width="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
             android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
             android:tint="#606060"
-            android:src="@drawable/baseline_delete_black_24"
-            android:background="@null"/>
+            android:src="@drawable/baseline_delete_black_24"/>
 
     </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.k1a2.schoolcalculator.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -9,15 +10,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.k1a2.schoolcalculator.fragment.AnalyeTypeFragment;
 import com.k1a2.schoolcalculator.fragment.AnalyzeGradeFragment;
 import com.k1a2.schoolcalculator.R;
 
-public class AnalyzeActivity extends AppCompatActivity {
+public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener {
 
     private TabLayout tabLayout = null;
     private ViewPager viewPager = null;
@@ -108,6 +113,38 @@ public class AnalyzeActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //캡쳐할 뷰가 오는곳푸ㅠㅓㅏ쥬ㅜ피젚ㅈ거ㅑㅐ퍼ㅜ쟈ㅐ거푸ㅑㅔ자ㅡㅠㅐㅔㅓㄱ재ㅠㅓㅜㅑㅐ더ㅡㅐ페저ㅡㅐㅔㅍ저갸ㅔ퍼재ㅑㅠ퍼ㅜㅐ저ㅜ여기야여기
+    @Override
+    public void OnViewRequest(View captureView) {
+        if (captureView == null) {
+            Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
+            //null이면 오류난거임
+        } else {
+            Toast.makeText(this, "Succes Capture", Toast.LENGTH_SHORT).show();
+            //아니면 멀쩡히 잘 온거
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_analyze, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_share: {
+                if (fragment_analyzeT != null) {
+                    fragment_analyzeT.requestView();
+                }
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //뷰페이져에 프래그먼트 붙이기

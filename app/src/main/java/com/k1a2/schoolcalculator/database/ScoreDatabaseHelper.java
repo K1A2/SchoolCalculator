@@ -150,4 +150,27 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+    public float getTPA(int type) {
+        final SQLiteDatabase db = getWritableDatabase();
+        String[] table = new String[] {String.valueOf(11), String.valueOf(12), String.valueOf(21) , String.valueOf(22), String.valueOf(31), String.valueOf(32)};
+        try {
+            float pA = 0;
+            float gA = 0;
+            for (int i = 0;i < 6;i++) {
+                final Cursor cursor = db.rawQuery("SELECT * FROM \'" + table[i] + "\' WHERE type = " + type, null);
+                for (int s = 0;s<cursor.getCount();s++) {
+                    cursor.moveToPosition(s);
+                    int g = cursor.getInt(2);
+                    int p = cursor.getInt(3);
+
+                    gA += p*g;
+                    pA += p;
+                }
+            }
+            return (float) (Math.round(gA/pA));
+        } catch (Exception e) {
+            return Float.NaN;
+        }
+    }
 }

@@ -170,6 +170,7 @@
                                 android:gravity="center"
                                 android:textSize="15dp"
                                 android:layout_marginRight="5dp"
+                                android:buttonTint="@color/colorChartLine"
                                 android:fontFamily="@font/scdream3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -276,6 +277,7 @@
                             <CheckBox
                                 android:id="@+id/analye_check_m"
                                 android:gravity="center"
+                                android:buttonTint="@color/colorChartLine2"
                                 android:textSize="15dp"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/scdream3"
@@ -387,6 +389,7 @@
                                 android:id="@+id/analye_check_e"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/scdream3"
+                                android:buttonTint="@color/colorChartLine3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="영어 계열"/>
@@ -496,6 +499,7 @@
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/scdream3"
                                 android:layout_width="wrap_content"
+                                android:buttonTint="@color/colorChartLine4"
                                 android:layout_height="wrap_content"
                                 android:text="과학탐구 계열"/>
 
@@ -602,6 +606,7 @@
                                 android:textSize="15dp"
                                 android:id="@+id/analye_check_sc"
                                 android:layout_marginRight="5dp"
+                                android:buttonTint="@color/colorChartLine5"
                                 android:fontFamily="@font/scdream3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -711,6 +716,7 @@
                                 android:id="@+id/analye_check_r"
                                 android:layout_marginRight="5dp"
                                 android:fontFamily="@font/scdream3"
+                                android:buttonTint="@color/colorChartLine6"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="기타 계열"/>
@@ -825,7 +831,6 @@
                     <!--android:textColor="#000000"/>-->
 
                 <com.github.mikephil.charting.charts.RadarChart
-                    android:padding="5dp"
                     android:layout_marginTop="5dp"
                     android:id="@+id/analye_chart_analyzeTR"
                     android:layout_width="match_parent"

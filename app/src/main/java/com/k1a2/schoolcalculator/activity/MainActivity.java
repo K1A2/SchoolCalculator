@@ -249,7 +249,6 @@ public class MainActivity extends AppCompatActivity
 
         set1.setFillAlpha(110);
         set1.setLineWidth(3f);
-        //set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set1.setCircleRadius(5f);
         set1.setColors(ContextCompat.getColor(this, R.color.colorChartLine));
         set1.setCircleColors(ContextCompat.getColor(this, R.color.colorChartLine));

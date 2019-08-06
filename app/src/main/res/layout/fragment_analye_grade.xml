@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:paddingBottom="10dp"
+    android:id="@+id/capture"
     android:layout_height="match_parent">
 
     <LinearLayout

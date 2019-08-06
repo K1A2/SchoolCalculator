@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -91,6 +92,9 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
             gradeView.setText("1");
             pointView.setText("1");
             typeView.setSelection(0);
+
+            ArrayAdapter<String> a = new ArrayAdapter<String>(itemView.getContext(), R.layout.spinner_background, itemView.getContext().getResources().getStringArray(R.array.subject));
+            typeView.setAdapter(a);
 
             button_delete.setOnClickListener(new View.OnClickListener() {
                 @Override

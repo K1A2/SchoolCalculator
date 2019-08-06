@@ -692,50 +692,54 @@ public class AnalyeTypeFragment extends Fragment {
 
 
 
-        //chart_radar.setDrag
-        //chart_radar.setScaleEnabled(false);
+        chart_radar.setTouchEnabled(false);
 
         YAxis yAxis = chart_radar.getYAxis();
         yAxis.removeAllLimitLines();
         yAxis.setAxisMaximum(9f);
         yAxis.setAxisMinimum(0f);
         yAxis.enableGridDashedLine(10f, 10f, 0);
-        yAxis.setDrawLimitLinesBehindData(true);
         yAxis.setInverted(true);
         yAxis.setDrawAxisLine(false);
 
-        ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_K);
+        final float k = scoreDatabaseHelper.getTPA(DatabaseKey.KEY_DB_TYPE_K);
+        final float e = scoreDatabaseHelper.getTPA(DatabaseKey.KEY_DB_TYPE_E);
+        final float s = scoreDatabaseHelper.getTPA(DatabaseKey.KEY_DB_TYPE_S);
+        final float sc = scoreDatabaseHelper.getTPA(DatabaseKey.KEY_DB_TYPE_SC);
+        final float r = scoreDatabaseHelper.getTPA(DatabaseKey.KEY_DB_TYPE_R);
+        final float m = scoreDatabaseHelper.getTPA(DatabaseKey.KEY_DB_TYPE_M);
 
         final ArrayList<RadarEntry> yvalue = new ArrayList<>();
-        if (v.get(0) == 0) {
-            yvalue.add(new RadarEntry(0, Float.NaN));
+
+        if (k == 0) {
+            yvalue.add(new RadarEntry(Float.NaN));
         } else {
-            yvalue.add(new RadarEntry(0, v.get(0)));
+            yvalue.add(new RadarEntry(k));
         }
-        if (v.get(1) == 0) {
-            yvalue.add(new RadarEntry(1, Float.NaN));
+        if (m == 0) {
+            yvalue.add(new RadarEntry(Float.NaN));
         } else {
-            yvalue.add(new RadarEntry(1, v.get(1)));
+            yvalue.add(new RadarEntry(m));
         }
-        if (v.get(2) == 0) {
-            yvalue.add(new RadarEntry(2, Float.NaN));
+        if (e == 0) {
+            yvalue.add(new RadarEntry(Float.NaN));
         } else {
-            yvalue.add(new RadarEntry(2, v.get(2)));
+            yvalue.add(new RadarEntry(e));
         }
-        if (v.get(3) == 0) {
-            yvalue.add(new RadarEntry(3, Float.NaN));
+        if (s == 0) {
+            yvalue.add(new RadarEntry(Float.NaN));
         } else {
-            yvalue.add(new RadarEntry(3, v.get(3)));
+            yvalue.add(new RadarEntry(s));
         }
-        if (v.get(4) == 0) {
-            yvalue.add(new RadarEntry(4, Float.NaN));
+        if (sc == 0) {
+            yvalue.add(new RadarEntry(Float.NaN));
         } else {
-            yvalue.add(new RadarEntry(4, v.get(4)));
+            yvalue.add(new RadarEntry(sc));
         }
-        if (v.get(5) == 0) {
-            yvalue.add(new RadarEntry(5, Float.NaN));
+        if (r == 0) {
+            yvalue.add(new RadarEntry(Float.NaN));
         } else {
-            yvalue.add(new RadarEntry(5, v.get(5)));
+            yvalue.add(new RadarEntry(r));
         }
         RadarDataSet set1 = new RadarDataSet(yvalue, "국어 계열");
 
@@ -754,7 +758,7 @@ public class AnalyeTypeFragment extends Fragment {
         chart_radar.setData(data);
         chart_radar.animateY(1800, Easing.EaseOutSine);
 
-        String[] values2 = new String[] {"1-1", "1-2", "2-1", "2-2", "3-1", "3-2", ""};
+        String[] values2 = new String[] {"국어 계열", "수학 계열", "영어 계열", "과학탐구 계열", "사회탐구 계열", "기타 계열", ""};
 
         XAxis xAxis2 = chart_radar.getXAxis();
         xAxis2.setValueFormatter(new ValueFormatter() {

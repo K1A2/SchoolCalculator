@@ -1,6 +1,7 @@
 package com.k1a2.schoolcalculator.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -48,7 +50,14 @@ public class AnalyzeGradeFragment extends Fragment {
     private TextView text_opinion2 = null;
     private TextView text_opinion3 = null;
 
+    private OnCaptureViewRequestListener onCaptureViewRequestListener = null;
     private CalculateGrade calculateGrade = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        onCaptureViewRequestListener = (OnCaptureViewRequestListener)activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -325,8 +334,21 @@ public class AnalyzeGradeFragment extends Fragment {
         chart_all.invalidate();
     }
 
+    public void requestView() {
+        if (root != null) {
+            final View capture = root.findViewById(R.id.capture);
+            onCaptureViewRequestListener.OnViewRequest(capture);
+        } else {
+            onCaptureViewRequestListener.OnViewRequest(null);
+        }
+    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    public interface OnCaptureViewRequestListener {
+        public void OnViewRequest(View captureView);
     }
 }
