@@ -13,12 +13,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.tabs.TabLayout;
-import com.k1a2.schoolcalculator.AnalyeGradeFragment;
-import com.k1a2.schoolcalculator.AnalyzeTypeFragment;
+import com.k1a2.schoolcalculator.fragment.AnalyeTypeFragment;
+import com.k1a2.schoolcalculator.fragment.AnalyzeGradeFragment;
 import com.k1a2.schoolcalculator.R;
-import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
-import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
-import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
 
 public class AnalyzeActivity extends AppCompatActivity {
 
@@ -27,8 +24,8 @@ public class AnalyzeActivity extends AppCompatActivity {
     private Toolbar toolbar = null;
     private View view_indicator = null;
 
-    private AnalyzeTypeFragment fragment_analyzeT = null;
-    private AnalyeGradeFragment fragment_analyzeG = null;
+    private AnalyzeGradeFragment fragment_analyzeT = null;
+    private AnalyeTypeFragment fragment_analyzeG = null;
 
     private int indicatorWidth;
     private TabPagerAdapter tabPagerAdapter = null;
@@ -124,15 +121,15 @@ public class AnalyzeActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                    if (fragment_analyzeG != null) return fragment_analyzeG; else {
-                        fragment_analyzeG = new AnalyeGradeFragment();
-                        return fragment_analyzeG;
+                    if (fragment_analyzeT != null) return fragment_analyzeT; else {
+                        fragment_analyzeT = new AnalyzeGradeFragment();
+                        return fragment_analyzeT;
                     }
                 }
                 case 1: {
-                    if (fragment_analyzeT != null) return fragment_analyzeT; else {
-                        fragment_analyzeT = new AnalyzeTypeFragment();
-                        return fragment_analyzeT;
+                    if (fragment_analyzeG != null) return fragment_analyzeG; else {
+                        fragment_analyzeG = new AnalyeTypeFragment();
+                        return fragment_analyzeG;
                     }
                 }
             }

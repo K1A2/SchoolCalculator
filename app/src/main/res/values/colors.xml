@@ -7,4 +7,9 @@
     <color name="colorDivider">#613C3B3B</color>
 
     <color name="colorChartLine">#F23535</color>
+    <color name="colorChartLine2">#F2E527</color>
+    <color name="colorChartLine3">#5ABFBF</color>
+    <color name="colorChartLine4">#0B508C</color>
+    <color name="colorChartLine5">#D92378</color>
+    <color name="colorChartLine6">#8423D9</color>
 </resources>

@@ -151,7 +151,17 @@ public class CalculateGrade {
                 resultAll = (float) (Math.round((ag1 + ag2 + ag3)/(ap1 + ap2 + ap3)*100)/100.0);
             } else {
                 final float rA = r1 + r2 + r3;
-                resultAll = (float) (Math.round(((ag1/ap1*r1/rA) + (ag2/ap2*r2/rA) + (ag3/ap3*r3/rA))*100)/100.0);
+                float rr = 0;
+                if (ag1 != 0&&ap1 != 0) {
+                    rr += ag1/ap1*r1/rA;
+                }
+                if (ag2 != 0&&ap2 != 0) {
+                    rr += ag2/ap2*r2/rA;
+                }
+                if (ag3 != 0&&ap3 != 0) {
+                    rr += ag3/ap3*r3/rA;
+                }
+                resultAll = (float) (Math.round(rr*100)/100.0);
             }
         }
     }
@@ -177,7 +187,7 @@ public class CalculateGrade {
     }
 
     public float getResult32() {
-        return result31;
+        return result32;
     }
 
     public float getResult1() {

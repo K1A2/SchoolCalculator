@@ -39,11 +39,13 @@ public class ScoreEditActivity extends AppCompatActivity {
 
     private int indicatorWidth;
     private TabPagerAdapter tabPagerAdapter = null;
+    private boolean isFirst = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_main);
+        isFirst = true;
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
@@ -87,31 +89,34 @@ public class ScoreEditActivity extends AppCompatActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         final Intent intent = getIntent();
-        switch (intent.getStringExtra(ActivityKey.KEY_ACTIVITY_MODE)) {
-            case ActivityKey.KEY_ACTIVITY_SCORE_ALL: {
-                tabLayout.getTabAt(0).select();
-                break;
+        if (isFirst) {
+            switch (intent.getStringExtra(ActivityKey.KEY_ACTIVITY_MODE)) {
+                case ActivityKey.KEY_ACTIVITY_SCORE_ALL: {
+                    tabLayout.getTabAt(0).select();
+                    break;
+                }
+                case ActivityKey.KEY_ACTIVITY_SCORE_FIRST: {
+                    tabLayout.getTabAt(0).select();
+                    break;
+                }
+                case ActivityKey.KEY_ACTIVITY_SCORE_SECOND: {
+                    tabLayout.getTabAt(1).select();
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
+                    int width = tabLayout.getMeasuredWidth();
+                    params.leftMargin = (int) width / 2;
+                    view_indicator.setLayoutParams(params);
+                    break;
+                }
+                case ActivityKey.KEY_ACTIVITY_SCORE_THIRD: {
+                    tabLayout.getTabAt(2).select();
+                    FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
+                    int width = tabLayout.getMeasuredWidth();
+                    params.leftMargin = (int) width - view_indicator.getWidth();
+                    view_indicator.setLayoutParams(params);
+                    break;
+                }
             }
-            case ActivityKey.KEY_ACTIVITY_SCORE_FIRST: {
-                tabLayout.getTabAt(0).select();
-                break;
-            }
-            case ActivityKey.KEY_ACTIVITY_SCORE_SECOND: {
-                tabLayout.getTabAt(1).select();
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
-                int width = tabLayout.getMeasuredWidth();
-                params.leftMargin = (int) width / 2;
-                view_indicator.setLayoutParams(params);
-                break;
-            }
-            case ActivityKey.KEY_ACTIVITY_SCORE_THIRD: {
-                tabLayout.getTabAt(2).select();
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)view_indicator.getLayoutParams();
-                int width = tabLayout.getMeasuredWidth();
-                params.leftMargin = (int) width - view_indicator.getWidth();
-                view_indicator.setLayoutParams(params);
-                break;
-            }
+            isFirst = false;
         }
     }
 

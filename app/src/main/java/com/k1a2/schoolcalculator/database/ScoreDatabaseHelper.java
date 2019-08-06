@@ -125,4 +125,29 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+
+    public ArrayList<Float> getTP(int type) {
+        final ArrayList<Float> values = new ArrayList<>();
+        final SQLiteDatabase db = getWritableDatabase();
+        String[] table = new String[] {String.valueOf(11), String.valueOf(12), String.valueOf(21) , String.valueOf(22), String.valueOf(31), String.valueOf(32)};
+        try {
+            for (int i = 0;i < 6;i++) {
+                final Cursor cursor = db.rawQuery("SELECT * FROM \'" + table[i] + "\' WHERE type = " + type, null);
+                float pA = 0;
+                float gA = 0;
+                for (int s = 0;s<cursor.getCount();s++) {
+                    cursor.moveToPosition(s);
+                    int g = cursor.getInt(2);
+                    int p = cursor.getInt(3);
+
+                    gA += p*g;
+                    pA += p;
+                }
+                values.add((float) (Math.round(gA/pA)));
+            }
+            return values;
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

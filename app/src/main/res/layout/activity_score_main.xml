@@ -48,6 +48,14 @@
 
     </FrameLayout>
 
+    <TextView
+        android:paddingBottom="20dp"
+        android:fontFamily="@font/scdream2"
+        android:paddingLeft="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="과목명이 같으면 같은 과목으로 취급됩니다."/>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/score_viwewpager"
         android:layout_width="match_parent"

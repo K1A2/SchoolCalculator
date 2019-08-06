@@ -87,14 +87,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-//        FloatingActionButton fab = findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -223,12 +215,36 @@ public class MainActivity extends AppCompatActivity
         chart_analyze.getAxisRight().setEnabled(false);
 
         final ArrayList<Entry> yvalue = new ArrayList<>();
-        yvalue.add(new Entry(0, calculateGrade.getResult11()));
-        yvalue.add(new Entry(1, calculateGrade.getResult12()));
-        yvalue.add(new Entry(2, calculateGrade.getResult21()));
-        yvalue.add(new Entry(3, calculateGrade.getResult22()));
-        yvalue.add(new Entry(4, calculateGrade.getResult31()));
-        yvalue.add(new Entry(5, calculateGrade.getResult32()));
+        if (calculateGrade.getResult11() == 0) {
+            yvalue.add(new Entry(0, Float.NaN));
+        } else {
+            yvalue.add(new Entry(0, calculateGrade.getResult11()));
+        }
+        if (calculateGrade.getResult12() == 0) {
+            yvalue.add(new Entry(1, Float.NaN));
+        } else {
+            yvalue.add(new Entry(1, calculateGrade.getResult12()));
+        }
+        if (calculateGrade.getResult21() == 0) {
+            yvalue.add(new Entry(2, Float.NaN));
+        } else {
+            yvalue.add(new Entry(2, calculateGrade.getResult21()));
+        }
+        if (calculateGrade.getResult22() == 0) {
+            yvalue.add(new Entry(3, Float.NaN));
+        } else {
+            yvalue.add(new Entry(3, calculateGrade.getResult22()));
+        }
+        if (calculateGrade.getResult31() == 0) {
+            yvalue.add(new Entry(4, Float.NaN));
+        } else {
+            yvalue.add(new Entry(4, calculateGrade.getResult31()));
+        }
+        if (calculateGrade.getResult32() == 0) {
+            yvalue.add(new Entry(5, Float.NaN));
+        } else {
+            yvalue.add(new Entry(5, calculateGrade.getResult32()));
+        }
         LineDataSet set1 = new LineDataSet(yvalue, "성적");
 
         set1.setFillAlpha(110);
@@ -375,89 +391,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    //학기별 등급 산출 함수
-    private float[] getGrade(int type) {
-        float sumgrade = 0; // 등급, 단위수 곱한 후 합산
-        float sumpoint = 0;
-
-        switch (type) {
-            case 11: {
-                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_11);
-                if (a==null) {
-                    return null;
-                } else {
-                    for (Integer[] r : a) {
-                        sumgrade += r[1] * r[0];
-                        sumpoint += r[1];
-                    }
-                    return new float[] {sumgrade, sumpoint};
-                }
-            }
-            case 12: {
-                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_12);
-                if (a==null) {
-                    return null;
-                } else {
-                    for (Integer[] r : a) {
-                        sumgrade += r[1] * r[0];
-                        sumpoint += r[1];
-                    }
-                    return new float[] {sumgrade, sumpoint};
-                }
-            }
-            case 21: {
-                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_21);
-                if (a==null) {
-                    return null;
-                } else {
-                    for (Integer[] r : a) {
-                        sumgrade += r[1] * r[0];
-                        sumpoint += r[1];
-                    }
-                    return new float[] {sumgrade, sumpoint};
-                }
-            }
-            case 22: {
-                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_22);
-                if (a==null) {
-                    return null;
-                } else {
-                    for (Integer[] r : a) {
-                        sumgrade += r[1] * r[0];
-                        sumpoint += r[1];
-                    }
-                    return new float[] {sumgrade, sumpoint};
-                }
-            }
-            case 31: {
-                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_31);
-                if (a==null) {
-                    return null;
-                } else {
-                    for (Integer[] r : a) {
-                        sumgrade += r[1] * r[0];
-                        sumpoint += r[1];
-                    }
-                    return new float[] {sumgrade, sumpoint};
-                }
-            }
-            case 32: {
-                ArrayList<Integer[]> a = scoreDatabaseHelper.getGP(DatabaseKey.KEY_TABLE_32);
-                if (a==null) {
-                    return null;
-                } else {
-                    for (Integer[] r : a) {
-                        sumgrade += r[1] * r[0];
-                        sumpoint += r[1];
-                    }
-                    return new float[] {sumgrade, sumpoint};
-                }
-            }
-            default: {
-                return null;
-            }
-        }
     }
 }

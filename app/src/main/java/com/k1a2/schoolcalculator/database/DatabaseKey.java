@@ -14,4 +14,11 @@ public interface DatabaseKey {
     public String KEY_VALUE_POINT = "point";
     public String KEY_VALUE_TYPE = "type";
     public String KEY_VALUE_POSITION = "position";
+
+    public Integer KEY_DB_TYPE_K = 0;
+    public Integer KEY_DB_TYPE_E = 2;
+    public Integer KEY_DB_TYPE_M= 1;
+    public Integer KEY_DB_TYPE_R = 5;
+    public Integer KEY_DB_TYPE_SC = 4;
+    public Integer KEY_DB_TYPE_S = 3;
 }
