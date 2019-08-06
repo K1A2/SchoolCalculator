@@ -3,24 +3,35 @@ package com.k1a2.schoolcalculator.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
+import com.k1a2.schoolcalculator.BuildConfig;
 import com.k1a2.schoolcalculator.fragment.AnalyeTypeFragment;
 import com.k1a2.schoolcalculator.fragment.AnalyzeGradeFragment;
 import com.k1a2.schoolcalculator.R;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener {
 
@@ -115,13 +126,39 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         });
     }
 
-    //캡쳐할 뷰가 오는곳푸ㅠㅓㅏ쥬ㅜ피젚ㅈ거ㅑㅐ퍼ㅜ쟈ㅐ거푸ㅑㅔ자ㅡㅠㅐㅔㅓㄱ재ㅠㅓㅜㅑㅐ더ㅡㅐ페저ㅡㅐㅔㅍ저갸ㅔ퍼재ㅑㅠ퍼ㅜㅐ저ㅜ여기야여기
+    //캡쳐할 뷰가 오는곳
     @Override
     public void OnViewRequest(View captureView) {
         if (captureView == null) {
             Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
             //null이면 오류난거임
         } else {
+            LinearLayout container;
+            container = (LinearLayout)findViewById(R.id.fragment_analye_grade_layout);
+            container.buildDrawingCache();
+            Bitmap captureView1 = container.getDrawingCache();
+            String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
+            FileOutputStream fos;
+
+            try {
+
+                fos = new FileOutputStream(adress);
+                captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, new File(adress));
+
+
+            Intent shareintent = new Intent(Intent.ACTION_SEND);
+
+            shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+            shareintent.setType("image/*");
+
+            Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+            startActivity(chooser);
             Toast.makeText(this, "Succes Capture", Toast.LENGTH_SHORT).show();
             //아니면 멀쩡히 잘 온거
         }

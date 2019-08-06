@@ -3,6 +3,8 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,17 +21,23 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
+import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
+import com.k1a2.schoolcalculator.BuildConfig;
 import com.k1a2.schoolcalculator.CalculateGrade;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
@@ -45,10 +53,18 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,6 +89,7 @@ public class MainActivity extends AppCompatActivity
     private TextView textSum2 = null;
     private TextView textSum3 = null;
     private LineChart chart_analyze = null;
+    private LinearLayout container;
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
@@ -80,6 +97,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
 
         scoreDatabaseHelper = new ScoreDatabaseHelper(this, DatabaseKey.KEY_DB_NAME, null, 1);
         preferences_rate = PreferenceManager.getDefaultSharedPreferences(this);
@@ -391,4 +411,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
