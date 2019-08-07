@@ -6,7 +6,7 @@ import android.content.Context;
 import android.widget.RemoteViews;
 
 /**
- * Implementation of App Widget functionality.
+ * 위젯 클래스 개발 중단됨
  */
 public class ChartViewWidget extends AppWidgetProvider {
 

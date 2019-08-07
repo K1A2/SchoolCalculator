@@ -23,6 +23,9 @@ import com.k1a2.schoolcalculator.view.recyclerview.GradeRecyclerItem;
 
 import java.util.ArrayList;
 
+/**성적 입력 커스텀뷰
+ * 절대 수정 금지**/
+
 public class CradGradeView extends CardView {
 
     private TextView text_grade = null;

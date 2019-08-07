@@ -1,5 +1,7 @@
 package com.k1a2.schoolcalculator.database;
 
+/**데이터 베이스 키 모아둔 클래스**/
+
 public interface DatabaseKey {
     public String KEY_DB_NAME = "Score.db";
     public String KEY_TABLE_11 = "11";
