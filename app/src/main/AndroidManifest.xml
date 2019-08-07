@@ -13,7 +13,24 @@
         android:roundIcon="@mipmap/ic_appicon_real_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AnalyzeActivity"></activity>
+        <!--<receiver android:name=".ChartViewWidget">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+            <!--</intent-filter>-->
+
+            <!--<meta-data-->
+                <!--android:name="android.appwidget.provider"-->
+                <!--android:resource="@xml/chart_view_widget_info" />-->
+        <!--</receiver>-->
+
+        <activity
+            android:name=".activity.GoalActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AnalyzeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
@@ -30,9 +47,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ScoreEditActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.PreferenceActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
         <provider
@@ -44,9 +63,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider" />
         </provider>
-
-
-
     </application>
 
 </manifest>

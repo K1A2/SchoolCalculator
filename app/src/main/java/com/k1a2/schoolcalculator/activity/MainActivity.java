@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     private TextView textSum2 = null;
     private TextView textSum3 = null;
     private LineChart chart_analyze = null;
-    private LinearLayout container;
+    private Button button_goal = null;
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity
         textSum2 = (TextView)findViewById(R.id.main_2sumtext);
         textSum3 = (TextView)findViewById(R.id.main_3sumtext);
         chart_analyze = (LineChart)findViewById(R.id.main_chart_analyze);
+        //button_goal = (Button)findViewById(R.id.main_button_editGoal);
 
 
         //리스너 연결
@@ -178,6 +179,13 @@ public class MainActivity extends AppCompatActivity
                 dialog.show();
             }
         });
+
+//        button_goal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(MainActivity.this, GoalActivity.class));
+//            }
+//        });
     }
 
     @Override
@@ -401,6 +409,9 @@ public class MainActivity extends AppCompatActivity
             case R.id.nav_search: {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
                 startActivity(intent);
+            }
+            case R.id.nav_chart: {
+                startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
             }
         }
 
