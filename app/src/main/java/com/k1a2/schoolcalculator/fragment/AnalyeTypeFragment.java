@@ -261,11 +261,13 @@ public class AnalyeTypeFragment extends Fragment {
         return root;
     }
 
+    //국어 데이터가 보이게 설정했을때 실행되는 함수
     private void setKoreaData(boolean isAdd) {
-        if (isAdd) {
-            ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_K);
+        if (isAdd) {//데이터 활성화
+            ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_K);//과목의 1,2,3학년 전체 합산 등급 가져옴
 
-            final ArrayList<Entry> yvalue = new ArrayList<>();
+            final ArrayList<Entry> yvalue = new ArrayList<>();//챁에 담을 데이터의 arraylist
+            //0이면 특수상수인 Nan값 넣어줌
             if (v.get(0) == 0) {
                 yvalue.add(new Entry(0, Float.NaN));
             } else {
@@ -296,8 +298,9 @@ public class AnalyeTypeFragment extends Fragment {
             } else {
                 yvalue.add(new Entry(5, v.get(5)));
             }
-            LineDataSet set1 = new LineDataSet(yvalue, "국어 계열");
+            LineDataSet set1 = new LineDataSet(yvalue, "국어 계열");//데이터셋 이름 지정, 생성
 
+            //메인 액티비티 참고
             set1.setFillAlpha(110);
             set1.setLineWidth(3f);
             //set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
@@ -315,15 +318,16 @@ public class AnalyeTypeFragment extends Fragment {
             chart_analyeAll.animateY(1800, Easing.EaseOutSine);
             chart_analyeAll.notifyDataSetChanged();
             chart_analyeAll.invalidate();
-        } else {
+        } else {//데이터 비활성화
             chart_analyeAll.clearValues();
             chart_analyeAll.invalidate();
             setIsChecked();
         }
     }
 
+    //수학 데이터가 보이게 설정했을때 실행되는 함수
     private void setMathData(boolean isAdd) {
-        if (isAdd) {
+        if (isAdd) {//활성화
             ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_M);
 
             final ArrayList<Entry> yvalue = new ArrayList<>();
@@ -376,15 +380,16 @@ public class AnalyeTypeFragment extends Fragment {
             chart_analyeAll.animateY(1800, Easing.EaseOutSine);
             chart_analyeAll.notifyDataSetChanged();
             chart_analyeAll.invalidate();
-        } else {
+        } else {//비활성화
             chart_analyeAll.clearValues();
             chart_analyeAll.invalidate();
             setIsChecked();
         }
     }
 
+    //영어 데이터가 보이게 설정했을때 실행되는 함수
     private void setEnglishData(boolean isAdd) {
-        if (isAdd) {
+        if (isAdd) {//활성화
             ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_E);
 
             final ArrayList<Entry> yvalue = new ArrayList<>();
@@ -437,13 +442,14 @@ public class AnalyeTypeFragment extends Fragment {
             chart_analyeAll.animateY(1800, Easing.EaseOutSine);
             chart_analyeAll.notifyDataSetChanged();
             chart_analyeAll.invalidate();
-        } else {
+        } else {//비활성화
             chart_analyeAll.clearValues();
             chart_analyeAll.invalidate();
             setIsChecked();
         }
     }
 
+    //과학탐구 데이터가 보이게 설정했을때 실행되는 함수
     private void setScienceData(boolean isAdd) {
         if (isAdd) {
             ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_S);
@@ -505,6 +511,7 @@ public class AnalyeTypeFragment extends Fragment {
         }
     }
 
+    //사회탐구 데이터가 보이게 설정했을때 실행되는 함수
     private void setSocialData(boolean isAdd) {
         if (isAdd) {
             ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_SC);
@@ -566,6 +573,7 @@ public class AnalyeTypeFragment extends Fragment {
         }
     }
 
+    //기타 데이터가 보이게 설정했을때 실행되는 함수
     private void setRestData(boolean isAdd) {
         if (isAdd) {
             ArrayList<Float> v = scoreDatabaseHelper.getTP(DatabaseKey.KEY_DB_TYPE_R);

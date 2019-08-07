@@ -194,13 +194,17 @@ public class MainActivity extends AppCompatActivity
         setGradeText();
     }
 
+    //성적 가져와서 필요한 텍스트/차트에 뿌리는 함수
     private void setGradeText() {
+        //성적 계산해서 가져오는 클래스 불러옴
         final CalculateGrade calculateGrade = new CalculateGrade(this);
 
+        //1학년, 2학년, 3학년 반영 비율 sharedpreference에서 가져옴
         int r1 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_1, 0);
         int r2 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_2, 0);
         int r3 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_3, 0);
 
+        //반영비율이 정의가 안되있을때 1로 강제로 가정
         if (r1 == 0||r2 == 0||r3 == 0) {
             r1 = 1;
             r2 = 1;
@@ -219,27 +223,29 @@ public class MainActivity extends AppCompatActivity
         textSum3.setText(String.valueOf(calculateGrade.getResult3()));
         textViewAll.setText(String.valueOf(calculateGrade.getResultAll()));
         textViewAllBar.setText(String.valueOf(calculateGrade.getResultAll()));
+
         if (r1 == 1&&r2 == 1&&r3 == 1) {
             text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
         } else {
             text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
         }
 
-        chart_analyze.setDragEnabled(true);
-        chart_analyze.setScaleEnabled(false);
+        chart_analyze.setDragEnabled(true);//차트 드래그 활성화
+        chart_analyze.setScaleEnabled(false);//차트 크기조절 비활성화
 
-        YAxis leftAxis = chart_analyze.getAxisLeft();
-        leftAxis.removeAllLimitLines();
-        leftAxis.setAxisMaximum(9.5f);
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.enableGridDashedLine(10f, 10f, 0);
-        leftAxis.setDrawLimitLinesBehindData(true);
-        leftAxis.setInverted(true);
-        leftAxis.setDrawAxisLine(false);
+        YAxis leftAxis = chart_analyze.getAxisLeft();//차트의 왼쪽선 가져옴
+        leftAxis.removeAllLimitLines();//제한선 제거
+        leftAxis.setAxisMaximum(9.5f);//y의 최고값 정의 (9.5)
+        leftAxis.setAxisMinimum(0f);//y의 최솟값 정의 (0)
+        leftAxis.enableGridDashedLine(10f, 10f, 0);//이건 나도 뭔지 몰라
+        leftAxis.setDrawLimitLinesBehindData(true);//몰라
+        leftAxis.setInverted(true);//역순으로 배치 활성화
+        leftAxis.setDrawAxisLine(false);//왼쪽선 그리기 비활성화
 
-        chart_analyze.getAxisRight().setEnabled(false);
+        chart_analyze.getAxisRight().setEnabled(false);//오른쪽 선은 안보이게 설정
 
-        final ArrayList<Entry> yvalue = new ArrayList<>();
+        final ArrayList<Entry> yvalue = new ArrayList<>();//각 학기마다 점수를 담을 arraylist 선언
+        //가져온 값이 0이면 특수상수인 NaN값을 넣어줌.
         if (calculateGrade.getResult11() == 0) {
             yvalue.add(new Entry(0, Float.NaN));
         } else {
@@ -270,48 +276,48 @@ public class MainActivity extends AppCompatActivity
         } else {
             yvalue.add(new Entry(5, calculateGrade.getResult32()));
         }
-        LineDataSet set1 = new LineDataSet(yvalue, "성적");
+        LineDataSet set1 = new LineDataSet(yvalue, "성적");//arraylist를 기준으로 데이터셋 만듬
 
-        set1.setFillAlpha(110);
-        set1.setLineWidth(3f);
-        set1.setCircleRadius(5f);
-        set1.setColors(ContextCompat.getColor(this, R.color.colorChartLine));
-        set1.setCircleColors(ContextCompat.getColor(this, R.color.colorChartLine));
-        set1.setValueTextSize(10f);
+        set1.setFillAlpha(110);//원 중앙에 빈공간
+        set1.setLineWidth(3f);//선 굵기 지정
+        set1.setCircleRadius(5f);//원 크기
+        set1.setColors(ContextCompat.getColor(this, R.color.colorChartLine));//선 색깔
+        set1.setCircleColors(ContextCompat.getColor(this, R.color.colorChartLine));//원 선 색깔
+        set1.setValueTextSize(10f);//원 위에 표시되는 텍스트 크기 지정
 
-        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();//차트에 표시되는 데이터셋 모임 선언
+        dataSets.add(set1);//데잍셋 모임에 set1추가
 
-        LineData data = new LineData(dataSets);
+        LineData data = new LineData(dataSets);//차트에 들어갈 데이터 완성
 
-        chart_analyze.setData(data);
+        chart_analyze.setData(data);//차트에 데이터 연결
 
-        String[] values = new String[] {"1-1", "1-2", "2-1", "2-2", "3-1", "3-2", ""};
+        String[] values = new String[] {"1-1", "1-2", "2-1", "2-2", "3-1", "3-2", ""};//x축에 보일 값
 
-        XAxis xAxis = chart_analyze.getXAxis();
+        XAxis xAxis = chart_analyze.getXAxis();//x축 가져옴
         xAxis.setValueFormatter(new ValueFormatter() {
 
             @Override
-            public String getAxisLabel(float value, AxisBase axis) {
+            public String getAxisLabel(float value, AxisBase axis) {//x축 값 지정
                 return values[(int) value];
             }
         });
-        xAxis.setGranularity(1f);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setDrawGridLinesBehindData(false);
-        xAxis.setDrawGridLines(false);
-        xAxis.setAxisMinimum(-0.2f);
-        xAxis.setAxisMaximum(5.2f);
-        xAxis.setAxisLineWidth(1f);
+        xAxis.setGranularity(1f);//몰라
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);//x축값 아래에만 표시하게 설정
+        xAxis.setDrawGridLinesBehindData(false);//데이터 뒤로 세로선 안보이게 설정
+        xAxis.setDrawGridLines(false);//세로선 그리기 비활성화
+        xAxis.setAxisMinimum(-0.2f);//x값 최솟값
+        xAxis.setAxisMaximum(5.2f);//x값 최댓값
+        xAxis.setAxisLineWidth(1f);//x축 굵기
 
-        Description description = new Description();
+        Description description = new Description();//설명 설정
         description.setText("");
 
-        chart_analyze.setDescription(description);
-        chart_analyze.setHighlightPerDragEnabled(false);
-        chart_analyze.setHighlightPerTapEnabled(false);
-        chart_analyze.animateY(1800, Easing.EaseOutSine);
-        chart_analyze.invalidate();
+        chart_analyze.setDescription(description);//설명 연결
+        chart_analyze.setHighlightPerDragEnabled(false);//몰라
+        chart_analyze.setHighlightPerTapEnabled(false);//몰라
+        chart_analyze.animateY(1800, Easing.EaseOutSine);//애니메이션 적용
+        chart_analyze.invalidate();//차트에 변경사항 있다고 알려줌
     }
 
     //카드 안 성적 입력하기 버튼 클릭 리스너
