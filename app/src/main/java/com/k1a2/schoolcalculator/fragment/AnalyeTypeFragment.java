@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,11 @@ import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -90,6 +95,7 @@ public class AnalyeTypeFragment extends Fragment {
     private TextView text_tr22 = null;
     private TextView text_tr31 = null;
     private TextView text_tr32 = null;
+    private TextView text_All = null;
     private RadarChart chart_radar = null;
 
     private ArrayList<ILineDataSet> dataSets = new ArrayList<>();
@@ -149,6 +155,7 @@ public class AnalyeTypeFragment extends Fragment {
         text_tr31 = root.findViewById(R.id.analyze_text_tr31);
         text_tr32 = root.findViewById(R.id.analyze_text_tr32);
         chart_radar = root.findViewById(R.id.analye_chart_analyzeTR);
+        text_All = root.findViewById(R.id.analyze_text_ALL);
 
         isFirst = true;
 
@@ -780,6 +787,96 @@ public class AnalyeTypeFragment extends Fragment {
         chart_radar.setDescription(description);
         chart_radar.setHighlightPerTapEnabled(false);
         chart_radar.invalidate();
+
+        final ArrayList<IValue> va = new ArrayList<>();
+        va.add(new IValue(DatabaseKey.KEY_DB_TYPE_K, k));
+        va.add(new IValue(DatabaseKey.KEY_DB_TYPE_M, m));
+        va.add(new IValue(DatabaseKey.KEY_DB_TYPE_E, e));
+        va.add(new IValue(DatabaseKey.KEY_DB_TYPE_S, s));
+        va.add(new IValue(DatabaseKey.KEY_DB_TYPE_SC, sc));
+        va.add(new IValue(DatabaseKey.KEY_DB_TYPE_R, r));
+
+        Collections.sort(va, new Comparator<IValue>() {
+            @Override
+            public int compare(IValue iValue, IValue t1) {
+                if (iValue.getScore() < t1.getScore()) {
+                    return -1;
+                } else if (iValue.getScore() > t1.getScore()) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+
+        int i = 0;
+        for (;i < va.size();i++) {
+            if (va.get(i).getScore() == 0) {
+                continue;
+            } else {
+                break;
+            }
+        }
+
+        if (i != va.size()&&i != va.size() - 1) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("가장 뛰어난 과목 계열은 ");
+            switch ((int) va.get(i).getType()) {
+                case 0: {//k
+                    stringBuilder.append("<strong><font color=\'#0B508C\'>국어 계열</font></strong>이군요.");
+                    break;
+                }
+                case 1: {//m
+                    stringBuilder.append("<strong><font color=\'#0B508C\'>수학 계열</font></strong>이군요.");
+                    break;
+                }
+                case 2: {//e
+                    stringBuilder.append("<strong><font color=\'#0B508C\'>영어 계열</font></strong>이군요.");
+                    break;
+                }
+                case 3: {//s
+                    stringBuilder.append("<strong><font color=\'#0B508C\'>과학탐구 계열</font></strong>이군요.");
+                    break;
+                }
+                case 4: {//sc
+                    stringBuilder.append("<strong><font color=\'#0B508C\'>사회탐구 계열</font></strong>이군요.");
+                    break;
+                }
+                case 5: {//r
+                    stringBuilder.append("<strong><font color=\'#0B508C\'>기타 계열</font></strong>이군요.");
+                    break;
+                }
+            }
+            stringBuilder.append("조금더 노력해야할 과목 계열은 ");
+            switch ((int) va.get(va.size() - 1).getType()) {
+                case 0: {//k
+                    stringBuilder.append("<strong><font color=\'#F23535\'>국어 계열</font></strong>이군요.");
+                    break;
+                }
+                case 1: {//m
+                    stringBuilder.append("<strong><font color=\'#F23535\'>수학 계열</font></strong>이군요.");
+                    break;
+                }
+                case 2: {//e
+                    stringBuilder.append("<strong><font color=\'#F23535\'>영어 계열</font></strong>이군요.");
+                    break;
+                }
+                case 3: {//s
+                    stringBuilder.append("<strong><font color=\'#F23535\'>과학탐구 계열</font></strong>이군요.");
+                    break;
+                }
+                case 4: {//sc
+                    stringBuilder.append("<strong><font color=\'#F23535\'>사회탐구 계열</font></strong>이군요.");
+                    break;
+                }
+                case 5: {//r
+                    stringBuilder.append("<strong><font color=\'#F23535\'>기타 계열</font></strong>이군요.");
+                    break;
+                }
+            }
+            text_All.setText(Html.fromHtml(stringBuilder.toString()));
+        } else {
+            text_All.setText("아직 데이터가 부족합니다.");
+        }
     }
 
     @Override
@@ -801,6 +898,24 @@ public class AnalyeTypeFragment extends Fragment {
                 }
             });
             isFirst = false;
+        }
+    }
+
+    private class IValue {
+        private float type = 0;
+        private float score = 0;
+
+        public IValue(float type, float score) {
+            this.type = type;
+            this.score = score;
+        }
+
+        public float getScore() {
+            return score;
+        }
+
+        public float getType() {
+            return type;
         }
     }
 }
