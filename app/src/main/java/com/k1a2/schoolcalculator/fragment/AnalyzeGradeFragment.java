@@ -32,9 +32,9 @@ import com.k1a2.schoolcalculator.R;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+/**학기별 성적 분석 프래그먼트
+ * analyzeactivity에 기생**/
+
 public class AnalyzeGradeFragment extends Fragment {
 
     private View root;

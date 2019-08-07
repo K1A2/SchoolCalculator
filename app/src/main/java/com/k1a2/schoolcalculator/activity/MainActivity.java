@@ -66,6 +66,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+/**MainActivity 모든 정보를 한번에 보여주는 액티비티**/
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -119,6 +121,7 @@ public class MainActivity extends AppCompatActivity
         button_editScore3 = (Button)findViewById(R.id.main_button_editScore3);
         text_rate = (TextView)findViewById(R.id.main_text_rate);
         button_rate = (ImageButton)findViewById(R.id.main_button_rate);
+        //성적 보여주는 텍스트
         textView11 = (TextView)findViewById(R.id.main_11text);
         textView12 = (TextView)findViewById(R.id.main_12text);
         textView21 = (TextView)findViewById(R.id.main_21text);
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity
         textSum1 = (TextView)findViewById(R.id.main_1sumtext);
         textSum2 = (TextView)findViewById(R.id.main_2sumtext);
         textSum3 = (TextView)findViewById(R.id.main_3sumtext);
+        //성적 차트
         chart_analyze = (LineChart)findViewById(R.id.main_chart_analyze);
         //button_goal = (Button)findViewById(R.id.main_button_editGoal);
 
@@ -140,6 +144,7 @@ public class MainActivity extends AppCompatActivity
         button_editScore2.setOnClickListener(onScoreEditButton);
         button_editScore3.setOnClickListener(onScoreEditButton);
 
+        //성적 분석 보기 버튼 클릭 리스너
         ((Button) findViewById(R.id.main_button_showAnalyze)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -147,10 +152,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //반영 비율 수정하기 버튼 클릭 리스너
         button_rate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                final AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);//수정 다이얼로그 띄움
                 final View root = View.inflate(MainActivity.this, R.layout.dialog_rate, null);
                 final EditText edit_r1 = (EditText) root.findViewById(R.id.dialog_edit_r1);
                 final EditText edit_r2 = (EditText) root.findViewById(R.id.dialog_edit_r2);
@@ -169,10 +175,10 @@ public class MainActivity extends AppCompatActivity
                         if (r1 < 0||r2 < 0||r3 < 0||r1 == 0||r2 == 0||r3 == 0) {
                             Toast.makeText(MainActivity.this, "음수, 0은 불가능 합니다.", Toast.LENGTH_SHORT).show();
                         } else {
-                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_1, r1).commit();
-                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_2, r2).commit();
-                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_3, r3).commit();
-                            setGradeText();
+                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_1, r1).commit();//1학년 반영비율 저장
+                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_2, r2).commit();//2학년 반영비율 저장
+                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_3, r3).commit();//3학년 반영비율 저장
+                            setGradeText();//변경된 비율로 텍스트에 다시 보여주게 설정
                         }
                     }
                 });
@@ -180,6 +186,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //목표설정 보기 버튼 클릭 리스너
 //        button_goal.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -345,23 +352,24 @@ public class MainActivity extends AppCompatActivity
         }
     };
 
-    private void startScoreEditAvtivity(Integer mode) {
+    //성적 입력하기 액티비티 띄우는 함수
+    private void startScoreEditAvtivity(Integer mode) {//mode값에 따라 몇학년 탭을 보여줄지 결정
         Intent intent = new Intent(MainActivity.this, ScoreEditActivity.class);
         switch (mode) {
             case 0: {//all
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_ALL);
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_ALL);//1학년
                 break;
             }
             case 1: {//1
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_FIRST);
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_FIRST);//1학년
                 break;
             }
             case 2: {//2
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_SECOND);
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_SECOND);//2학년
                 break;
             }
             case 3: {//3
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_THIRD);
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_THIRD);//3학년
                 break;
             }
         }
@@ -369,31 +377,31 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
+    public void onBackPressed() {//뒤로가기키 (소프트or물리)가 눌렸을때
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);//밀어서 열리는 메뉴
+        if (drawer.isDrawerOpen(GravityCompat.START)) {//메뉴가 열려있음 닫음
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else {//아님 액티비티 종료
             super.onBackPressed();
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {//툴바 메뉴 초기화
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {//툴바 메뉴 눌렸을때
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {//눌린 아이템 아이디가 셋팅일경우
             startActivity(new Intent(this, PreferenceActivity.class));
             return true;
         }
@@ -403,20 +411,20 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item) {//옆으로 밀어서 열리는 메뉴 아이템이 눌렸을때
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         switch (id) {
-            case R.id.nav_add: {
+            case R.id.nav_add: {//성적 추가
                 startScoreEditAvtivity(0);
                 break;
             }
-            case R.id.nav_search: {
+            case R.id.nav_search: {//대학정보
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
                 startActivity(intent);
             }
-            case R.id.nav_chart: {
+            case R.id.nav_chart: {//분석
                 startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
             }
         }

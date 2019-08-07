@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 
 import com.k1a2.schoolcalculator.R;
 
+/**1학년 성적 입력 프래그먼트
+ * scoreeditactivity에 기생**/
+
 public class Grade1Fragment extends Fragment {
 
     private View root = null;

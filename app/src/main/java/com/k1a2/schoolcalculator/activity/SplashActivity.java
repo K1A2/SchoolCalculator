@@ -18,6 +18,9 @@ import androidx.core.content.ContextCompat;
 
 import com.k1a2.schoolcalculator.R;
 
+/**스플래시 액티비티
+ * 이건 설명 생략. 수정 금지**/
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override

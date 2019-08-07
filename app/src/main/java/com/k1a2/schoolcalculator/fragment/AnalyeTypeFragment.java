@@ -45,9 +45,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+/**과목별 분석 프래그먼트
+ * analyzeactivity에 기생**/
+
 public class AnalyeTypeFragment extends Fragment {
 
     private View root = null;
