@@ -837,6 +837,18 @@
                     android:layout_height="300dp"
                     android:layout_marginBottom="10dp"></com.github.mikephil.charting.charts.RadarChart>
 
+                <TextView
+                    android:id="@+id/analyze_text_ALL"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:textSize="15dp"
+                    android:text="3-2"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:fontFamily="@font/scdream3"
+                    android:textColor="#000000"
+                    android:layout_height="wrap_content" />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

@@ -34,18 +34,20 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
+/**성적 분석 액티비티**/
+
 public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener {
 
-    private TabLayout tabLayout = null;
-    private ViewPager viewPager = null;
-    private Toolbar toolbar = null;
-    private View view_indicator = null;
+    private TabLayout tabLayout = null;//페이지 바꾸는 탭
+    private ViewPager viewPager = null;//프레그먼트 바뀌는 부분
+    private Toolbar toolbar = null;//툴바
+    private View view_indicator = null;//커스텀 인디케이터
 
-    private AnalyzeGradeFragment fragment_analyzeT = null;
-    private AnalyeTypeFragment fragment_analyzeG = null;
+    private AnalyzeGradeFragment fragment_analyzeG = null;//학기별 분석 프레그먼트
+    private AnalyeTypeFragment fragment_analyzeT = null;//과목별 분석 프레그먼트
 
-    private int indicatorWidth;
-    private TabPagerAdapter tabPagerAdapter = null;
+    private int indicatorWidth;//인디케이터 너비
+    private TabPagerAdapter tabPagerAdapter = null;//탭 페이지 전환 어댑터
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +59,13 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         view_indicator = findViewById(R.id.indicator);
         toolbar = findViewById(R.id.edit_toolbar);
 
-        toolbar.setTitle("성적 분석");
-        setSupportActionBar(toolbar);
+        toolbar.setTitle("성적 분석");//툴바에 보여질 택스트 설정
+        setSupportActionBar(toolbar);//이 액티비티의 툴바 지정
+        //툴바에 뒤로가기 버튼 지정
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_white_24);
 
+        //탭 추가
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setText("학기별 분석");
         tabLayout.addTab(tab1);
@@ -69,8 +73,9 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         tab2.setText("과목별 분석");
         tabLayout.addTab(tab2);
 
-        setPageAdapter();
+        setPageAdapter();//어댑터 설정
 
+        //탭의 움직임에 따라 인디케이터 위치 설정
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -83,6 +88,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         });
     }
 
+    //페이지 전환 어댑터 설정
     private void setPageAdapter() {
         tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabPagerAdapter);
@@ -178,22 +184,22 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {//툴바 메뉴 설정
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_analyze, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {//툴바 메뉴 클릭시
         switch (item.getItemId()) {
-            case R.id.menu_share: {
-                if (fragment_analyzeT != null) {
-                    fragment_analyzeT.requestView();
+            case R.id.menu_share: {//공유일때
+                if (fragment_analyzeG != null) {
+                    fragment_analyzeG.requestView();//학기별 분석 프레그먼트에 캡쳐할 뷰 요청
                 }
                 break;
             }
-            case android.R.id.home: {
+            case android.R.id.home: {//뒤로가기일때
                 finish();
                 break;
             }
@@ -212,15 +218,15 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                    if (fragment_analyzeT != null) return fragment_analyzeT; else {
-                        fragment_analyzeT = new AnalyzeGradeFragment();
-                        return fragment_analyzeT;
+                    if (fragment_analyzeG != null) return fragment_analyzeG; else {
+                        fragment_analyzeG = new AnalyzeGradeFragment();
+                        return fragment_analyzeG;
                     }
                 }
                 case 1: {
-                    if (fragment_analyzeG != null) return fragment_analyzeG; else {
-                        fragment_analyzeG = new AnalyeTypeFragment();
-                        return fragment_analyzeG;
+                    if (fragment_analyzeT != null) return fragment_analyzeT; else {
+                        fragment_analyzeT = new AnalyeTypeFragment();
+                        return fragment_analyzeT;
                     }
                 }
             }

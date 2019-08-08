@@ -9,12 +9,16 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+/**성적을 저장하고 꺼내오는 데이터베이스
+ * 왠만하면 수정금지**/
+
 public class ScoreDatabaseHelper extends SQLiteOpenHelper {
 
     public ScoreDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
+    //데이터베이스 초기화
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         final String q = DatabaseKey.KEY_TABLE_11;
@@ -43,6 +47,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //데이터 존제여부 검사 함수
     public boolean isExisit(String table, int position) {
         final SQLiteDatabase db = getReadableDatabase();
         final Cursor cursor = db.rawQuery("SELECT EXISTS (SELECT * FROM \'" + table + "\' WHERE position = \'" + position + "\') as success", null);
@@ -56,11 +61,13 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //성적 데이터 추가 함수
     public void insert(String table, String subject, int grade, int point, int type, int position) {
         final SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO \'" + table + "\' VALUES (null, \'" + subject + "\', \'" + grade + "\', \'" + point + "\', \'" + type + "\', \'" + position + "\');");
     }
 
+    //성적 데이터 수정 함수
     public void update(String table, String type, String value, int position) {
         final SQLiteDatabase db = getWritableDatabase();
         if (!type.equals(DatabaseKey.KEY_VALUE_SUBJECT)) {
@@ -79,6 +86,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //성적 데이터 삭제하는 함수
     public void delete(String table, int position) {
         final SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM \'" + table + "\' WHERE position=" + position + ";");
@@ -92,6 +100,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //데이터배이스의 정보 가져오는 함수(기억 잘 안남)
     public ArrayList<String[]> getScores(String table) {
         final ArrayList<String[]> values = new ArrayList<>();
         final SQLiteDatabase db = getWritableDatabase();
@@ -107,6 +116,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //3년의 들급과 단위 모두 리턴
     public ArrayList<Integer[]> getGP(String table) {
         final ArrayList<Integer[]> values = new ArrayList<>();
         final SQLiteDatabase db = getWritableDatabase();
@@ -126,6 +136,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //한 과목 계열의 각 학기당 성적 리턴
     public ArrayList<Float> getTP(int type) {
         final ArrayList<Float> values = new ArrayList<>();
         final SQLiteDatabase db = getWritableDatabase();
@@ -151,6 +162,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //한 괴목계열을 총합산 성적 리턴
     public float getTPA(int type) {
         final SQLiteDatabase db = getWritableDatabase();
         String[] table = new String[] {String.valueOf(11), String.valueOf(12), String.valueOf(21) , String.valueOf(22), String.valueOf(31), String.valueOf(32)};

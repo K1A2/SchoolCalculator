@@ -9,6 +9,10 @@
             android:icon="@drawable/baseline_add_black_24"
             android:title="성적 입력하기" />
         <item
+            android:id="@+id/nav_chart"
+            android:icon="@drawable/baseline_show_chart_black_18"
+            android:title="성적 분석 보기" />
+        <item
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
             android:title="대학별 평균내신 알아보기" />

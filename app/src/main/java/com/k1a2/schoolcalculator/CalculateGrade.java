@@ -10,6 +10,9 @@ import com.k1a2.schoolcalculator.sharedpreference.PreferenceKey;
 
 import java.util.ArrayList;
 
+/**등급 계산 클래스
+ * 왠만하면 수정금지**/
+
 public class CalculateGrade {
 
     private float[] f11 = null;

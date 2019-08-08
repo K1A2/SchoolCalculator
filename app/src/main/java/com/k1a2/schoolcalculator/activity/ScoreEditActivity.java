@@ -27,27 +27,29 @@ import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
 import com.k1a2.schoolcalculator.fragment.TabFragmentAdapter;
 
+/**성적 입력 액티비티**/
+
 public class ScoreEditActivity extends AppCompatActivity {
 
-    private Fragment fragment_grade1 = null;
-    private Fragment fragment_grade2 = null;
-    private Fragment fragment_grade3 = null;
-    private View view_indicator = null;
-    private TabLayout tabLayout = null;
-    private ViewPager viewPager = null;
-    private Toolbar toolbar = null;
+    private Fragment fragment_grade1 = null;//1학년 입력 프래그먼트
+    private Fragment fragment_grade2 = null;//2학년 입력 프래그먼트
+    private Fragment fragment_grade3 = null;//3학년 입력 프래그먼트
+    private View view_indicator = null;//커스터 인디케이터
+    private TabLayout tabLayout = null;//화면전환 버튼
+    private ViewPager viewPager = null;//화면전환 영역
+    private Toolbar toolbar = null;//툴바
 
-    private int indicatorWidth;
-    private TabPagerAdapter tabPagerAdapter = null;
-    private boolean isFirst = false;
+    private int indicatorWidth;//인디ㅔ이터 너비
+    private TabPagerAdapter tabPagerAdapter = null;//탭 전환 어댑터
+    private boolean isFirst = false;//처음 실행인지 여부
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_main);
-        isFirst = true;
+        isFirst = true;//처음 실행여부 true로 설정
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);//??
 
         tabLayout = findViewById(R.id.score_tablayout);
         viewPager = findViewById(R.id.score_viwewpager);
@@ -56,9 +58,11 @@ public class ScoreEditActivity extends AppCompatActivity {
 
         toolbar.setTitle("성적 입력하기");
         setSupportActionBar(toolbar);
+        //툴바에 뒤로가기 버튼 추가
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.baseline_arrow_back_white_24);
 
+        //탭 설정
         TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setText("1학년");
         tabLayout.addTab(tab1);
@@ -69,10 +73,12 @@ public class ScoreEditActivity extends AppCompatActivity {
         tab3.setText("3학년");
         tabLayout.addTab(tab3);
 
-        setPageAdapter();
+        setPageAdapter();//화면전환 어댑터 설정
 
+        //동시에 로딩되는 프래그먼트 갯수 설정
         viewPager.setOffscreenPageLimit(3);
 
+        //탭의 움직임에 따라 인디케이터 움직임
         tabLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -86,11 +92,11 @@ public class ScoreEditActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {//화면의 포커스가 바뀔때 실행됨
         super.onWindowFocusChanged(hasFocus);
         final Intent intent = getIntent();
-        if (isFirst) {
-            switch (intent.getStringExtra(ActivityKey.KEY_ACTIVITY_MODE)) {
+        if (isFirst) {//처음 한번만 실행되도록 의도
+            switch (intent.getStringExtra(ActivityKey.KEY_ACTIVITY_MODE)) {//1,2,3학년중 어느 프래그먼트를 보일지 결정
                 case ActivityKey.KEY_ACTIVITY_SCORE_ALL: {
                     tabLayout.getTabAt(0).select();
                     break;
@@ -116,12 +122,12 @@ public class ScoreEditActivity extends AppCompatActivity {
                     break;
                 }
             }
-            isFirst = false;
+            isFirst = false;//다시는 실행되지 않도록 바꿈
         }
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {//툴바 메뉴 설정
         switch (item.getItemId()) {
             case android.R.id.home: {
                 finish();
@@ -131,7 +137,7 @@ public class ScoreEditActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setPageAdapter() {
+    private void setPageAdapter() {//화면 전환 어댑터 설정
         tabPagerAdapter = new TabPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(tabPagerAdapter);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
