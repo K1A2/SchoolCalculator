@@ -700,13 +700,6 @@ public class AnalyeTypeFragment extends Fragment {
         chart_analyeAll.setHighlightPerTapEnabled(false);
         chart_analyeAll.invalidate();
 
-
-
-
-
-
-
-
         chart_radar.setTouchEnabled(false);
 
         YAxis yAxis = chart_radar.getYAxis();

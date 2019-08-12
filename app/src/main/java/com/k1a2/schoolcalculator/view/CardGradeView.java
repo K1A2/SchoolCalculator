@@ -5,8 +5,8 @@ import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 /**성적 입력 커스텀뷰
  * 절대 수정 금지**/
 
-public class CradGradeView extends CardView {
+public class CardGradeView extends CardView {
 
     private TextView text_grade = null;
     private RecyclerView recycler_grade = null;
@@ -35,18 +35,18 @@ public class CradGradeView extends CardView {
     private int level = 0;
     private GradeRecyclerAdapter gradeRecyclerAdapter = null;
 
-    public CradGradeView(@NonNull Context context) {
+    public CardGradeView(@NonNull Context context) {
         super(context);
         initView(context);
     }
 
-    public CradGradeView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public CardGradeView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         initView(context);
         getAttrs(attrs);
     }
 
-    public CradGradeView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CardGradeView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
         getAttrs(attrs, defStyleAttr);
@@ -84,24 +84,24 @@ public class CradGradeView extends CardView {
     }
 
     private void getAttrs(AttributeSet attrs) {
-        final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CradGradeView);
+        final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CardGradeView);
         setTypeArray(typedArray);
     }
 
 
     private void getAttrs(AttributeSet attrs, int defStyle) {
-        final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CradGradeView, defStyle, 0);
+        final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CardGradeView, defStyle, 0);
         setTypeArray(typedArray);
     }
 
     private void getAttrs(AttributeSet attrs, int defStyle, int defStyleAttr) {
-        final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CradGradeView, defStyle, defStyleAttr);
+        final TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.CardGradeView, defStyle, defStyleAttr);
         setTypeArray(typedArray);
     }
 
     private void setTypeArray(TypedArray typedArray) {
-        final int int_grade = typedArray.getInt(R.styleable.CradGradeView_grade, 1);
-        level = typedArray.getInt(R.styleable.CradGradeView_level, 1);
+        final int int_grade = typedArray.getInt(R.styleable.CardGradeView_grade, 1);
+        level = typedArray.getInt(R.styleable.CardGradeView_level, 1);
         gradeRecyclerAdapter.setLevel(level);
         text_grade.setText(int_grade + "학기 성적 입력");
         gradeRecyclerAdapter.setGrade(int_grade);

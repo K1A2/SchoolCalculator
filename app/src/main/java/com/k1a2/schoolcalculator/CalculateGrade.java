@@ -32,6 +32,7 @@ public class CalculateGrade {
     private float result2 = 0;
     private float result3 = 0;
     private float resultAll = 0;
+    private boolean is32Include = false;
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
     private SharedPreferences preferences_rate = null;
@@ -39,6 +40,8 @@ public class CalculateGrade {
     public CalculateGrade(Context context) {
         scoreDatabaseHelper = new ScoreDatabaseHelper(context, DatabaseKey.KEY_DB_NAME, null, 1);
         preferences_rate = PreferenceManager.getDefaultSharedPreferences(context);
+
+        is32Include = preferences_rate.getBoolean(PreferenceKey.KEY_BOOL_ISINCLUDE_GRADE3, false);
 
         f11 = getGrade(11);
         f12 = getGrade(12);
@@ -83,11 +86,16 @@ public class CalculateGrade {
         } else {
             result31 = (float) (Math.round(f31[0]/f31[1]*100)/100.0);
         }
-        if (f32 == null) {
-            result32 = 0;
+        if (is32Include) {
+            if (f32 == null) {
+                result32 = 0;
+            } else {
+                result32 = (float) (Math.round(f32[0]/f32[1]*100)/100.0);
+            }
         } else {
-            result32 = (float) (Math.round(f32[0]/f32[1]*100)/100.0);
+            result32 = 0;
         }
+
         if (f11 !=  null&&f12 != null) {
             result1 = (float) (Math.round((f11[0] + f12[0])/(f11[1] + f12[1])*100)/100.0);
         } else if (f11 ==  null&&f12 != null) {
@@ -106,84 +114,162 @@ public class CalculateGrade {
         } else {
             result2 = 0;
         }
-        if (f31 !=  null&&f32 != null) {
-            result3 = (float) (Math.round((f31[0] + f32[0])/(f31[1] + f32[1])*100)/100.0);
-        } else if (f31 ==  null&&f32 != null) {
-            result3 = (float) (Math.round(f32[0]/f32[1]*100)/100.0);
-        } else if (f31 !=  null&&f32 == null) {
-            result3 = (float) (Math.round(f31[0]/f31[1]*100)/100.0);
-        } else {
-            result3 = 0;
-        }
-        if (f11 == null&&f12 == null&&f21 == null&&f22 == null&&f31 == null&&f32 == null) {
-            resultAll = 0;
-        } else {
-            float ap1 = 0;
-            float ag1 = 0;
-            float ap2 = 0;
-            float ag2 = 0;
-            float ap3 = 0;
-            float ag3 = 0;
-
-            if (f11 != null) {
-                ag1 += f11[0];
-                ap1 += f11[1];
-            }
-            if (f12 != null) {
-                ag1 += f12[0];
-                ap1 += f12[1];
-            }
-            if (f21 != null) {
-                ag2 += f21[0];
-                ap2 += f21[1];
-            }
-            if (f22 != null) {
-                ag2 += f22[0];
-                ap2 += f22[1];
-            }
-            if (f31 != null) {
-                ag3 += f31[0];
-                ap3 += f31[1];
-            }
-            if (f32 != null) {
-                ag3 += f32[0];
-                ap3 += f32[1];
-            }
-
-            if (r1 == 1&&r2 == 1&&r3 == 1) {
-                float rr = 0;
-                float a1 = ag1/ap1;
-                float a2 = ag2/ap2;
-                float a3 = ag3/ap3;
-                if (a1 != 0) {
-                    if (!Float.isNaN(a1)) {
-                        rr += a1;
-                    }
-                }
-                if (a2 != 0) {
-                    if (!Float.isNaN(a2)) {
-                        rr += a2;
-                    }
-                }
-                if (a3 != 0) {
-                    if (!Float.isNaN(a3)) {
-                        rr += a3;
-                    }
-                }
-                resultAll = (float) (Math.round(rr/3*100)/100.0);
+        if (is32Include) {
+            if (f31 !=  null&&f32 != null) {
+                result3 = (float) (Math.round((f31[0] + f32[0])/(f31[1] + f32[1])*100)/100.0);
+            } else if (f31 ==  null&&f32 != null) {
+                result3 = (float) (Math.round(f32[0]/f32[1]*100)/100.0);
+            } else if (f31 !=  null&&f32 == null) {
+                result3 = (float) (Math.round(f31[0]/f31[1]*100)/100.0);
             } else {
-                final float rA = r1 + r2 + r3;
-                float rr = 0;
-                if (ag1 != 0&&ap1 != 0) {
-                    rr += ag1/ap1*r1/rA;
+                result3 = 0;
+            }
+        } else {
+            if (f31 !=  null) {
+                result3 = (float) (Math.round(f31[0]/f31[1]*100)/100.0);
+            } else {
+                result3 = 0;
+            }
+        }
+        if (is32Include) {
+            if (f11 == null&&f12 == null&&f21 == null&&f22 == null&&f31 == null&&f32 == null) {
+                resultAll = 0;
+            } else {
+                float ap1 = 0;
+                float ag1 = 0;
+                float ap2 = 0;
+                float ag2 = 0;
+                float ap3 = 0;
+                float ag3 = 0;
+
+                if (f11 != null) {
+                    ag1 += f11[0];
+                    ap1 += f11[1];
                 }
-                if (ag2 != 0&&ap2 != 0) {
-                    rr += ag2/ap2*r2/rA;
+                if (f12 != null) {
+                    ag1 += f12[0];
+                    ap1 += f12[1];
                 }
-                if (ag3 != 0&&ap3 != 0) {
-                    rr += ag3/ap3*r3/rA;
+                if (f21 != null) {
+                    ag2 += f21[0];
+                    ap2 += f21[1];
                 }
-                resultAll = (float) (Math.round(rr*100)/100.0);
+                if (f22 != null) {
+                    ag2 += f22[0];
+                    ap2 += f22[1];
+                }
+                if (f31 != null) {
+                    ag3 += f31[0];
+                    ap3 += f31[1];
+                }
+                if (f32 != null) {
+                    ag3 += f32[0];
+                    ap3 += f32[1];
+                }
+
+                if (r1 == 1&&r2 == 1&&r3 == 1) {
+                    float rr = 0;
+                    float a1 = ag1/ap1;
+                    float a2 = ag2/ap2;
+                    float a3 = ag3/ap3;
+                    if (a1 != 0) {
+                        if (!Float.isNaN(a1)) {
+                            rr += a1;
+                        }
+                    }
+                    if (a2 != 0) {
+                        if (!Float.isNaN(a2)) {
+                            rr += a2;
+                        }
+                    }
+                    if (a3 != 0) {
+                        if (!Float.isNaN(a3)) {
+                            rr += a3;
+                        }
+                    }
+                    resultAll = (float) (Math.round(rr/3*100)/100.0);
+                } else {
+                    final float rA = r1 + r2 + r3;
+                    float rr = 0;
+                    if (ag1 != 0&&ap1 != 0) {
+                        rr += ag1/ap1*r1/rA;
+                    }
+                    if (ag2 != 0&&ap2 != 0) {
+                        rr += ag2/ap2*r2/rA;
+                    }
+                    if (ag3 != 0&&ap3 != 0) {
+                        rr += ag3/ap3*r3/rA;
+                    }
+                    resultAll = (float) (Math.round(rr*100)/100.0);
+                }
+            }
+        } else {
+            if (f11 == null&&f12 == null&&f21 == null&&f22 == null&&f31 == null) {
+                resultAll = 0;
+            } else {
+                float ap1 = 0;
+                float ag1 = 0;
+                float ap2 = 0;
+                float ag2 = 0;
+                float ap3 = 0;
+                float ag3 = 0;
+
+                if (f11 != null) {
+                    ag1 += f11[0];
+                    ap1 += f11[1];
+                }
+                if (f12 != null) {
+                    ag1 += f12[0];
+                    ap1 += f12[1];
+                }
+                if (f21 != null) {
+                    ag2 += f21[0];
+                    ap2 += f21[1];
+                }
+                if (f22 != null) {
+                    ag2 += f22[0];
+                    ap2 += f22[1];
+                }
+                if (f31 != null) {
+                    ag3 += f31[0];
+                    ap3 += f31[1];
+                }
+
+                if (r1 == 1&&r2 == 1&&r3 == 1) {
+                    float rr = 0;
+                    float a1 = ag1/ap1;
+                    float a2 = ag2/ap2;
+                    float a3 = ag3/ap3;
+                    if (a1 != 0) {
+                        if (!Float.isNaN(a1)) {
+                            rr += a1;
+                        }
+                    }
+                    if (a2 != 0) {
+                        if (!Float.isNaN(a2)) {
+                            rr += a2;
+                        }
+                    }
+                    if (a3 != 0) {
+                        if (!Float.isNaN(a3)) {
+                            rr += a3;
+                        }
+                    }
+                    resultAll = (float) (Math.round(rr/3*100)/100.0);
+                } else {
+                    final float rA = r1 + r2 + r3;
+                    float rr = 0;
+                    if (ag1 != 0&&ap1 != 0) {
+                        rr += ag1/ap1*r1/rA;
+                    }
+                    if (ag2 != 0&&ap2 != 0) {
+                        rr += ag2/ap2*r2/rA;
+                    }
+                    if (ag3 != 0&&ap3 != 0) {
+                        rr += ag3/ap3*r3/rA;
+                    }
+                    resultAll = (float) (Math.round(rr*100)/100.0);
+                }
             }
         }
     }

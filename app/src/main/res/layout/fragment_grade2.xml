@@ -11,23 +11,23 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.k1a2.schoolcalculator.view.CradGradeView
+        <com.k1a2.schoolcalculator.view.CardGradeView
             app:grade="1"
             app:level="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
-        </com.k1a2.schoolcalculator.view.CradGradeView>
+        </com.k1a2.schoolcalculator.view.CardGradeView>
 
-        <com.k1a2.schoolcalculator.view.CradGradeView
+        <com.k1a2.schoolcalculator.view.CardGradeView
             app:grade="2"
             app:level="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
-        </com.k1a2.schoolcalculator.view.CradGradeView>
+        </com.k1a2.schoolcalculator.view.CardGradeView>
 
     </LinearLayout>
 

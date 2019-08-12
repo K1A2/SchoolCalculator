@@ -11,23 +11,30 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.k1a2.schoolcalculator.view.CradGradeView
+        <com.k1a2.schoolcalculator.view.CardGradeView
             app:grade="1"
             app:level="3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+        </com.k1a2.schoolcalculator.view.CardGradeView>
 
-        </com.k1a2.schoolcalculator.view.CradGradeView>
+        <CheckBox
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:text="3학년 2학기 성적 포함하기"
+            android:id="@+id/grade3_check_isinclude"
+            android:textSize="20dp"
+            android:layout_height="wrap_content" />
 
-        <com.k1a2.schoolcalculator.view.CradGradeView
+        <com.k1a2.schoolcalculator.view.CardGradeView
             app:grade="2"
             app:level="3"
+            android:id="@+id/grade3_card_32"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-
-        </com.k1a2.schoolcalculator.view.CradGradeView>
+        </com.k1a2.schoolcalculator.view.CardGradeView>
 
     </LinearLayout>
 

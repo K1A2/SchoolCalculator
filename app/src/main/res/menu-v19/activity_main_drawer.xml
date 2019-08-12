@@ -17,6 +17,10 @@
             android:id="@+id/nav_search"
             android:icon="@drawable/ic_search"
             android:title="대학별 평균내신 알아보기" />
+        <item
+            android:icon="@drawable/ic_homepage"
+            android:id="@+id/nav_homepage"
+            android:title="홈페이지"/>
     </group>
 
 </menu>
