@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -155,17 +156,30 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
                 e.printStackTrace();
             }
 
-            Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, new File(adress));
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-            Intent shareintent = new Intent(Intent.ACTION_SEND);
+                Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, new File(adress));
+                Intent shareintent = new Intent(Intent.ACTION_SEND);
 
-            shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-            shareintent.setType("image/*");
+                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareintent.setType("image/*");
 
-            Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-            startActivity(chooser);
-            //아니면 멀쩡히 잘 온거
+                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                startActivity(chooser);
+
+            }else{
+
+                Uri uri = Uri.fromFile(new File(adress));
+                Intent shareintent = new Intent(Intent.ACTION_SEND);
+
+                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareintent.setType("image/*");
+
+                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                startActivity(chooser);
+            }
+
         }
     }
 
