@@ -78,8 +78,6 @@ public class CardGradeView extends CardView {
             }
         });
 
-
-
         addView(view);
     }
 

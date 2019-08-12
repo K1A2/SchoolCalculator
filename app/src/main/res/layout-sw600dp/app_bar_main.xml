@@ -1,0 +1,1050 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity"
+    android:paddingBottom="10dp">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@drawable/toolbar_background"
+            android:background="@drawable/toolbar_background"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_gravity="center_horizontal"
+                    android:text="종합 성적"
+                    android:textSize="30dp"
+                    android:fontFamily="@font/scdream4"
+                    android:textColor="#FFFFFFFF"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3.6"
+                    android:fontFamily="@font/scdream3"
+                    android:textSize="25dp"
+                    android:id="@+id/main_text_allApp"
+                    android:textColor="#FFFFFF"/>
+
+                <LinearLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/main_text_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="등급 반영 비율 1:1:1"
+                        android:fontFamily="@font/scdream2"
+                        android:layout_marginRight="5dp"
+                        android:textColor="#FFFFFFFF"/>
+
+                    <ImageButton
+                        android:id="@+id/main_button_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:backgroundTintMode="add"
+                        android:elevation="0dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:src="@drawable/baseline_create_white_18"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.MainActivity"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        tools:showIn="@layout/app_bar_main">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="4dp"
+                app:contentPadding="10dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="목표 성적"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/scdream3"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전 과목 목표 평균 등급"
+                        android:textSize="17dp"
+                        android:fontFamily="@font/scdream3"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3.6"
+                        android:textSize="17dp"
+                        android:id="@+id/main_text_all_goal"
+                        android:fontFamily="@font/scdream2"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:id="@+id/main_text_rate_goal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="등급 반영 비율 1:1:1"
+                        android:fontFamily="@font/scdream2"
+                        android:layout_marginRight="5dp"
+                        android:textColor="#000000"/>
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorDivider"/>
+
+                    <LinearLayout
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:layout_alignLeft="@id/main_center_activityg"
+                                android:layout_alignParentLeft="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1학년 목표 평균 등급"
+                                    android:textSize="15dp"
+                                    android:gravity="center_horizontal"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_1sumtext_goal"
+                                    android:textSize="15dp"
+                                    android:gravity="center_horizontal"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/main_center_activityg"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2학년 목표 평균 등급"
+                                    android:gravity="center_horizontal"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_2sumtext_goal"
+                                    android:textSize="15dp"
+                                    android:gravity="center_horizontal"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:layout_alignRight="@id/main_center_activityg"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_marginTop="5dp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="3학년 목표 평균 등급"
+                                    android:textSize="15dp"
+                                    android:gravity="center_horizontal"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_3sumtext_goal"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:gravity="center_horizontal"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/main_button_editGoal"
+                        android:layout_gravity="right"
+                        android:text="목표 성적 입력하기"
+                        android:padding="3dp"
+                        android:textColor="#F18B8D"
+                        android:drawableTint="#F18B8D"
+                        android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:fontFamily="@font/scdream3"
+                        android:gravity="center_vertical"
+                        android:backgroundTint="#00FFFFFF"
+                        android:elevation="0dp"
+                        android:drawableTintMode="src_in"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="4dp"
+                app:contentPadding="10dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="종합 성적"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/scdream3"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="전 과목 평균 등급"
+                        android:textSize="17dp"
+                        android:fontFamily="@font/scdream3"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3.6"
+                        android:textSize="17dp"
+                        android:id="@+id/main_text_all"
+                        android:fontFamily="@font/scdream2"
+                        android:textColor="#000000"/>
+
+                    <View
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorDivider"/>
+
+                    <LinearLayout
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:gravity="center_horizontal"
+                            android:layout_alignLeft="@id/main_center_activity"
+                            android:layout_alignParentLeft="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1학년 평균 등급"
+                                android:textSize="15dp"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/scdream3"
+                                android:textColor="#000000"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/main_1sumtext"
+                                android:textSize="15dp"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/scdream2"
+                                android:textColor="#000000"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/main_center_activity"
+                            android:layout_centerHorizontal="true"
+                            android:gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2학년 평균 등급"
+                                android:gravity="center_horizontal"
+                                android:textSize="15dp"
+                                android:fontFamily="@font/scdream3"
+                                android:textColor="#000000"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/main_2sumtext"
+                                android:textSize="15dp"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/scdream2"
+                                android:textColor="#000000"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:gravity="center_horizontal"
+                            android:layout_alignRight="@id/main_center_activity"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="5dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3학년 평균 등급"
+                                android:textSize="15dp"
+                                android:gravity="center_horizontal"
+                                android:fontFamily="@font/scdream3"
+                                android:textColor="#000000"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/main_3sumtext"
+                                android:fontFamily="@font/scdream2"
+                                android:textSize="15dp"
+                                android:gravity="center_horizontal"
+                                android:textColor="#000000"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/main_button_editScoreAll"
+                        android:layout_gravity="right"
+                        android:text="성적 입력하기"
+                        android:padding="3dp"
+                        android:textColor="#F18B8D"
+                        android:drawableTint="#F18B8D"
+                        android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:fontFamily="@font/scdream3"
+                        android:gravity="center_vertical"
+                        android:backgroundTint="#00FFFFFF"
+                        android:backgroundTintMode="add"
+                        android:elevation="0dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardElevation="4dp"
+                app:contentPadding="10dp"
+                app:cardUseCompatPadding="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성적 분석"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:fontFamily="@font/scdream3"
+                        android:textColor="#000000"/>
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:padding="5dp"
+                        android:layout_marginTop="5dp"
+                        android:id="@+id/main_chart_analyze"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"></com.github.mikephil.charting.charts.LineChart>
+
+                    <Button
+                        android:id="@+id/main_button_showAnalyze"
+                        android:layout_gravity="right"
+                        android:text="성적 분석 보기"
+                        android:padding="3dp"
+                        android:textColor="#F18B8D"
+                        android:drawableTint="#F18B8D"
+                        android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:fontFamily="@font/scdream3"
+                        android:gravity="center_vertical"
+                        android:backgroundTint="#00FFFFFF"
+                        android:backgroundTintMode="add"
+                        android:elevation="0dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_weight="1"
+                    android:layout_marginRight="3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:padding="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1학년 평균 등급"
+                            android:textSize="17dp"
+                            android:fontFamily="@font/scdream3"
+                            android:textStyle="bold"
+                            android:textColor="#000000"/>
+
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorDivider"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1학기 평균등급"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_11text"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorDivider"/>
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_12text"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/main_button_editScore1"
+                            android:layout_gravity="right"
+                            android:padding="3dp"
+                            android:text="1학년 성적 입력하기"
+                            android:textColor="#F18B8D"
+                            android:drawableTint="#F18B8D"
+                            android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:fontFamily="@font/scdream3"
+                            android:gravity="center_vertical"
+                            android:backgroundTint="#00FFFFFF"
+                            android:backgroundTintMode="add"
+                            android:elevation="0dp"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_marginRight="3dp"
+                        android:background="#37368F"
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="3dp"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:padding="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2학년 평균 등급"
+                            android:textSize="17dp"
+                            android:fontFamily="@font/scdream3"
+                            android:textStyle="bold"
+                            android:textColor="#000000"/>
+
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorDivider"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_21text"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorDivider"/>
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_22text"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/main_button_editScore2"
+                            android:layout_gravity="right"
+                            android:padding="3dp"
+                            android:text="2학년 성적 입력하기"
+                            android:textColor="#F18B8D"
+                            android:drawableTint="#F18B8D"
+                            android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:fontFamily="@font/scdream3"
+                            android:gravity="center_vertical"
+                            android:backgroundTint="#00FFFFFF"
+                            android:backgroundTintMode="add"
+                            android:elevation="0dp"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_marginRight="3dp"
+                        android:background="#E973C3"
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:padding="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3학년 평균 등급"
+                            android:textStyle="bold"
+                            android:textSize="17dp"
+                            android:fontFamily="@font/scdream3"
+                            android:textColor="#000000"/>
+
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorDivider"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_weight="1"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_31text"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorDivider"/>
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/main_32text"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:id="@+id/main_button_editScore3"
+                            android:layout_gravity="right"
+                            android:padding="3dp"
+                            android:text="3학년 성적 입력하기"
+                            android:textColor="#F18B8D"
+                            android:drawableTint="#F18B8D"
+                            android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:fontFamily="@font/scdream3"
+                            android:gravity="center_vertical"
+                            android:backgroundTint="#00FFFFFF"
+                            android:backgroundTintMode="add"
+                            android:elevation="0dp"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_marginRight="3dp"
+                        android:background="#37368F"
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    app:cardElevation="2dp"
+                    app:cardUseCompatPadding="true"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="3dp"
+                    android:visibility="invisible"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:padding="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2학년 평균 등급"
+                            android:textSize="17dp"
+                            android:fontFamily="@font/scdream3"
+                            android:textStyle="bold"
+                            android:textColor="#000000"/>
+
+                        <View
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorDivider"/>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="1학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"
+                                android:background="@color/colorDivider"/>
+
+                            <LinearLayout
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2학기 평균등급"
+                                    android:textSize="15dp"
+                                    android:fontFamily="@font/scdream3"
+                                    android:textColor="#000000"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/scdream2"
+                                    android:textSize="15dp"
+                                    android:textColor="#000000"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <Button
+                            android:layout_gravity="right"
+                            android:padding="3dp"
+                            android:text="2학년 성적 입력하기"
+                            android:textColor="#F18B8D"
+                            android:drawableTint="#F18B8D"
+                            android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                            android:minHeight="0dp"
+                            android:minWidth="0dp"
+                            android:fontFamily="@font/scdream3"
+                            android:gravity="center_vertical"
+                            android:backgroundTint="#00FFFFFF"
+                            android:backgroundTintMode="add"
+                            android:elevation="0dp"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_marginRight="3dp"
+                        android:background="#E973C3"
+                        android:layout_width="5dp"
+                        android:layout_height="match_parent"/>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <!--<androidx.cardview.widget.CardView-->
+            <!--app:cardElevation="2dp"-->
+            <!--app:contentPadding="10dp"-->
+            <!--app:cardUseCompatPadding="true"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="목표 성적"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textColor="#000000"/>-->
+
+            <!--</androidx.cardview.widget.CardView>-->
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
