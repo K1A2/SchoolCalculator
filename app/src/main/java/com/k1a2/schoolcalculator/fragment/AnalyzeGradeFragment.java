@@ -337,9 +337,9 @@ public class AnalyzeGradeFragment extends Fragment {
     public void requestView() {
         if (root != null) {
             final View capture = root.findViewById(R.id.capture);
-            onCaptureViewRequestListener.OnViewRequest(capture);
+            onCaptureViewRequestListener.OnViewRequestGrade(capture);
         } else {
-            onCaptureViewRequestListener.OnViewRequest(null);
+            onCaptureViewRequestListener.OnViewRequestGrade(null);
         }
     }
 
@@ -349,6 +349,6 @@ public class AnalyzeGradeFragment extends Fragment {
     }
 
     public interface OnCaptureViewRequestListener {
-        public void OnViewRequest(View captureView);
+        public void OnViewRequestGrade(View captureView);
     }
 }

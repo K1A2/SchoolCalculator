@@ -36,7 +36,7 @@ import java.io.FileOutputStream;
 
 /**성적 분석 액티비티**/
 
-public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener {
+public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener, AnalyeTypeFragment.OnCaptureViewRequestListener {
 
     private TabLayout tabLayout = null;//페이지 바꾸는 탭
     private ViewPager viewPager = null;//프레그먼트 바뀌는 부분
@@ -135,7 +135,56 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
 
     //캡쳐할 뷰가 오는곳
     @Override
-    public void OnViewRequest(View captureView) {
+    public void OnViewRequestGrade(View captureView) {
+        if (captureView == null) {
+            Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
+            //null이면 오류난거임
+        } else {
+            LinearLayout container;
+            container = (LinearLayout)findViewById(R.id.fragment_analye_grade_layout);
+            container.buildDrawingCache();
+            Bitmap captureView1 = container.getDrawingCache();
+            String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
+            FileOutputStream fos;
+
+            try {
+
+                fos = new FileOutputStream(adress);
+                captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, new File(adress));
+                Intent shareintent = new Intent(Intent.ACTION_SEND);
+
+                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareintent.setType("image/*");
+
+                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                startActivity(chooser);
+
+            }else{
+
+                Uri uri = Uri.fromFile(new File(adress));
+                Intent shareintent = new Intent(Intent.ACTION_SEND);
+
+                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareintent.setType("image/*");
+
+                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                startActivity(chooser);
+            }
+
+        }
+    }
+
+    @Override
+    public void OnViewRequestType(View captureView) {
         if (captureView == null) {
             Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
             //null이면 오류난거임
@@ -194,8 +243,20 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {//툴바 메뉴 클릭시
         switch (item.getItemId()) {
             case R.id.menu_share: {//공유일때
-                if (fragment_analyzeG != null) {
-                    fragment_analyzeG.requestView();//학기별 분석 프레그먼트에 캡쳐할 뷰 요청
+                int p = tabLayout.getSelectedTabPosition();
+                switch (p) {
+                    case 0: {
+                        if (fragment_analyzeG != null) {
+                            fragment_analyzeG.requestView();//학기별 분석 프레그먼트에 캡쳐할 뷰 요청
+                        }
+                        break;
+                    }
+                    case 1: {
+                        if (fragment_analyzeT != null) {
+                            fragment_analyzeT.requestView();//학기별 분석 프레그먼트에 캡쳐할 뷰 요청
+                        }
+                        break;
+                    }
                 }
                 break;
             }

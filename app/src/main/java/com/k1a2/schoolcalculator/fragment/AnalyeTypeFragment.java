@@ -1,6 +1,7 @@
 package com.k1a2.schoolcalculator.fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -102,6 +103,13 @@ public class AnalyeTypeFragment extends Fragment {
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
     private CalculateGrade calculateGrade = null;
     private boolean isFirst = false;
+    private OnCaptureViewRequestListener onCaptureViewRequestListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        onCaptureViewRequestListener = (OnCaptureViewRequestListener)activity;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -918,5 +926,18 @@ public class AnalyeTypeFragment extends Fragment {
         public float getType() {
             return type;
         }
+    }
+
+    public void requestView() {
+        if (root != null) {
+            final View capture = root.findViewById(R.id.captureT);
+            onCaptureViewRequestListener.OnViewRequestType(capture);
+        } else {
+            onCaptureViewRequestListener.OnViewRequestType(null);
+        }
+    }
+
+    public interface OnCaptureViewRequestListener {
+        public void OnViewRequestType(View captureView);
     }
 }
