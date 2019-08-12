@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:actionMenuTextColor">#FF000000</item>
+        <item name="android:fontFamily">@font/scdream2</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -24,6 +26,10 @@
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/scdream3</item>
 
+    </style>
+
+    <style name="item_textcolor_v19" parent="AppTheme">
+        <item name="android:textColor">#FF000000</item>
     </style>
 
 </resources>

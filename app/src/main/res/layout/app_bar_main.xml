@@ -288,8 +288,8 @@
                         android:fontFamily="@font/scdream3"
                         android:gravity="center_vertical"
                         android:backgroundTint="#00FFFFFF"
-                        android:backgroundTintMode="add"
                         android:elevation="0dp"
+                        android:drawableTintMode="src_in"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

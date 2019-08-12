@@ -151,7 +151,26 @@ public class CalculateGrade {
             }
 
             if (r1 == 1&&r2 == 1&&r3 == 1) {
-                resultAll = (float) (Math.round((ag1 + ag2 + ag3)/(ap1 + ap2 + ap3)*100)/100.0);
+                float rr = 0;
+                float a1 = ag1/ap1;
+                float a2 = ag2/ap2;
+                float a3 = ag3/ap3;
+                if (a1 != 0) {
+                    if (!Float.isNaN(a1)) {
+                        rr += a1;
+                    }
+                }
+                if (a2 != 0) {
+                    if (!Float.isNaN(a2)) {
+                        rr += a2;
+                    }
+                }
+                if (a3 != 0) {
+                    if (!Float.isNaN(a3)) {
+                        rr += a3;
+                    }
+                }
+                resultAll = (float) (Math.round(rr/3*100)/100.0);
             } else {
                 final float rA = r1 + r2 + r3;
                 float rr = 0;

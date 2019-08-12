@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/tab_bg"
+            app:tabIndicator="@null"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"

@@ -47,6 +47,7 @@
             app:tabTextAppearance="@style/tab_text"
             app:tabSelectedTextColor="#ffffff"
             app:tabIndicatorColor="@null"
+            app:tabIndicator="@null"
             app:tabRippleColor="@null"/>
 
     </FrameLayout>
