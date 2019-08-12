@@ -108,195 +108,195 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.cardview.widget.CardView
-                app:cardElevation="4dp"
-                app:contentPadding="10dp"
-                app:cardUseCompatPadding="true"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--<androidx.cardview.widget.CardView-->
+                <!--app:cardElevation="4dp"-->
+                <!--app:contentPadding="10dp"-->
+                <!--app:cardUseCompatPadding="true"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <!--<LinearLayout-->
+                    <!--android:orientation="vertical"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="목표 성적"
-                        android:textStyle="bold"
-                        android:textSize="20dp"
-                        android:fontFamily="@font/scdream3"
-                        android:textColor="#000000"/>
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="목표 성적"-->
+                        <!--android:textStyle="bold"-->
+                        <!--android:textSize="20dp"-->
+                        <!--android:fontFamily="@font/scdream3"-->
+                        <!--android:textColor="#000000"/>-->
 
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="전 과목 목표 평균 등급"
-                        android:textSize="17dp"
-                        android:fontFamily="@font/scdream3"
-                        android:textColor="#000000"/>
+                    <!--<TextView-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="전 과목 목표 평균 등급"-->
+                        <!--android:textSize="17dp"-->
+                        <!--android:fontFamily="@font/scdream3"-->
+                        <!--android:textColor="#000000"/>-->
 
-                    <TextView
-                        android:layout_gravity="center_horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="3.6"
-                        android:textSize="17dp"
-                        android:id="@+id/main_text_all_goal"
-                        android:fontFamily="@font/scdream2"
-                        android:textColor="#000000"/>
+                    <!--<TextView-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="3.6"-->
+                        <!--android:textSize="17dp"-->
+                        <!--android:id="@+id/main_text_all_goal"-->
+                        <!--android:fontFamily="@font/scdream2"-->
+                        <!--android:textColor="#000000"/>-->
 
-                    <TextView
-                        android:gravity="center_horizontal"
-                        android:layout_gravity="center_horizontal"
-                        android:id="@+id/main_text_rate_goal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="등급 반영 비율 1:1:1"
-                        android:fontFamily="@font/scdream2"
-                        android:layout_marginRight="5dp"
-                        android:textColor="#000000"/>
+                    <!--<TextView-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:layout_gravity="center_horizontal"-->
+                        <!--android:id="@+id/main_text_rate_goal"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="등급 반영 비율 1:1:1"-->
+                        <!--android:fontFamily="@font/scdream2"-->
+                        <!--android:layout_marginRight="5dp"-->
+                        <!--android:textColor="#000000"/>-->
 
-                    <View
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorDivider"/>
+                    <!--<View-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="1dp"-->
+                        <!--android:background="@color/colorDivider"/>-->
 
-                    <LinearLayout
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                    <!--<LinearLayout-->
+                        <!--android:layout_marginLeft="5dp"-->
+                        <!--android:layout_marginRight="5dp"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent">-->
 
-                        <LinearLayout
-                            android:layout_marginLeft="5dp"
-                            android:layout_marginRight="5dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                        <!--<LinearLayout-->
+                            <!--android:layout_marginLeft="5dp"-->
+                            <!--android:layout_marginRight="5dp"-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent">-->
 
-                            <LinearLayout
-                                android:gravity="center_horizontal"
-                                android:layout_alignLeft="@id/main_center_activityg"
-                                android:layout_alignParentLeft="true"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                            <!--<LinearLayout-->
+                                <!--android:gravity="center_horizontal"-->
+                                <!--android:layout_alignLeft="@id/main_center_activityg"-->
+                                <!--android:layout_alignParentLeft="true"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:orientation="vertical">-->
 
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="1학년 목표 평균 등급"
-                                    android:textSize="15dp"
-                                    android:gravity="center_horizontal"
-                                    android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                <!--<TextView-->
+                                    <!--android:layout_marginTop="5dp"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="1학년 목표 평균 등급"-->
+                                    <!--android:textSize="15dp"-->
+                                    <!--android:gravity="center_horizontal"-->
+                                    <!--android:fontFamily="@font/scdream3"-->
+                                    <!--android:textColor="#000000"/>-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/main_1sumtext_goal"
-                                    android:textSize="15dp"
-                                    android:gravity="center_horizontal"
-                                    android:fontFamily="@font/scdream2"
-                                    android:textColor="#000000"/>
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:id="@+id/main_1sumtext_goal"-->
+                                    <!--android:textSize="15dp"-->
+                                    <!--android:gravity="center_horizontal"-->
+                                    <!--android:fontFamily="@font/scdream2"-->
+                                    <!--android:textColor="#000000"/>-->
 
-                            </LinearLayout>
+                            <!--</LinearLayout>-->
 
-                            <LinearLayout
-                                android:id="@+id/main_center_activityg"
-                                android:layout_centerHorizontal="true"
-                                android:gravity="center_horizontal"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                            <!--<LinearLayout-->
+                                <!--android:id="@+id/main_center_activityg"-->
+                                <!--android:layout_centerHorizontal="true"-->
+                                <!--android:gravity="center_horizontal"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:orientation="vertical">-->
 
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="2학년 목표 평균 등급"
-                                    android:gravity="center_horizontal"
-                                    android:textSize="15dp"
-                                    android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                <!--<TextView-->
+                                    <!--android:layout_marginTop="5dp"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="2학년 목표 평균 등급"-->
+                                    <!--android:gravity="center_horizontal"-->
+                                    <!--android:textSize="15dp"-->
+                                    <!--android:fontFamily="@font/scdream3"-->
+                                    <!--android:textColor="#000000"/>-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/main_2sumtext_goal"
-                                    android:textSize="15dp"
-                                    android:gravity="center_horizontal"
-                                    android:fontFamily="@font/scdream2"
-                                    android:textColor="#000000"/>
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:id="@+id/main_2sumtext_goal"-->
+                                    <!--android:textSize="15dp"-->
+                                    <!--android:gravity="center_horizontal"-->
+                                    <!--android:fontFamily="@font/scdream2"-->
+                                    <!--android:textColor="#000000"/>-->
 
-                            </LinearLayout>
+                            <!--</LinearLayout>-->
 
-                            <LinearLayout
-                                android:gravity="center_horizontal"
-                                android:layout_alignRight="@id/main_center_activityg"
-                                android:layout_alignParentRight="true"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                            <!--<LinearLayout-->
+                                <!--android:gravity="center_horizontal"-->
+                                <!--android:layout_alignRight="@id/main_center_activityg"-->
+                                <!--android:layout_alignParentRight="true"-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:layout_weight="1"-->
+                                <!--android:orientation="vertical">-->
 
-                                <TextView
-                                    android:layout_marginTop="5dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="3학년 목표 평균 등급"
-                                    android:textSize="15dp"
-                                    android:gravity="center_horizontal"
-                                    android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                <!--<TextView-->
+                                    <!--android:layout_marginTop="5dp"-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:text="3학년 목표 평균 등급"-->
+                                    <!--android:textSize="15dp"-->
+                                    <!--android:gravity="center_horizontal"-->
+                                    <!--android:fontFamily="@font/scdream3"-->
+                                    <!--android:textColor="#000000"/>-->
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/main_3sumtext_goal"
-                                    android:fontFamily="@font/scdream2"
-                                    android:textSize="15dp"
-                                    android:gravity="center_horizontal"
-                                    android:textColor="#000000"/>
+                                <!--<TextView-->
+                                    <!--android:layout_width="wrap_content"-->
+                                    <!--android:layout_height="wrap_content"-->
+                                    <!--android:id="@+id/main_3sumtext_goal"-->
+                                    <!--android:fontFamily="@font/scdream2"-->
+                                    <!--android:textSize="15dp"-->
+                                    <!--android:gravity="center_horizontal"-->
+                                    <!--android:textColor="#000000"/>-->
 
-                            </LinearLayout>
+                            <!--</LinearLayout>-->
 
-                        </LinearLayout>
+                        <!--</LinearLayout>-->
 
-                    </LinearLayout>
+                    <!--</LinearLayout>-->
 
-                    <Button
-                        android:id="@+id/main_button_editGoal"
-                        android:layout_gravity="right"
-                        android:text="목표 성적 입력하기"
-                        android:padding="3dp"
-                        android:textColor="#F18B8D"
-                        android:drawableTint="#F18B8D"
-                        android:drawableRight="@drawable/baseline_trending_flat_black_24"
-                        android:minHeight="0dp"
-                        android:minWidth="0dp"
-                        android:fontFamily="@font/scdream3"
-                        android:gravity="center_vertical"
-                        android:backgroundTint="#00FFFFFF"
-                        android:elevation="0dp"
-                        android:drawableTintMode="src_in"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                    <!--<Button-->
+                        <!--android:id="@+id/main_button_editGoal"-->
+                        <!--android:layout_gravity="right"-->
+                        <!--android:text="목표 성적 입력하기"-->
+                        <!--android:padding="3dp"-->
+                        <!--android:textColor="#F18B8D"-->
+                        <!--android:drawableTint="#F18B8D"-->
+                        <!--android:drawableRight="@drawable/baseline_trending_flat_black_24"-->
+                        <!--android:minHeight="0dp"-->
+                        <!--android:minWidth="0dp"-->
+                        <!--android:fontFamily="@font/scdream3"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:backgroundTint="#00FFFFFF"-->
+                        <!--android:elevation="0dp"-->
+                        <!--android:drawableTintMode="src_in"-->
+                        <!--style="?android:attr/borderlessButtonStyle"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"/>-->
 
-                </LinearLayout>
+                <!--</LinearLayout>-->
 
-            </androidx.cardview.widget.CardView>
+            <!--</androidx.cardview.widget.CardView>-->
 
             <androidx.cardview.widget.CardView
                 app:cardElevation="4dp"

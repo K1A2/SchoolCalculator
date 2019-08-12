@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity
         textSum3 = (TextView)findViewById(R.id.main_3sumtext);
         //성적 차트
         chart_analyze = (LineChart)findViewById(R.id.main_chart_analyze);
-        button_goal = (Button)findViewById(R.id.main_button_editGoal);
+        //button_goal = (Button)findViewById(R.id.main_button_editGoal);
 
         //리스너 연결
         button_editScoreAll.setOnClickListener(onScoreEditButton);
@@ -186,12 +186,12 @@ public class MainActivity extends AppCompatActivity
         });
 
         //목표설정 보기 버튼 클릭 리스너
-        button_goal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, GoalActivity.class));
-            }
-        });
+//        button_goal.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(MainActivity.this, GoalActivity.class));
+//            }
+//        });
     }
 
     @Override
