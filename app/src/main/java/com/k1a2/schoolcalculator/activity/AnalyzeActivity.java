@@ -190,7 +190,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
             //null이면 오류난거임
         } else {
             LinearLayout container;
-            container = (LinearLayout)findViewById(R.id.fragment_analye_grade_layout);
+            container = (LinearLayout)findViewById(R.id.fragment_analye_type_layout);
             container.buildDrawingCache();
             Bitmap captureView1 = container.getDrawingCache();
             String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
