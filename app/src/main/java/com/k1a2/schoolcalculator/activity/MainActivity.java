@@ -421,11 +421,20 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_search: {//대학정보
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
-                startActivity(intent);
+                Intent intentS = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
+                startActivity(intentS);
+                break;
+            }
+            case R.id.nav_homepage: {//홈페이지 연결
+                Intent intentH = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ldm0830.wixsite.com/schoolcalculator"));
+                startActivity(intentH);
+                break;
             }
             case R.id.nav_chart: {//분석
-                startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
+                Intent intentC = new Intent(MainActivity.this, AnalyzeActivity.class);
+                intentC.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intentC);
+                break;
             }
         }
 
