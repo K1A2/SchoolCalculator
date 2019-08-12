@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
 import com.k1a2.schoolcalculator.BuildConfig;
-import com.k1a2.schoolcalculator.fragment.AnalyeTypeFragment;
+import com.k1a2.schoolcalculator.fragment.AnalyzeTypeFragment;
 import com.k1a2.schoolcalculator.fragment.AnalyzeGradeFragment;
 import com.k1a2.schoolcalculator.R;
 
@@ -36,7 +36,7 @@ import java.io.FileOutputStream;
 
 /**성적 분석 액티비티**/
 
-public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener, AnalyeTypeFragment.OnCaptureViewRequestListener {
+public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFragment.OnCaptureViewRequestListener, AnalyzeTypeFragment.OnCaptureViewRequestListener {
 
     private TabLayout tabLayout = null;//페이지 바꾸는 탭
     private ViewPager viewPager = null;//프레그먼트 바뀌는 부분
@@ -44,7 +44,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
     private View view_indicator = null;//커스텀 인디케이터
 
     private AnalyzeGradeFragment fragment_analyzeG = null;//학기별 분석 프레그먼트
-    private AnalyeTypeFragment fragment_analyzeT = null;//과목별 분석 프레그먼트
+    private AnalyzeTypeFragment fragment_analyzeT = null;//과목별 분석 프레그먼트
 
     private int indicatorWidth;//인디케이터 너비
     private TabPagerAdapter tabPagerAdapter = null;//탭 페이지 전환 어댑터
@@ -228,7 +228,6 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
                 Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
                 startActivity(chooser);
             }
-
         }
     }
 
@@ -286,7 +285,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
                 }
                 case 1: {
                     if (fragment_analyzeT != null) return fragment_analyzeT; else {
-                        fragment_analyzeT = new AnalyeTypeFragment();
+                        fragment_analyzeT = new AnalyzeTypeFragment();
                         return fragment_analyzeT;
                     }
                 }

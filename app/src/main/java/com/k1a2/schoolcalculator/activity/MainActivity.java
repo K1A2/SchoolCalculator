@@ -3,8 +3,6 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,28 +15,21 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
-import com.github.mikephil.charting.utils.Utils;
 import com.google.android.material.navigation.NavigationView;
-import com.k1a2.schoolcalculator.BuildConfig;
-import com.k1a2.schoolcalculator.CalculateGrade;
+import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
@@ -53,18 +44,10 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
 
 /**MainActivity 모든 정보를 한번에 보여주는 액티비티**/
 
@@ -203,7 +186,7 @@ public class MainActivity extends AppCompatActivity
     //성적 가져와서 필요한 텍스트/차트에 뿌리는 함수
     private void setGradeText() {
         //성적 계산해서 가져오는 클래스 불러옴
-        final CalculateGrade calculateGrade = new CalculateGrade(this);
+        final GradeCalculator gradeCalculator = new GradeCalculator(this);
 
         //1학년, 2학년, 3학년 반영 비율 sharedpreference에서 가져옴
         int r1 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_1, 0);
@@ -218,17 +201,17 @@ public class MainActivity extends AppCompatActivity
         }
 
         //텍스트뷰에 함수 값 연결
-        textView11.setText(String.valueOf(calculateGrade.getResult11()));
-        textView12.setText(String.valueOf(calculateGrade.getResult12()));
-        textView21.setText(String.valueOf(calculateGrade.getResult21()));
-        textView22.setText(String.valueOf(calculateGrade.getResult22()));
-        textView31.setText(String.valueOf(calculateGrade.getResult31()));
-        textView32.setText(String.valueOf(calculateGrade.getResult32()));
-        textSum1.setText(String.valueOf(calculateGrade.getResult1()));
-        textSum2.setText(String.valueOf(calculateGrade.getResult2()));
-        textSum3.setText(String.valueOf(calculateGrade.getResult3()));
-        textViewAll.setText(String.valueOf(calculateGrade.getResultAll()));
-        textViewAllBar.setText(String.valueOf(calculateGrade.getResultAll()));
+        textView11.setText(String.valueOf(gradeCalculator.getResult11()));
+        textView12.setText(String.valueOf(gradeCalculator.getResult12()));
+        textView21.setText(String.valueOf(gradeCalculator.getResult21()));
+        textView22.setText(String.valueOf(gradeCalculator.getResult22()));
+        textView31.setText(String.valueOf(gradeCalculator.getResult31()));
+        textView32.setText(String.valueOf(gradeCalculator.getResult32()));
+        textSum1.setText(String.valueOf(gradeCalculator.getResult1()));
+        textSum2.setText(String.valueOf(gradeCalculator.getResult2()));
+        textSum3.setText(String.valueOf(gradeCalculator.getResult3()));
+        textViewAll.setText(String.valueOf(gradeCalculator.getResultAll()));
+        textViewAllBar.setText(String.valueOf(gradeCalculator.getResultAll()));
 
         if (r1 == 1&&r2 == 1&&r3 == 1) {
             text_rate.setText(String.format("등급 반영 비율 %d:%d:%d", r1, r2, r3));
@@ -252,35 +235,35 @@ public class MainActivity extends AppCompatActivity
 
         final ArrayList<Entry> yvalue = new ArrayList<>();//각 학기마다 점수를 담을 arraylist 선언
         //가져온 값이 0이면 특수상수인 NaN값을 넣어줌.
-        if (calculateGrade.getResult11() == 0) {
+        if (gradeCalculator.getResult11() == 0) {
             yvalue.add(new Entry(0, Float.NaN));
         } else {
-            yvalue.add(new Entry(0, calculateGrade.getResult11()));
+            yvalue.add(new Entry(0, gradeCalculator.getResult11()));
         }
-        if (calculateGrade.getResult12() == 0) {
+        if (gradeCalculator.getResult12() == 0) {
             yvalue.add(new Entry(1, Float.NaN));
         } else {
-            yvalue.add(new Entry(1, calculateGrade.getResult12()));
+            yvalue.add(new Entry(1, gradeCalculator.getResult12()));
         }
-        if (calculateGrade.getResult21() == 0) {
+        if (gradeCalculator.getResult21() == 0) {
             yvalue.add(new Entry(2, Float.NaN));
         } else {
-            yvalue.add(new Entry(2, calculateGrade.getResult21()));
+            yvalue.add(new Entry(2, gradeCalculator.getResult21()));
         }
-        if (calculateGrade.getResult22() == 0) {
+        if (gradeCalculator.getResult22() == 0) {
             yvalue.add(new Entry(3, Float.NaN));
         } else {
-            yvalue.add(new Entry(3, calculateGrade.getResult22()));
+            yvalue.add(new Entry(3, gradeCalculator.getResult22()));
         }
-        if (calculateGrade.getResult31() == 0) {
+        if (gradeCalculator.getResult31() == 0) {
             yvalue.add(new Entry(4, Float.NaN));
         } else {
-            yvalue.add(new Entry(4, calculateGrade.getResult31()));
+            yvalue.add(new Entry(4, gradeCalculator.getResult31()));
         }
-        if (calculateGrade.getResult32() == 0) {
+        if (gradeCalculator.getResult32() == 0) {
             yvalue.add(new Entry(5, Float.NaN));
         } else {
-            yvalue.add(new Entry(5, calculateGrade.getResult32()));
+            yvalue.add(new Entry(5, gradeCalculator.getResult32()));
         }
         LineDataSet set1 = new LineDataSet(yvalue, "성적");//arraylist를 기준으로 데이터셋 만듬
 

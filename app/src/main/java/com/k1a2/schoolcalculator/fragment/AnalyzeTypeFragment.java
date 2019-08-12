@@ -4,7 +4,6 @@ package com.k1a2.schoolcalculator.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -24,7 +23,6 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -34,14 +32,12 @@ import com.github.mikephil.charting.data.RadarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet;
-import com.k1a2.schoolcalculator.CalculateGrade;
+import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -49,7 +45,7 @@ import java.util.Comparator;
 /**과목별 분석 프래그먼트
  * analyzeactivity에 기생**/
 
-public class AnalyeTypeFragment extends Fragment {
+public class AnalyzeTypeFragment extends Fragment {
 
     private View root = null;
     private LineChart chart_analyeAll = null;
@@ -101,7 +97,7 @@ public class AnalyeTypeFragment extends Fragment {
 
     private ArrayList<ILineDataSet> dataSets = new ArrayList<>();
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
-    private CalculateGrade calculateGrade = null;
+    private GradeCalculator gradeCalculator = null;
     private boolean isFirst = false;
     private OnCaptureViewRequestListener onCaptureViewRequestListener = null;
 
@@ -115,7 +111,7 @@ public class AnalyeTypeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_analyze_type, container, false);
 
-        calculateGrade = new CalculateGrade(getContext());
+        gradeCalculator = new GradeCalculator(getContext());
         scoreDatabaseHelper = new ScoreDatabaseHelper(getContext(), DatabaseKey.KEY_DB_NAME, null, 1);
 
         chart_analyeAll = root.findViewById(R.id.analye_chart_analyzeT);

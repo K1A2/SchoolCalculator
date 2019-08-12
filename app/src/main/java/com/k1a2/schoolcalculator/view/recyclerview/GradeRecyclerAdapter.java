@@ -30,7 +30,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
-/**성적 추가 리스트 아이탬 관리 어댑터
+/**성적 추가/삭제 리스트 아이탬 관리 어댑터
  * 절대 수정금지**/
 
 public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdapter.ViewHolder> implements RecyclerItemClickListener.OnItemClickListener {

@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
@@ -26,7 +25,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.k1a2.schoolcalculator.CalculateGrade;
+import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
 
 import java.util.ArrayList;
@@ -51,7 +50,7 @@ public class AnalyzeGradeFragment extends Fragment {
     private TextView text_opinion3 = null;
 
     private OnCaptureViewRequestListener onCaptureViewRequestListener = null;
-    private CalculateGrade calculateGrade = null;
+    private GradeCalculator gradeCalculator = null;
 
     @Override
     public void onAttach(Activity activity) {
@@ -63,7 +62,7 @@ public class AnalyzeGradeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.fragment_analye_grade, container, false);
 
-        calculateGrade = new CalculateGrade(getContext());
+        gradeCalculator = new GradeCalculator(getContext());
 
         chart_all = root.findViewById(R.id.analye_chart_analyze);
         chart_all2 = root.findViewById(R.id.analye_chart_analyzeA);
@@ -104,35 +103,35 @@ public class AnalyzeGradeFragment extends Fragment {
 
 
         final ArrayList<Entry> yvalue = new ArrayList<>();
-        if (calculateGrade.getResult11() == 0) {
+        if (gradeCalculator.getResult11() == 0) {
             yvalue.add(new Entry(0, Float.NaN));
         } else {
-            yvalue.add(new Entry(0, calculateGrade.getResult11()));
+            yvalue.add(new Entry(0, gradeCalculator.getResult11()));
         }
-        if (calculateGrade.getResult12() == 0) {
+        if (gradeCalculator.getResult12() == 0) {
             yvalue.add(new Entry(1, Float.NaN));
         } else {
-            yvalue.add(new Entry(1, calculateGrade.getResult12()));
+            yvalue.add(new Entry(1, gradeCalculator.getResult12()));
         }
-        if (calculateGrade.getResult21() == 0) {
+        if (gradeCalculator.getResult21() == 0) {
             yvalue.add(new Entry(2, Float.NaN));
         } else {
-            yvalue.add(new Entry(2, calculateGrade.getResult21()));
+            yvalue.add(new Entry(2, gradeCalculator.getResult21()));
         }
-        if (calculateGrade.getResult22() == 0) {
+        if (gradeCalculator.getResult22() == 0) {
             yvalue.add(new Entry(3, Float.NaN));
         } else {
-            yvalue.add(new Entry(3, calculateGrade.getResult22()));
+            yvalue.add(new Entry(3, gradeCalculator.getResult22()));
         }
-        if (calculateGrade.getResult31() == 0) {
+        if (gradeCalculator.getResult31() == 0) {
             yvalue.add(new Entry(4, Float.NaN));
         } else {
-            yvalue.add(new Entry(4, calculateGrade.getResult31()));
+            yvalue.add(new Entry(4, gradeCalculator.getResult31()));
         }
-        if (calculateGrade.getResult32() == 0) {
+        if (gradeCalculator.getResult32() == 0) {
             yvalue.add(new Entry(5, Float.NaN));
         } else {
-            yvalue.add(new Entry(5, calculateGrade.getResult32()));
+            yvalue.add(new Entry(5, gradeCalculator.getResult32()));
         }
         LineDataSet set1 = new LineDataSet(yvalue, "성적");
 
@@ -192,23 +191,23 @@ public class AnalyzeGradeFragment extends Fragment {
         chart_all.getAxisRight().setEnabled(false);
 
         final ArrayList<Entry> g1 = new ArrayList<>();
-        if (calculateGrade.getResult11() == 0) {
+        if (gradeCalculator.getResult11() == 0) {
             g1.add(new Entry(0, Float.NaN));
         } else {
-            g1.add(new Entry(0, calculateGrade.getResult11()));
+            g1.add(new Entry(0, gradeCalculator.getResult11()));
         }
-        if (calculateGrade.getResult12() == 0) {
+        if (gradeCalculator.getResult12() == 0) {
             g1.add(new Entry(1, Float.NaN));
         } else {
-            g1.add(new Entry(1, calculateGrade.getResult12()));
+            g1.add(new Entry(1, gradeCalculator.getResult12()));
         }
-        text_a11.setText(String.valueOf(calculateGrade.getResult11()));
-        text_a12.setText(String.valueOf(calculateGrade.getResult12()));
+        text_a11.setText(String.valueOf(gradeCalculator.getResult11()));
+        text_a12.setText(String.valueOf(gradeCalculator.getResult12()));
         LineDataSet set1 = new LineDataSet(g1, "1학년");
 
-        if (calculateGrade.getResult11() != 0&&calculateGrade.getResult12() != 0) {
-            float a = calculateGrade.getResult11();
-            float b =calculateGrade.getResult12();
+        if (gradeCalculator.getResult11() != 0&& gradeCalculator.getResult12() != 0) {
+            float a = gradeCalculator.getResult11();
+            float b = gradeCalculator.getResult12();
             if (a<b) {
                 text_opinion1.setText(Html.fromHtml("1학년 성적은 " + "<strong><font color=\'#F23535\'>하락세</font></strong>" + "군요. 좀더 노력해 보세요."));
             } else {
@@ -227,23 +226,23 @@ public class AnalyzeGradeFragment extends Fragment {
         set1.setValueTextSize(10f);
 
         final ArrayList<Entry> g2 = new ArrayList<>();
-        if (calculateGrade.getResult21() == 0) {
+        if (gradeCalculator.getResult21() == 0) {
             g2.add(new Entry(0, Float.NaN));
         } else {
-            g2.add(new Entry(0, calculateGrade.getResult21()));
+            g2.add(new Entry(0, gradeCalculator.getResult21()));
         }
-        if (calculateGrade.getResult22() == 0) {
+        if (gradeCalculator.getResult22() == 0) {
             g2.add(new Entry(1, Float.NaN));
         } else {
-            g2.add(new Entry(1, calculateGrade.getResult22()));
+            g2.add(new Entry(1, gradeCalculator.getResult22()));
         }
-        text_a21.setText(String.valueOf(calculateGrade.getResult21()));
-        text_a22.setText(String.valueOf(calculateGrade.getResult22()));
+        text_a21.setText(String.valueOf(gradeCalculator.getResult21()));
+        text_a22.setText(String.valueOf(gradeCalculator.getResult22()));
         LineDataSet set2 = new LineDataSet(g2, "2학년");
 
-        if (calculateGrade.getResult21() != 0&&calculateGrade.getResult22() != 0) {
-            float a = calculateGrade.getResult21();
-            float b =calculateGrade.getResult22();
+        if (gradeCalculator.getResult21() != 0&& gradeCalculator.getResult22() != 0) {
+            float a = gradeCalculator.getResult21();
+            float b = gradeCalculator.getResult22();
             if (a<b) {
                 text_opinion2.setText(Html.fromHtml("2학년 성적은 " + "<strong><font color=\'#F23535\'>하락세</font></strong>" + "군요. 좀더 노력해 보세요."));
             } else {
@@ -263,23 +262,23 @@ public class AnalyzeGradeFragment extends Fragment {
         set2.setValueTextSize(10f);
 
         final ArrayList<Entry> g3 = new ArrayList<>();
-        if (calculateGrade.getResult31() == 0) {
+        if (gradeCalculator.getResult31() == 0) {
             g3.add(new Entry(0, Float.NaN));
         } else {
-            g3.add(new Entry(0, calculateGrade.getResult31()));
+            g3.add(new Entry(0, gradeCalculator.getResult31()));
         }
-        if (calculateGrade.getResult32() == 0) {
+        if (gradeCalculator.getResult32() == 0) {
             g3.add(new Entry(1, Float.NaN));
         } else {
-            g3.add(new Entry(1, calculateGrade.getResult32()));
+            g3.add(new Entry(1, gradeCalculator.getResult32()));
         }
-        text_a31.setText(String.valueOf(calculateGrade.getResult31()));
-        text_a32.setText(String.valueOf(calculateGrade.getResult32()));
+        text_a31.setText(String.valueOf(gradeCalculator.getResult31()));
+        text_a32.setText(String.valueOf(gradeCalculator.getResult32()));
         LineDataSet set3 = new LineDataSet(g3, "3학년");
 
-        if (calculateGrade.getResult31() != 0&&calculateGrade.getResult32() != 0) {
-            float a = calculateGrade.getResult31();
-            float b =calculateGrade.getResult32();
+        if (gradeCalculator.getResult31() != 0&& gradeCalculator.getResult32() != 0) {
+            float a = gradeCalculator.getResult31();
+            float b = gradeCalculator.getResult32();
             if (a<b) {
                 text_opinion3.setText(Html.fromHtml("3학년 성적은 " + "<strong><font color=\'#F23535\'>하락세</font></strong>" + "군요. 좀더 노력해 보세요."));
             } else {

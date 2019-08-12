@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:id="@+id/fragment_analye_grade_layout"
         android:layout_height="match_parent"
-        tools:context=".fragment.AnalyeTypeFragment"
+        tools:context=".fragment.AnalyzeTypeFragment"
         android:orientation="vertical"
         android:paddingRight="10dp"
         android:paddingLeft="10dp">

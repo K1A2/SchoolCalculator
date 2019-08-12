@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**등급 계산 클래스
  * 왠만하면 수정금지**/
 
-public class CalculateGrade {
+public class GradeCalculator {
 
     private float[] f11 = null;
     private float[] f12 = null;
@@ -37,7 +37,7 @@ public class CalculateGrade {
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
     private SharedPreferences preferences_rate = null;
 
-    public CalculateGrade(Context context) {
+    public GradeCalculator(Context context) {
         scoreDatabaseHelper = new ScoreDatabaseHelper(context, DatabaseKey.KEY_DB_NAME, null, 1);
         preferences_rate = PreferenceManager.getDefaultSharedPreferences(context);
 

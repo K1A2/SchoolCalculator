@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -16,16 +15,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
-import com.k1a2.schoolcalculator.fragment.TabFragmentAdapter;
 
 /**성적 입력 액티비티**/
 
