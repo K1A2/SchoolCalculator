@@ -3,6 +3,7 @@ package com.k1a2.schoolcalculator.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -189,17 +190,17 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
             Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
             //null이면 오류난거임
         } else {
-            LinearLayout container;
-            container = (LinearLayout)findViewById(R.id.fragment_analye_type_layout);
+            CardView container;
+            container = (CardView) findViewById(R.id.fragment_analye_type_layout);
             container.buildDrawingCache();
-            Bitmap captureView1 = container.getDrawingCache();
+            Bitmap captureView2 = container.getDrawingCache();
             String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
             FileOutputStream fos;
 
             try {
 
                 fos = new FileOutputStream(adress);
-                captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                captureView2.compress(Bitmap.CompressFormat.JPEG, 100, fos);
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
