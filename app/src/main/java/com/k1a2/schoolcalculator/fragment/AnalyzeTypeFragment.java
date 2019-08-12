@@ -926,7 +926,7 @@ public class AnalyzeTypeFragment extends Fragment {
 
     public void requestView() {
         if (root != null) {
-            final View capture = root.findViewById(R.id.captureT);
+            final View capture = root.findViewById(R.id.fragment_analye_type_layout);
             onCaptureViewRequestListener.OnViewRequestType(capture);
         } else {
             onCaptureViewRequestListener.OnViewRequestType(null);

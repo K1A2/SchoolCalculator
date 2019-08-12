@@ -11,6 +11,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -183,6 +184,13 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         }
     }
 
+    public Bitmap getBitmapFromView(View v) {
+        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight() , Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(b);
+        v.draw(c);
+        return b;
+    }
+
     @Override
     public void OnViewRequestType(View captureView) {
         if (captureView == null) {
@@ -192,7 +200,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
             LinearLayout container;
             container = (LinearLayout)findViewById(R.id.fragment_analye_type_layout);
             container.buildDrawingCache();
-            Bitmap captureView1 = container.getDrawingCache();
+            Bitmap captureView1 = getBitmapFromView(container);
             String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
             FileOutputStream fos;
 
