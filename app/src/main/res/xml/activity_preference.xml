@@ -7,5 +7,12 @@
             <intent android:action="android.intent.action.VIEW" android:data="http://www.s-core.co.kr/who-we-are/font/"/>
         </Preference>
 
+        <Preference android:title="개발자에게 문의하기"
+            android:summary="불편/건의사항이 있으면 omniches@gmail.com으로 연락주세요.">
+            <intent android:action="android.intent.action.VIEW" android:data="mailto:omniches@gmail.com?subject=문의하기">
+                <extra android:name="android.intent.extra.TEXT" android:value="개발자에게 문의" />
+            </intent>
+        </Preference>
+
     </PreferenceCategory>
 </PreferenceScreen>
