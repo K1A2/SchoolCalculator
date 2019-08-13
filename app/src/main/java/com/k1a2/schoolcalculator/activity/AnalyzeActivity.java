@@ -141,104 +141,27 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
     @Override
     public void OnViewRequestGrade(View captureView) {
         if (captureView == null) {
-            Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "캡쳐에 실패했습니다.", Toast.LENGTH_SHORT).show();
             //null이면 오류난거임
         } else {
             LinearLayout container;
             container = (LinearLayout)findViewById(R.id.fragment_analye_grade_layout);
-            container.buildDrawingCache();
-            Bitmap captureView1 = container.getDrawingCache();
-            String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
-            FileOutputStream fos;
-
-            try {
-
-                fos = new FileOutputStream(adress);
-                captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-                Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, new File(adress));
-                Intent shareintent = new Intent(Intent.ACTION_SEND);
-
-                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareintent.setType("image/*");
-
-                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-                startActivity(chooser);
-
-            }else{
-
-                Uri uri = Uri.fromFile(new File(adress));
-                Intent shareintent = new Intent(Intent.ACTION_SEND);
-
-                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareintent.setType("image/*");
-
-                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-                startActivity(chooser);
-            }
-
+            final getCaptureDrawble getCaptureDrawble = new getCaptureDrawble(this, container);
+            getCaptureDrawble.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
-    public Bitmap getBitmapFromView(View v) {
-        Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight() , Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(b);
-        v.draw(c);
-        return b;
-    }
-
+    //캡쳐할 뷰가 오는곳2
     @Override
     public void OnViewRequestType(View captureView) {
         if (captureView == null) {
-            Toast.makeText(this, "Error Capture", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "캡쳐에 실패했습니다.", Toast.LENGTH_SHORT).show();
             //null이면 오류난거임
         } else {
             LinearLayout container;
             container = (LinearLayout)findViewById(R.id.fragment_analye_type_layout);
-            container.buildDrawingCache();
-            Bitmap captureView1 = getBitmapFromView(container);
-            String adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
-            FileOutputStream fos;
-
-            try {
-
-                fos = new FileOutputStream(adress);
-                captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-                Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID, new File(adress));
-                Intent shareintent = new Intent(Intent.ACTION_SEND);
-
-                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareintent.setType("image/*");
-
-                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-                startActivity(chooser);
-
-            }else{
-
-                Uri uri = Uri.fromFile(new File(adress));
-                Intent shareintent = new Intent(Intent.ACTION_SEND);
-
-                shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareintent.setType("image/*");
-
-                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-                startActivity(chooser);
-            }
+            final getCaptureDrawble getCaptureDrawble = new getCaptureDrawble(this, container);
+            getCaptureDrawble.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -307,6 +230,87 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         @Override
         public int getCount() {
             return 2;
+        }
+    }
+
+    //캡쳐클래스
+    private class getCaptureDrawble extends AsyncTask<String, String, Boolean> {
+
+        private ProgressDialog progressDialog = null;
+        private Context context = null;
+        private View container = null;
+        private String adress = "";
+
+        public getCaptureDrawble(Context context, View container) {
+            this.context = context;
+            this.container = container;
+            adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
+
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setTitle("이미지 캡쳐중..");
+            progressDialog.setMessage("조금만 기다려 주세요..");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setCancelable(false);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.show();
+            container.buildDrawingCache();
+        }
+
+        @Override
+        protected Boolean doInBackground(String... strings) {
+            Bitmap captureView1 = getBitmapFromView(container);
+            FileOutputStream fos;
+
+            try {
+                fos = new FileOutputStream(adress);
+                captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+                return true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        public Bitmap getBitmapFromView(View v) {
+            Bitmap b = Bitmap.createBitmap(v.getWidth(), v.getHeight() , Bitmap.Config.ARGB_8888);
+            Canvas c = new Canvas(b);
+            v.draw(c);
+            return b;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            progressDialog.dismiss();
+            if (aBoolean) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                    Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, new File(adress));
+                    Intent shareintent = new Intent(Intent.ACTION_SEND);
+
+                    shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareintent.setType("image/*");
+
+                    Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                    startActivity(chooser);
+
+                }else{
+
+                    Uri uri = Uri.fromFile(new File(adress));
+                    Intent shareintent = new Intent(Intent.ACTION_SEND);
+
+                    shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareintent.setType("image/*");
+
+                    Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                    startActivity(chooser);
+                }
+            } else {
+                Toast.makeText(context, "캡쳐에 실패했습니다.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
