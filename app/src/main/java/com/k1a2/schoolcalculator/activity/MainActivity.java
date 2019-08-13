@@ -28,6 +28,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.navigation.NavigationView;
 import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity
     private TextView textSum3 = null;
     private LineChart chart_analyze = null;
     private Button button_goal = null;
+    private AdView adView = null;
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
 
@@ -96,6 +100,10 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        adView = findViewById(R.id.ads);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         //성적 추가하기 버튼들
         button_editScoreAll = (Button)findViewById(R.id.main_button_editScoreAll);

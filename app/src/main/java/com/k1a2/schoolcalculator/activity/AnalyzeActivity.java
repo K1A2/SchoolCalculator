@@ -13,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -244,7 +245,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         public getCaptureDrawble(Context context, View container) {
             this.context = context;
             this.container = container;
-            adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/" + "/capture.jpeg";
+            adress = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Android/data/capture.jpeg";
 
             progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("이미지 캡쳐중..");

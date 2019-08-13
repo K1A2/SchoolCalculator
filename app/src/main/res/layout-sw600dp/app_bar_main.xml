@@ -897,13 +897,14 @@
 
                 </androidx.cardview.widget.CardView>
 
+
+
                 <androidx.cardview.widget.CardView
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true"
-                    android:layout_width="match_parent"
                     android:layout_weight="1"
-                    android:layout_marginLeft="3dp"
-                    android:visibility="invisible"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <LinearLayout
@@ -915,105 +916,22 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2학년 평균 등급"
-                            android:textSize="17dp"
-                            android:fontFamily="@font/scdream3"
+                            android:text="광고"
                             android:textStyle="bold"
+                            android:textSize="17dp"
+                            android:layout_marginBottom="10dp"
+                            android:fontFamily="@font/scdream3"
                             android:textColor="#000000"/>
 
-                        <View
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
+                        <com.google.android.gms.ads.AdView
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/colorDivider"/>
-
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <LinearLayout
-                                android:gravity="center_horizontal"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="1학기 평균등급"
-                                    android:textSize="15dp"
-                                    android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/scdream2"
-                                    android:textSize="15dp"
-                                    android:textColor="#000000"/>
-
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="1dp"
-                                android:layout_height="match_parent"
-                                android:background="@color/colorDivider"/>
-
-                            <LinearLayout
-                                android:gravity="center_horizontal"
-                                android:orientation="vertical"
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="2학기 평균등급"
-                                    android:textSize="15dp"
-                                    android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:fontFamily="@font/scdream2"
-                                    android:textSize="15dp"
-                                    android:textColor="#000000"/>
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <Button
-                            android:layout_gravity="right"
-                            android:padding="3dp"
-                            android:text="2학년 성적 입력하기"
-                            android:textColor="#F18B8D"
-                            android:drawableTint="#F18B8D"
-                            android:drawableRight="@drawable/baseline_trending_flat_black_24"
-                            android:minHeight="0dp"
-                            android:minWidth="0dp"
-                            android:fontFamily="@font/scdream3"
-                            android:gravity="center_vertical"
-                            android:backgroundTint="#00FFFFFF"
-                            android:backgroundTintMode="add"
-                            android:elevation="0dp"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:id="@+id/ads"
+                            app:adSize="LARGE_BANNER"
+                            app:adUnitId="ca-app-pub-7873521316289922/9731664027"
+                            android:layout_height="wrap_content">
+                        </com.google.android.gms.ads.AdView>
 
                     </LinearLayout>
-
-                    <FrameLayout
-                        android:layout_marginRight="3dp"
-                        android:background="#E973C3"
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"/>
 
                 </androidx.cardview.widget.CardView>
 
