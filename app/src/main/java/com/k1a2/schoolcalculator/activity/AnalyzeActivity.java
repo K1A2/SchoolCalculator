@@ -241,6 +241,8 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         private Context context = null;
         private View container = null;
         private String adress = "";
+        private Intent shareintent = null;
+
 
         public getCaptureDrawble(Context context, View container) {
             this.context = context;
@@ -269,6 +271,25 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
             try {
                 fos = new FileOutputStream(adress);
                 captureView1.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                    Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, new File(adress));
+                    shareintent = new Intent(Intent.ACTION_SEND);
+
+                    shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareintent.setType("image/*");
+
+                }else{
+
+                    Uri uri = Uri.fromFile(new File(adress));
+                    shareintent = new Intent(Intent.ACTION_SEND);
+
+                    shareintent.putExtra(Intent.EXTRA_STREAM, uri);
+                    shareintent.setType("image/*");
+                }
+                Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
+                startActivity(chooser);
                 return true;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -287,27 +308,10 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         protected void onPostExecute(Boolean aBoolean) {
             progressDialog.dismiss();
             if (aBoolean) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                if (shareintent != null) {
 
-                    Uri uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID, new File(adress));
-                    Intent shareintent = new Intent(Intent.ACTION_SEND);
-
-                    shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-                    shareintent.setType("image/*");
-
-                    Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-                    startActivity(chooser);
-
-                }else{
-
-                    Uri uri = Uri.fromFile(new File(adress));
-                    Intent shareintent = new Intent(Intent.ACTION_SEND);
-
-                    shareintent.putExtra(Intent.EXTRA_STREAM, uri);
-                    shareintent.setType("image/*");
-
-                    Intent chooser = Intent.createChooser(shareintent, "친구에게 공유하기");
-                    startActivity(chooser);
+                } else {
+                    Toast.makeText(context, "캡쳐에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 Toast.makeText(context, "캡쳐에 실패했습니다.", Toast.LENGTH_SHORT).show();
