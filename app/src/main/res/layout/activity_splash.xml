@@ -3,13 +3,59 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@drawable/splash_background">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:padding="20dp"
+            android:orientation="horizontal">
+
+            <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:elevation="2dp"-->
+                <!--android:background="@mipmap/ic_appicon_real"-->
+                <!--android:adjustViewBounds="true"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:src="@mipmap/ic_appicon_real"/>-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name_g"
+                android:textSize="60dp"
+                android:textColor="#FFFF"
+                android:fontFamily="@font/scdream2"
+                android:layout_centerInParent="true"/>
+
+        </LinearLayout>
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="-내신계산기"-->
+            <!--android:textSize="30dp"-->
+            <!--android:textColor="#FFFF"-->
+            <!--android:fontFamily="@font/scdream1"-->
+            <!--android:layout_gravity="center_horizontal"/>-->
+
+    </LinearLayout>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="내신 계산기"
-        android:textSize="60dp"
-        android:textColor="#FFFF"
-        android:fontFamily="@font/scdream1"
-        android:layout_centerInParent="true"/>
+        android:text="@string/app_version"
+        android:textColor="#FFFFFFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="10dp"/>
 
 </RelativeLayout>

@@ -208,7 +208,7 @@ public class AnalyzeGradeFragment extends Fragment {
         if (gradeCalculator.getResult11() != 0&& gradeCalculator.getResult12() != 0) {
             float a = gradeCalculator.getResult11();
             float b = gradeCalculator.getResult12();
-            if (a<b) {
+            if (a<=b) {
                 text_opinion1.setText(Html.fromHtml("1학년 성적은 " + "<strong><font color=\'#F23535\'>하락세</font></strong>" + "군요. 좀더 노력해 보세요."));
             } else {
                 text_opinion1.setText(Html.fromHtml("1학년 성적은 " + "<strong><font color=\'#0B508C\'>상승세</font></strong>" + "군요. 지금처럼만 공부합시다."));
@@ -243,7 +243,7 @@ public class AnalyzeGradeFragment extends Fragment {
         if (gradeCalculator.getResult21() != 0&& gradeCalculator.getResult22() != 0) {
             float a = gradeCalculator.getResult21();
             float b = gradeCalculator.getResult22();
-            if (a<b) {
+            if (a<=b) {
                 text_opinion2.setText(Html.fromHtml("2학년 성적은 " + "<strong><font color=\'#F23535\'>하락세</font></strong>" + "군요. 좀더 노력해 보세요."));
             } else {
                 text_opinion2.setText(Html.fromHtml("2학년 성적은 <strong><font color=\'#0B508C\'>상승세</font></strong>군요. 지금처럼만 공부합시다."));
@@ -279,7 +279,7 @@ public class AnalyzeGradeFragment extends Fragment {
         if (gradeCalculator.getResult31() != 0&& gradeCalculator.getResult32() != 0) {
             float a = gradeCalculator.getResult31();
             float b = gradeCalculator.getResult32();
-            if (a<b) {
+            if (a<=b) {
                 text_opinion3.setText(Html.fromHtml("3학년 성적은 " + "<strong><font color=\'#F23535\'>하락세</font></strong>" + "군요. 좀더 노력해 보세요."));
             } else {
                 text_opinion3.setText(Html.fromHtml("3학년 성적은 " + "<strong><font color=\'#0B508C\'>상승세</font></strong>" + "군요. 지금처럼만 공부합시다."));

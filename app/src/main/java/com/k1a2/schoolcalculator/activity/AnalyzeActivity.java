@@ -29,11 +29,15 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.tabs.TabLayout;
 import com.k1a2.schoolcalculator.BuildConfig;
 import com.k1a2.schoolcalculator.fragment.AnalyzeTypeFragment;
 import com.k1a2.schoolcalculator.fragment.AnalyzeGradeFragment;
 import com.k1a2.schoolcalculator.R;
+import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,17 +51,57 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
     private ViewPager viewPager = null;//프레그먼트 바뀌는 부분
     private Toolbar toolbar = null;//툴바
     private View view_indicator = null;//커스텀 인디케이터
+    private AdView adView = null;
 
     private AnalyzeGradeFragment fragment_analyzeG = null;//학기별 분석 프레그먼트
     private AnalyzeTypeFragment fragment_analyzeT = null;//과목별 분석 프레그먼트
 
     private int indicatorWidth;//인디케이터 너비
     private TabPagerAdapter tabPagerAdapter = null;//탭 페이지 전환 어댑터
+    private AppStorage storage = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_analyze);
+
+        storage = new AppStorage(this);
+        adView = findViewById(R.id.ads_a);
+
+        if (storage.purchasedRemoveAds()) {
+            adView.setVisibility(View.GONE);
+        } else {
+            adView.setVisibility(View.GONE);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.setAdListener(new AdListener() {
+
+                @Override
+                public void onAdLoaded() {
+                    adView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAdOpened() {
+                    adView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAdClosed() {
+                    adView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    adView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+
+                }
+            });
+            adView.loadAd(adRequest);
+        }
 
         tabLayout = findViewById(R.id.score_tablayout);
         viewPager = findViewById(R.id.score_viwewpager);
@@ -266,7 +310,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         @Override
         protected Boolean doInBackground(String... strings) {
             Bitmap captureView1 = getBitmapFromView(container);
-            FileOutputStream fos;
+            FileOutputStream fos = null;
 
             try {
                 fos = new FileOutputStream(adress);
@@ -308,9 +352,7 @@ public class AnalyzeActivity extends AppCompatActivity implements AnalyzeGradeFr
         protected void onPostExecute(Boolean aBoolean) {
             progressDialog.dismiss();
             if (aBoolean) {
-                if (shareintent != null) {
-
-                } else {
+                if (shareintent == null) {
                     Toast.makeText(context, "캡쳐에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 }
             } else {

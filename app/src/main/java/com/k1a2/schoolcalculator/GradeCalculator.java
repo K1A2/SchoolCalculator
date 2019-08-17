@@ -55,9 +55,12 @@ public class GradeCalculator {
         int r3 = preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_3, 0);
 
         if (r1 == 0||r2 == 0||r3 == 0) {
-            r1 = 1;
-            r2 = 1;
-            r3 = 1;
+            r1 = 2;
+            r2 = 4;
+            r3 = 4;
+            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_1, 2).commit();
+            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_2, 4).commit();
+            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_3, 4).commit();
         }
 
         //텍스트뷰에 함수 값 연결

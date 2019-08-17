@@ -11,6 +11,7 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
+        android:background="#00FFFFFF"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -28,6 +29,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
                 android:gravity="center_horizontal"
+                android:background="#00FFFFFF"
                 android:orientation="vertical"
                 android:layout_height="match_parent">
 
@@ -36,6 +38,7 @@
                     android:text="종합 성적"
                     android:textSize="30dp"
                     android:fontFamily="@font/scdream4"
+                    android:background="#00FFFFFF"
                     android:textColor="#FFFFFFFF"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -46,6 +49,7 @@
                     android:layout_height="wrap_content"
                     android:text="3.6"
                     android:fontFamily="@font/scdream3"
+                    android:background="#00FFFFFF"
                     android:textSize="25dp"
                     android:id="@+id/main_text_allApp"
                     android:textColor="#FFFFFF"/>
@@ -54,12 +58,14 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="#00FFFFFF"
                     android:orientation="horizontal"
                     android:gravity="center">
 
                     <TextView
                         android:id="@+id/main_text_rate"
                         android:layout_width="wrap_content"
+                        android:background="#00FFFFFF"
                         android:layout_height="wrap_content"
                         android:text="등급 반영 비율 1:1:1"
                         android:fontFamily="@font/scdream2"
@@ -108,7 +114,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!--<androidx.cardview.widget.CardView-->
+            <!--<androidx.cardview.widget.CardView
+
+           android:id="@+id/main_card_2" -->
                 <!--app:cardElevation="4dp"-->
                 <!--app:contentPadding="10dp"-->
                 <!--app:cardUseCompatPadding="true"-->
@@ -127,7 +135,7 @@
                         <!--android:textStyle="bold"-->
                         <!--android:textSize="20dp"-->
                         <!--android:fontFamily="@font/scdream3"-->
-                        <!--android:textColor="#000000"/>-->
+                        <!--/>-->
 
                     <!--<TextView-->
                         <!--android:layout_marginTop="10dp"-->
@@ -137,7 +145,7 @@
                         <!--android:text="전 과목 목표 평균 등급"-->
                         <!--android:textSize="17dp"-->
                         <!--android:fontFamily="@font/scdream3"-->
-                        <!--android:textColor="#000000"/>-->
+                        <!--/>-->
 
                     <!--<TextView-->
                         <!--android:layout_gravity="center_horizontal"-->
@@ -147,7 +155,7 @@
                         <!--android:textSize="17dp"-->
                         <!--android:id="@+id/main_text_all_goal"-->
                         <!--android:fontFamily="@font/scdream2"-->
-                        <!--android:textColor="#000000"/>-->
+                        <!--/>-->
 
                     <!--<TextView-->
                         <!--android:gravity="center_horizontal"-->
@@ -158,7 +166,7 @@
                         <!--android:text="등급 반영 비율 1:1:1"-->
                         <!--android:fontFamily="@font/scdream2"-->
                         <!--android:layout_marginRight="5dp"-->
-                        <!--android:textColor="#000000"/>-->
+                        <!--/>-->
 
                     <!--<View-->
                         <!--android:layout_marginTop="10dp"-->
@@ -198,7 +206,7 @@
                                     <!--android:textSize="15dp"-->
                                     <!--android:gravity="center_horizontal"-->
                                     <!--android:fontFamily="@font/scdream3"-->
-                                    <!--android:textColor="#000000"/>-->
+                                    <!--/>-->
 
                                 <!--<TextView-->
                                     <!--android:layout_width="wrap_content"-->
@@ -207,7 +215,7 @@
                                     <!--android:textSize="15dp"-->
                                     <!--android:gravity="center_horizontal"-->
                                     <!--android:fontFamily="@font/scdream2"-->
-                                    <!--android:textColor="#000000"/>-->
+                                    <!--/>-->
 
                             <!--</LinearLayout>-->
 
@@ -228,7 +236,7 @@
                                     <!--android:gravity="center_horizontal"-->
                                     <!--android:textSize="15dp"-->
                                     <!--android:fontFamily="@font/scdream3"-->
-                                    <!--android:textColor="#000000"/>-->
+                                    <!--/>-->
 
                                 <!--<TextView-->
                                     <!--android:layout_width="wrap_content"-->
@@ -237,7 +245,7 @@
                                     <!--android:textSize="15dp"-->
                                     <!--android:gravity="center_horizontal"-->
                                     <!--android:fontFamily="@font/scdream2"-->
-                                    <!--android:textColor="#000000"/>-->
+                                    <!--/>-->
 
                             <!--</LinearLayout>-->
 
@@ -258,7 +266,7 @@
                                     <!--android:textSize="15dp"-->
                                     <!--android:gravity="center_horizontal"-->
                                     <!--android:fontFamily="@font/scdream3"-->
-                                    <!--android:textColor="#000000"/>-->
+                                    <!--/>-->
 
                                 <!--<TextView-->
                                     <!--android:layout_width="wrap_content"-->
@@ -267,7 +275,7 @@
                                     <!--android:fontFamily="@font/scdream2"-->
                                     <!--android:textSize="15dp"-->
                                     <!--android:gravity="center_horizontal"-->
-                                    <!--android:textColor="#000000"/>-->
+                                    <!--/>-->
 
                             <!--</LinearLayout>-->
 
@@ -302,12 +310,14 @@
                 app:cardElevation="4dp"
                 app:contentPadding="10dp"
                 app:cardUseCompatPadding="true"
+                android:id="@+id/main_card_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
+                    android:background="#00FFFFFF"
                     android:layout_height="match_parent">
 
                     <TextView
@@ -315,29 +325,30 @@
                         android:layout_height="wrap_content"
                         android:text="종합 성적"
                         android:textStyle="bold"
+                        android:background="#00FFFFFF"
                         android:textSize="20dp"
-                        android:fontFamily="@font/scdream3"
-                        android:textColor="#000000"/>
+                        android:fontFamily="@font/scdream3"/>
 
                     <TextView
                         android:layout_marginTop="10dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
+                        android:background="#00FFFFFF"
                         android:layout_height="wrap_content"
                         android:text="전 과목 평균 등급"
                         android:textSize="17dp"
-                        android:fontFamily="@font/scdream3"
-                        android:textColor="#000000"/>
+                        android:fontFamily="@font/scdream3"/>
 
                     <TextView
                         android:layout_gravity="center_horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3.6"
+                        android:background="#00FFFFFF"
                         android:textSize="17dp"
                         android:id="@+id/main_text_all"
                         android:fontFamily="@font/scdream2"
-                        android:textColor="#000000"/>
+                        />
 
                     <View
                         android:layout_marginTop="10dp"
@@ -350,6 +361,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:orientation="horizontal"
+                        android:background="#00FFFFFF"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -359,6 +371,7 @@
                             android:layout_alignParentLeft="true"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:background="#00FFFFFF"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
@@ -366,20 +379,22 @@
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:background="#00FFFFFF"
                                 android:text="1학년 평균 등급"
                                 android:textSize="15dp"
                                 android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream3"
-                                android:textColor="#000000"/>
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/main_1sumtext"
+                                android:background="#00FFFFFF"
                                 android:textSize="15dp"
                                 android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream2"
-                                android:textColor="#000000"/>
+                                />
 
                         </LinearLayout>
 
@@ -390,26 +405,29 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="#00FFFFFF"
                             android:orientation="vertical">
 
                             <TextView
                                 android:layout_marginTop="5dp"
                                 android:layout_width="wrap_content"
+                                android:background="#00FFFFFF"
                                 android:layout_height="wrap_content"
                                 android:text="2학년 평균 등급"
                                 android:gravity="center_horizontal"
                                 android:textSize="15dp"
                                 android:fontFamily="@font/scdream3"
-                                android:textColor="#000000"/>
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/main_2sumtext"
+                                android:background="#00FFFFFF"
                                 android:textSize="15dp"
                                 android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream2"
-                                android:textColor="#000000"/>
+                                />
 
                         </LinearLayout>
 
@@ -420,6 +438,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:background="#00FFFFFF"
                             android:orientation="vertical">
 
                             <TextView
@@ -428,18 +447,20 @@
                                 android:layout_height="wrap_content"
                                 android:text="3학년 평균 등급"
                                 android:textSize="15dp"
+                                android:background="#00FFFFFF"
                                 android:gravity="center_horizontal"
                                 android:fontFamily="@font/scdream3"
-                                android:textColor="#000000"/>
+                                />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:id="@+id/main_3sumtext"
+                                android:background="#00FFFFFF"
                                 android:fontFamily="@font/scdream2"
                                 android:textSize="15dp"
                                 android:gravity="center_horizontal"
-                                android:textColor="#000000"/>
+                                />
 
                         </LinearLayout>
 
@@ -469,6 +490,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/main_card_2"
                 app:cardElevation="4dp"
                 app:contentPadding="10dp"
                 app:cardUseCompatPadding="true"
@@ -477,23 +499,26 @@
 
                 <LinearLayout
                     android:orientation="vertical"
+                    android:background="#00FFFFFF"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="#00FFFFFF"
                         android:text="성적 분석"
                         android:textStyle="bold"
                         android:textSize="20dp"
                         android:fontFamily="@font/scdream3"
-                        android:textColor="#000000"/>
+                        />
 
                     <com.github.mikephil.charting.charts.LineChart
                         android:padding="5dp"
                         android:layout_marginTop="5dp"
                         android:id="@+id/main_chart_analyze"
                         android:layout_width="match_parent"
+                        android:background="#00FFFFFF"
                         android:layout_height="150dp"></com.github.mikephil.charting.charts.LineChart>
 
                     <Button
@@ -525,6 +550,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/main_card_3"
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true"
                     android:layout_weight="1"
@@ -534,6 +560,7 @@
 
                     <LinearLayout
                         android:padding="10dp"
+                        android:background="#00FFFFFF"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -542,10 +569,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1학년 평균 등급"
+                            android:background="#00FFFFFF"
                             android:textSize="17dp"
                             android:fontFamily="@font/scdream3"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            />
 
                         <View
                             android:layout_marginTop="10dp"
@@ -558,11 +586,13 @@
                             android:orientation="horizontal"
                             android:layout_weight="1"
                             android:layout_width="match_parent"
+                            android:background="#00FFFFFF"
                             android:layout_height="match_parent">
 
                             <LinearLayout
                                 android:gravity="center_horizontal"
                                 android:orientation="vertical"
+                                android:background="#00FFFFFF"
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
@@ -571,17 +601,19 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="1학기 평균등급"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream3"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/main_11text"
                                     android:fontFamily="@font/scdream2"
+                                    android:background="#00FFFFFF"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                             </LinearLayout>
 
@@ -594,6 +626,7 @@
                                 android:gravity="center_horizontal"
                                 android:orientation="vertical"
                                 android:layout_weight="1"
+                                android:background="#00FFFFFF"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
@@ -601,17 +634,19 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="2학기 평균등급"
+                                    android:background="#00FFFFFF"
                                     android:textSize="15dp"
                                     android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/main_12text"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream2"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                             </LinearLayout>
 
@@ -647,6 +682,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/main_card_4"
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true"
                     android:layout_width="match_parent"
@@ -657,17 +693,19 @@
                     <LinearLayout
                         android:padding="10dp"
                         android:orientation="vertical"
+                        android:background="#00FFFFFF"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <TextView
                             android:layout_width="wrap_content"
+                            android:background="#00FFFFFF"
                             android:layout_height="wrap_content"
                             android:text="2학년 평균 등급"
                             android:textSize="17dp"
                             android:fontFamily="@font/scdream3"
                             android:textStyle="bold"
-                            android:textColor="#000000"/>
+                            />
 
                         <View
                             android:layout_marginTop="10dp"
@@ -679,6 +717,7 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_weight="1"
+                            android:background="#00FFFFFF"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
@@ -687,23 +726,26 @@
                                 android:orientation="vertical"
                                 android:layout_weight="1"
                                 android:layout_width="match_parent"
+                                android:background="#00FFFFFF"
                                 android:layout_height="match_parent">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="1학기 평균등급"
+                                    android:background="#00FFFFFF"
                                     android:textSize="15dp"
                                     android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/main_21text"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream2"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                             </LinearLayout>
 
@@ -716,6 +758,7 @@
                                 android:gravity="center_horizontal"
                                 android:orientation="vertical"
                                 android:layout_weight="1"
+                                android:background="#00FFFFFF"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
@@ -724,16 +767,18 @@
                                     android:layout_height="wrap_content"
                                     android:text="2학기 평균등급"
                                     android:textSize="15dp"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:background="#00FFFFFF"
                                     android:id="@+id/main_22text"
                                     android:fontFamily="@font/scdream2"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                             </LinearLayout>
 
@@ -777,6 +822,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/main_card_5"
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true"
                     android:layout_width="match_parent"
@@ -786,6 +832,7 @@
                     <LinearLayout
                         android:padding="10dp"
                         android:orientation="vertical"
+                        android:background="#00FFFFFF"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -793,10 +840,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3학년 평균 등급"
+                            android:background="#00FFFFFF"
                             android:textStyle="bold"
                             android:textSize="17dp"
                             android:fontFamily="@font/scdream3"
-                            android:textColor="#000000"/>
+                            />
 
                         <View
                             android:layout_marginTop="10dp"
@@ -808,6 +856,7 @@
                         <LinearLayout
                             android:orientation="horizontal"
                             android:layout_width="match_parent"
+                            android:background="#00FFFFFF"
                             android:layout_weight="1"
                             android:layout_height="match_parent">
 
@@ -815,6 +864,7 @@
                                 android:gravity="center_horizontal"
                                 android:orientation="vertical"
                                 android:layout_weight="1"
+                                android:background="#00FFFFFF"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
@@ -823,16 +873,18 @@
                                     android:layout_height="wrap_content"
                                     android:text="1학기 평균등급"
                                     android:textSize="15dp"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:background="#00FFFFFF"
                                     android:id="@+id/main_31text"
                                     android:fontFamily="@font/scdream2"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                             </LinearLayout>
 
@@ -845,6 +897,7 @@
                                 android:gravity="center_horizontal"
                                 android:orientation="vertical"
                                 android:layout_weight="1"
+                                android:background="#00FFFFFF"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
@@ -853,16 +906,18 @@
                                     android:layout_height="wrap_content"
                                     android:text="2학기 평균등급"
                                     android:textSize="15dp"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream3"
-                                    android:textColor="#000000"/>
+                                    />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:id="@+id/main_32text"
+                                    android:background="#00FFFFFF"
                                     android:fontFamily="@font/scdream2"
                                     android:textSize="15dp"
-                                    android:textColor="#000000"/>
+                                    />
 
                             </LinearLayout>
 
@@ -900,6 +955,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/main_card_6"
                     app:cardElevation="2dp"
                     app:cardUseCompatPadding="true"
                     android:layout_weight="1"
@@ -909,6 +965,7 @@
 
                     <LinearLayout
                         android:padding="10dp"
+                        android:background="#00FFFFFF"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -918,13 +975,15 @@
                             android:layout_height="wrap_content"
                             android:text="광고"
                             android:textStyle="bold"
+                            android:background="#00FFFFFF"
                             android:textSize="17dp"
                             android:layout_marginBottom="10dp"
                             android:fontFamily="@font/scdream3"
-                            android:textColor="#000000"/>
+                            />
 
                         <com.google.android.gms.ads.AdView
                             android:layout_width="match_parent"
+                            android:background="#00FFFFFF"
                             android:id="@+id/ads"
                             app:adSize="LARGE_BANNER"
                             app:adUnitId="ca-app-pub-7873521316289922/9731664027"
@@ -937,32 +996,8 @@
 
             </LinearLayout>
 
-            <!--<androidx.cardview.widget.CardView-->
-            <!--app:cardElevation="2dp"-->
-            <!--app:contentPadding="10dp"-->
-            <!--app:cardUseCompatPadding="true"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="목표 성적"-->
-            <!--android:textSize="20dp"-->
-            <!--android:textColor="#000000"/>-->
-
-            <!--</androidx.cardview.widget.CardView>-->
-
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--android:id="@+id/fab"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|end"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

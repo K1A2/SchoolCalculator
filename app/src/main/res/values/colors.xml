@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimary">#542A80</color>
     <color name="colorPrimaryDark">#4D2A74</color>
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorDivider">#613C3B3B</color>
+
+    <color name="colorCardDark">#18171B</color>
 
     <color name="colorChartLine">#F23535</color>
     <color name="colorChartLine2">#F2E527</color>

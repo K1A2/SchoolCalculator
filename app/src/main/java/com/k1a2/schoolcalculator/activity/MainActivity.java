@@ -3,9 +3,13 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -22,20 +26,24 @@ import android.preference.PreferenceManager;
 import android.view.View;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.navigation.NavigationView;
+import com.k1a2.schoolcalculator.BillingKey;
 import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
+import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
 import com.k1a2.schoolcalculator.sharedpreference.PreferenceKey;
 
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -81,14 +89,88 @@ public class MainActivity extends AppCompatActivity
     private AdView adView = null;
 
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
+    private AppStorage storage;
+    private BillingProcessor bp = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        preferences_rate = PreferenceManager.getDefaultSharedPreferences(this);
+//        if (preferences_rate.getBoolean(PreferenceKey.KEY_BOOL_ISDARK_THEME, false)) {
+//            setTheme(R.style.AppTheme_Dark);
+//        }
         setContentView(R.layout.activity_main);
+//        if (preferences_rate.getBoolean(PreferenceKey.KEY_BOOL_ISDARK_THEME, false)) {
+//            ((CardView)findViewById(R.id.main_card_1)).setCardBackgroundColor(getResources().getColor(R.color.colorCardDark));
+//            ((CardView)findViewById(R.id.main_card_2)).setCardBackgroundColor(getResources().getColor(R.color.colorCardDark));
+//            ((CardView)findViewById(R.id.main_card_3)).setCardBackgroundColor(getResources().getColor(R.color.colorCardDark));
+//            ((CardView)findViewById(R.id.main_card_4)).setCardBackgroundColor(getResources().getColor(R.color.colorCardDark));
+//            ((CardView)findViewById(R.id.main_card_5)).setCardBackgroundColor(getResources().getColor(R.color.colorCardDark));
+//            ((CardView)findViewById(R.id.main_card_6)).setCardBackgroundColor(getResources().getColor(R.color.colorCardDark));
+//        }
 
         scoreDatabaseHelper = new ScoreDatabaseHelper(this, DatabaseKey.KEY_DB_NAME, null, 1);
-        preferences_rate = PreferenceManager.getDefaultSharedPreferences(this);
+
+        storage = new AppStorage(this);
+
+        bp = new BillingProcessor(this, BillingKey.LINCENCE_KEY, new BillingProcessor.IBillingHandler() {
+            @Override
+            public void onProductPurchased(String productId, TransactionDetails details) {
+
+            }
+
+            @Override
+            public void onPurchaseHistoryRestored() {
+
+            }
+
+            @Override
+            public void onBillingError(int errorCode, Throwable error) {
+
+            }
+
+            @Override
+            public void onBillingInitialized() {
+                storage.setPurchasedRemoveAds(bp.isPurchased(BillingKey.KEY_SKU_NO_ADS));
+                if (storage.purchasedRemoveAds()) {
+                    findViewById(R.id.main_card_6).setVisibility(View.GONE);
+                } else {
+                    adView = findViewById(R.id.ads);
+                    adView.setVisibility(View.GONE);
+                    AdRequest adRequest = new AdRequest.Builder().build();
+                    adView.setAdListener(new AdListener() {
+
+                        @Override
+                        public void onAdLoaded() {
+                            adView.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAdOpened() {
+                            adView.setVisibility(View.VISIBLE);
+                        }
+
+                        @Override
+                        public void onAdClosed() {
+                            adView.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAdFailedToLoad(int i) {
+                            adView.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onAdLeftApplication() {
+
+                        }
+                    });
+                    adView.loadAd(adRequest);
+                }
+            }
+        });
+        bp.initialize();
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -100,10 +182,6 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
-
-        adView = findViewById(R.id.ads);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
 
         //성적 추가하기 버튼들
         button_editScoreAll = (Button)findViewById(R.id.main_button_editScoreAll);
@@ -203,9 +281,12 @@ public class MainActivity extends AppCompatActivity
 
         //반영비율이 정의가 안되있을때 1로 강제로 가정
         if (r1 == 0||r2 == 0||r3 == 0) {
-            r1 = 1;
-            r2 = 1;
-            r3 = 1;
+            r1 = 2;
+            r2 = 4;
+            r3 = 4;
+            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_1, 2).commit();
+            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_2, 4).commit();
+            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_3, 4).commit();
         }
 
         //텍스트뷰에 함수 값 연결
@@ -363,6 +444,7 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
         }
+
         startActivity(intent);
     }
 
@@ -431,5 +513,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (bp != null) {
+            bp.release();
+        }
+        super.onDestroy();
     }
 }

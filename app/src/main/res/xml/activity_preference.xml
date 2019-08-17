@@ -1,18 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="앱 설정">
+
+        <SwitchPreference
+            android:title="3학년 2학기 성적 포함하기"
+            android:defaultValue="false"
+            android:key="G3I"
+            android:summaryOn="3학년 2학기 성적을 포함합니다"
+            android:summaryOff="3학년 2학기 성적을 포함하지 않습니다"></SwitchPreference>
+
+
+        <!--<SwitchPreference-->
+            <!--android:title="어두운 테마 활성화 하기"-->
+            <!--android:defaultValue="false"-->
+            <!--android:key="theme"-->
+            <!--android:summaryOn="눈이 덜 아프겠네요"-->
+            <!--android:summaryOff="밝은 테마입니다."></SwitchPreference>-->
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="구매">
+        <Preference android:title="광고 제거하기"
+            android:key="qq"
+            android:summary="단돈 1000원에 모십니다"></Preference>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="앱 정보">
 
-        <Preference android:title="폰트 정보"
-            android:summary="이 앱의 폰트는 S-Core의 S-Core Dream 이라는 폰트를 사용했습니다.">
+        <Preference
+            android:title="폰트 정보"
+            android:summary="이 앱의 폰트는 S-Core의 S-Core Dream 폰트를 사용했습니다.">
             <intent android:action="android.intent.action.VIEW" android:data="http://www.s-core.co.kr/who-we-are/font/"/>
         </Preference>
 
-        <Preference android:title="개발자에게 문의하기"
+        <Preference
+            android:title="개발자에게 문의하기"
             android:summary="불편/건의사항이 있으면 omniches@gmail.com으로 연락주세요.">
-            <intent android:action="android.intent.action.VIEW" android:data="mailto:omniches@gmail.com?subject=문의하기">
+            <intent android:action="android.intent.action.VIEW"
+                android:data="mailto:omniches@gmail.com?subject=문의하기">
                 <extra android:name="android.intent.extra.TEXT" android:value="개발자에게 문의" />
             </intent>
         </Preference>
 
+        <Preference android:title="그래프 구현"
+            android:summary="그래프는 MpAndroidCharts 라는 오픈소스를 이용하였습니다.">
+            <intent android:action="android.intent.action.VIEW" android:data="http://github.com/PhilJay/MPAndroidChart"/>
+        </Preference>
     </PreferenceCategory>
+
 </PreferenceScreen>

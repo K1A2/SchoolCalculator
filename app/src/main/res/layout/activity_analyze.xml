@@ -52,6 +52,16 @@
 
     </FrameLayout>
 
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:id="@+id/ads_a"
+        android:background="#00FFFFFF"
+        app:adSize="BANNER"
+        android:layout_marginBottom="5dp"
+        app:adUnitId="ca-app-pub-7873521316289922/2459053944"
+        android:layout_height="wrap_content"
+        ></com.google.android.gms.ads.AdView>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/score_viwewpager"
         android:layout_width="match_parent"

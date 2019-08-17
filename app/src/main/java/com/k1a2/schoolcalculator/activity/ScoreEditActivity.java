@@ -17,11 +17,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.material.tabs.TabLayout;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
+import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
 
 /**성적 입력 액티비티**/
 
@@ -34,16 +38,56 @@ public class ScoreEditActivity extends AppCompatActivity {
     private TabLayout tabLayout = null;//화면전환 버튼
     private ViewPager viewPager = null;//화면전환 영역
     private Toolbar toolbar = null;//툴바
+    private AdView adView = null;
 
     private int indicatorWidth;//인디ㅔ이터 너비
     private TabPagerAdapter tabPagerAdapter = null;//탭 전환 어댑터
     private boolean isFirst = false;//처음 실행인지 여부
+    private AppStorage storage = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_score_main);
         isFirst = true;//처음 실행여부 true로 설정
+
+        storage = new AppStorage(this);
+        adView = findViewById(R.id.ads_s);
+
+        if (storage.purchasedRemoveAds()) {
+            adView.setVisibility(View.GONE);
+        } else {
+            adView.setVisibility(View.GONE);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.setAdListener(new AdListener() {
+
+                @Override
+                public void onAdLoaded() {
+                    adView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAdOpened() {
+                    adView.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAdClosed() {
+                    adView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    adView.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAdLeftApplication() {
+
+                }
+            });
+            adView.loadAd(adRequest);
+        }
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);//??
 

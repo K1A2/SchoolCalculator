@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.k1a2.schoolcalculator">
+    package="com.k1a2.schoolcalculator"
+    android:versionCode="11">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.intent.action.MEDIA_MOUNTED" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,7 @@
         android:roundIcon="@mipmap/ic_appicon_real_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <!--<receiver android:name=".ChartViewWidget">-->
             <!--<intent-filter>-->
                 <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
@@ -28,28 +31,34 @@
             android:name=".activity.GoalActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.AnalyzeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".activity.ScoreEditActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".activity.PreferenceActivity"
             android:launchMode="singleTask"
@@ -64,10 +73,13 @@
             android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">
+
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider" />
+
         </provider>
+
     </application>
 
 </manifest>

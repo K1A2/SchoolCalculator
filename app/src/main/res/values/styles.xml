@@ -8,7 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:actionMenuTextColor">#FF000000</item>
+        <item name="android:textColor">#000000</item>
+        <item name="android:actionMenuTextColor">#FFFFFF</item>
         <item name="android:fontFamily">@font/scdream2</item>
     </style>
 
@@ -17,7 +18,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:background">#00FFFFFF</item>
+    </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:fontFamily">@font/scdream3</item>
@@ -30,6 +33,12 @@
 
     <style name="item_textcolor_v19" parent="AppTheme">
         <item name="android:textColor">#FF000000</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="android:background">#040404</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
 
 </resources>

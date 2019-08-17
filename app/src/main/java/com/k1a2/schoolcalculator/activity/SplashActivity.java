@@ -3,10 +3,14 @@ package com.k1a2.schoolcalculator.activity;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,7 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.github.mikephil.charting.utils.Utils;
 import com.k1a2.schoolcalculator.R;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**스플래시 액티비티
  * 이건 설명 생략. 수정 금지**/

@@ -49,6 +49,16 @@
 
     </FrameLayout>
 
+    <com.google.android.gms.ads.AdView
+        android:layout_width="match_parent"
+        android:id="@+id/ads_s"
+        android:background="#00FFFFFF"
+        app:adSize="BANNER"
+        android:layout_marginBottom="5dp"
+        app:adUnitId="ca-app-pub-7873521316289922/1776527660"
+        android:layout_height="wrap_content"
+        ></com.google.android.gms.ads.AdView>
+
     <TextView
         android:paddingBottom="20dp"
         android:fontFamily="@font/scdream2"
