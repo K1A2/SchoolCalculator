@@ -1,5 +1,6 @@
 package com.k1a2.schoolcalculator.activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,8 +24,10 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -37,7 +40,19 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.api.services.drive.DriveScopes;
 import com.k1a2.schoolcalculator.BillingKey;
 import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
@@ -91,6 +106,9 @@ public class MainActivity extends AppCompatActivity
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
     private AppStorage storage;
     private BillingProcessor bp = null;
+
+    private static final int REQUEST_CODE_SIGN_IN = 9001;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -237,16 +255,30 @@ public class MainActivity extends AppCompatActivity
                 dialog.setPositiveButton("설정", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        int r1 = Integer.parseInt(edit_r1.getText().toString());
-                        int r2 = Integer.parseInt(edit_r2.getText().toString());
-                        int r3 = Integer.parseInt(edit_r3.getText().toString());
-                        if (r1 < 0||r2 < 0||r3 < 0||r1 == 0||r2 == 0||r3 == 0) {
-                            Toast.makeText(MainActivity.this, "음수, 0은 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                        final String a1 = edit_r1.getText().toString();
+                        final String a2 = edit_r2.getText().toString();
+                        final String a3 = edit_r3.getText().toString();
+                        if (!a1.isEmpty()&&!a2.isEmpty()&&!a3.isEmpty()) {
+                            if (Double.parseDouble(a1) <= Integer.MAX_VALUE&&
+                                    Double.parseDouble(a2) <= Integer.MAX_VALUE&&
+                                    Double.parseDouble(a3) <= Integer.MAX_VALUE) {
+                                int r1 = Integer.parseInt(a1);
+                                int r2 = Integer.parseInt(a2);
+                                int r3 = Integer.parseInt(a3);
+
+                                if (r1 < 0||r2 < 0||r3 < 0||r1 == 0||r2 == 0||r3 == 0) {
+                                    Toast.makeText(MainActivity.this, "음수, 0은 불가능 합니다.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_1, r1).commit();//1학년 반영비율 저장
+                                    preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_2, r2).commit();//2학년 반영비율 저장
+                                    preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_3, r3).commit();//3학년 반영비율 저장
+                                    setGradeText();//변경된 비율로 텍스트에 다시 보여주게 설정
+                                }
+                            } else {
+                                Toast.makeText(MainActivity.this, "숫자가 " + String.valueOf(Integer.MAX_VALUE) + "보다 작아야 합니다.", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_1, r1).commit();//1학년 반영비율 저장
-                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_2, r2).commit();//2학년 반영비율 저장
-                            preferences_rate.edit().putInt(PreferenceKey.KEY_INT_RATE_NAME_3, r3).commit();//3학년 반영비율 저장
-                            setGradeText();//변경된 비율로 텍스트에 다시 보여주게 설정
+                            Toast.makeText(MainActivity.this, "칸을 모두 입력해주세요.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -261,12 +293,167 @@ public class MainActivity extends AppCompatActivity
 //                startActivity(new Intent(MainActivity.this, GoalActivity.class));
 //            }
 //        });
+
+//        GoogleSignInOptions gos = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+//
+//        googleSignInClient = GoogleSignIn.getClient(this, gos);
+//
+//        SignInButton signInButton = findViewById(R.id.sign_in_button);
+//        signInButton.setSize(SignInButton.SIZE_STANDARD);
+//        signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent signInIntent = googleSignInClient.getSignInIntent();
+////                startActivityForResult(signInIntent, 0);
+//                loginGoogleDriveBtnPressed();
+//            }
+//        });
+//
+//        findViewById(R.id.logout).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //signOut();
+//                goFileListActivity();
+//            }
+//        });
+    }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+//        updateUI(account);
+//    }
+//
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+//        if (requestCode == 0) {
+//            // The Task returned from this call is always completed, no need to attach
+//            // a listener.
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//            handleSignInResult(task);
+//        }
+//    }
+//
+//    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+//
+//            // Signed in successfully, show authenticated UI.
+//            updateUI(account);
+//        } catch (ApiException e) {
+//            // The ApiException status code indicates the detailed failure reason.
+//            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+//            Log.w("err", "signInResult:failed code=" + e.getStatusCode());
+//            updateUI(null);
+//        }
+//    }
+//
+//    private void updateUI(GoogleSignInAccount account) {
+//        if (account != null) {
+//            Toast.makeText(this, account.getEmail(), Toast.LENGTH_SHORT).show();
+//        }
+//    }
+//
+//    private void signOut() {
+//        googleSignInClient.signOut()
+//                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+//                            Toast.makeText(MainActivity.this, "Succes", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(MainActivity.this, "Fail", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//    }
+
+    private void updateUI(int type) {
+        if(type == 0) {
+            // 구글 드라이브 연동 버튼 보이기.
+        }
+        else {
+
+            // 파일리스트 액티비티로 이동 버튼 보이기.
+            // 로그아웃 버튼 보이기.
+        }
+    }
+    // 구글 드라이브 연동 버튼 눌렸을 때.
+    private void loginGoogleDriveBtnPressed() {
+        GoogleSignInOptions signInOptions =
+                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestEmail()
+                        .requestScopes(new Scope(DriveScopes.DRIVE_FILE))
+                        .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, signInOptions);
+
+        // The result of the sign-in Intent is handled in onActivityResult.
+        startActivityForResult(mGoogleSignInClient.getSignInIntent(), REQUEST_CODE_SIGN_IN);
+    }
+
+    // 파일 보는 화면으로 이동하는 버튼 눌렸을 때.
+    private void goFileListActivity() {
+        Intent intent = new Intent(MainActivity.this, ThirdPartyFileListActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_SIGN_IN) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                handleSignInResult(data);
+            }
+        }
+    }
+
+    private void handleSignInResult(Intent result) {
+        GoogleSignIn.getSignedInAccountFromIntent(result)
+                .addOnSuccessListener(new OnSuccessListener<GoogleSignInAccount>() {
+                    @Override
+                    public void onSuccess(GoogleSignInAccount googleSignInAccount) {
+                        Log.d("succes", "Signed in as " + googleSignInAccount.getEmail());
+
+                        updateUI(1);
+
+                        // Use the authenticated account to sign in to the Drive service.
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("fail", "Unable to open file from picker.", e);
+                    }
+                });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setGradeText();
+
+        int type = 0;
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null && account.getGrantedScopes().contains(new Scope(DriveScopes.DRIVE_FILE))) {
+            type = 1;
+        }
+
+        updateUI(type);
+    }
+
+    private void logout(final int type) {
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                updateUI(0);
+            }
+        });
     }
 
     //성적 가져와서 필요한 텍스트/차트에 뿌리는 함수

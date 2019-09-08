@@ -23,16 +23,10 @@
     <PreferenceCategory android:title="구매">
         <Preference android:title="광고 제거하기"
             android:key="qq"
-            android:summary="단돈 1000원에 모십니다"></Preference>
+            android:summary="단돈 2000원에 모십니다"></Preference>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="앱 정보">
-
-        <Preference
-            android:title="폰트 정보"
-            android:summary="이 앱의 폰트는 S-Core의 S-Core Dream 폰트를 사용했습니다.">
-            <intent android:action="android.intent.action.VIEW" android:data="http://www.s-core.co.kr/who-we-are/font/"/>
-        </Preference>
 
         <Preference
             android:title="개발자에게 문의하기"
@@ -43,8 +37,14 @@
             </intent>
         </Preference>
 
+        <Preference
+            android:title="폰트 정보"
+            android:summary="이 앱의 폰트는 S-Core의 S-Core Dream 폰트를 사용했습니다.">
+            <intent android:action="android.intent.action.VIEW" android:data="http://www.s-core.co.kr/who-we-are/font/"/>
+        </Preference>
+
         <Preference android:title="그래프 구현"
-            android:summary="그래프는 MpAndroidCharts 라는 오픈소스를 이용하였습니다.">
+            android:summary="그래프는 MpAndroidCharts 라는 라이브러리를 이용하였습니다.">
             <intent android:action="android.intent.action.VIEW" android:data="http://github.com/PhilJay/MPAndroidChart"/>
         </Preference>
     </PreferenceCategory>

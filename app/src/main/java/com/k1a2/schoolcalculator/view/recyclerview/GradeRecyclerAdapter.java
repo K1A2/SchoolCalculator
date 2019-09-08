@@ -21,8 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.k1a2.schoolcalculator.R;
+import com.k1a2.schoolcalculator.activity.MainActivity;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
+import com.k1a2.schoolcalculator.sharedpreference.PreferenceKey;
 import com.uni.unitor.unitorm2.view.recycler.listener.RecyclerItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +43,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
     private int itemHeight = 0;
     private String table = "";
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
+    private Context context;
 
     @NonNull
     @Override
@@ -87,6 +90,8 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
+
             subjectNameView = itemView.findViewById(R.id.content_sunjectName);
             gradeView = itemView.findViewById(R.id.content_grade);
             pointView = itemView.findViewById(R.id.content_point);
@@ -136,7 +141,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    onScoreEdit(context, DatabaseKey.KEY_VALUE_SUBJECT, editable.toString(), getAdapterPosition());
+                    onScoreEdit(subjectNameView, context, DatabaseKey.KEY_VALUE_SUBJECT, editable.toString(), getAdapterPosition());
                     listViewList.get(getAdapterPosition()).setSubjectName(editable.toString());
                 }
             });
@@ -153,7 +158,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    onScoreEdit(context, DatabaseKey.KEY_VALUE_GRADE, editable.toString(), getAdapterPosition());
+                    onScoreEdit(gradeView, context, DatabaseKey.KEY_VALUE_GRADE, editable.toString(), getAdapterPosition());
                     listViewList.get(getAdapterPosition()).setRank(editable.toString());
                 }
             });
@@ -170,14 +175,14 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    onScoreEdit(context, DatabaseKey.KEY_VALUE_POINT, editable.toString(), getAdapterPosition());
+                    onScoreEdit(pointView, context, DatabaseKey.KEY_VALUE_POINT, editable.toString(), getAdapterPosition());//TODO
                     listViewList.get(getAdapterPosition()).setPoint(editable.toString());
                 }
             });
             typeView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    onScoreEdit(context, DatabaseKey.KEY_VALUE_TYPE, String.valueOf(i), getAdapterPosition());
+                    onScoreEdit(null, context, DatabaseKey.KEY_VALUE_TYPE, String.valueOf(i), getAdapterPosition());
                     listViewList.get(getAdapterPosition()).setType(i);
                 }
 
@@ -189,7 +194,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
         }
     }
 
-    private synchronized void onScoreEdit(Context context, String type, String value, int position) {
+    private synchronized void onScoreEdit(EditText editText, Context context, String type, String value, int position) {
         table = String.valueOf(level)+String.valueOf(grade);
         if (scoreDatabaseHelper == null) {
             scoreDatabaseHelper = new ScoreDatabaseHelper(context, DatabaseKey.KEY_DB_NAME, null, 1);
@@ -197,7 +202,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
         if (!scoreDatabaseHelper.isExisit(table, position)) {
             insertDatabase(position, type, value);
         } else {
-            updateDatabase(type, value, position);
+            updateDatabase(editText, type, value, position);//TODO
         }
     }
 
@@ -234,24 +239,36 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                 break;
             }
             case DatabaseKey.KEY_VALUE_GRADE: {
-                if (value.isEmpty()) {
-                    value = "1";
+                if (Double.parseDouble(value) <= Integer.MAX_VALUE) {
+                    if (value.isEmpty()) {
+                        value = "1";
+                    }
+                    insertDatabase(position, "", Integer.parseInt(value), 1, 0);
+                } else {
+                    Toast.makeText(context, "숫자가 " + String.valueOf(Integer.MAX_VALUE) + "보다 작아야 합니다.", Toast.LENGTH_SHORT).show();
                 }
-                insertDatabase(position, "", Integer.parseInt(value), 1, 0);
                 break;
             }
             case DatabaseKey.KEY_VALUE_POINT: {
-                if (value.isEmpty()) {
-                    value = "1";
+                if (Double.parseDouble(value) <= Integer.MAX_VALUE) {
+                    if (value.isEmpty()) {
+                        value = "1";
+                    }
+                    insertDatabase(position, "", 1, Integer.parseInt(value), 0);
+                } else {
+                    Toast.makeText(context, "숫자가 " + String.valueOf(Integer.MAX_VALUE) + "보다 작아야 합니다.", Toast.LENGTH_SHORT).show();
                 }
-                insertDatabase(position, "", 1, Integer.parseInt(value), 0);
                 break;
             }
             case DatabaseKey.KEY_VALUE_TYPE: {
-                if (value.isEmpty()) {
-                    value = "0";
+                if (Double.parseDouble(value) <= Integer.MAX_VALUE) {
+                    if (value.isEmpty()) {
+                        value = "0";
+                    }
+                    insertDatabase(position, "", 1, 1, Integer.parseInt(value));
+                } else {
+                    Toast.makeText(context, "숫자가 " + String.valueOf(Integer.MAX_VALUE) + "보다 작아야 합니다.", Toast.LENGTH_SHORT).show();
                 }
-                insertDatabase(position, "", 1, 1, Integer.parseInt(value));
                 break;
             }
             case DatabaseKey.KEY_VALUE_POSITION: {
@@ -260,8 +277,28 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
         }
     }
 
-    private void updateDatabase(String type, String value, int position) {
-        scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+    private void updateDatabase(EditText editText, String type, String value, int position) {
+        switch (type) {
+            case DatabaseKey.KEY_VALUE_SUBJECT: {
+                scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+                break;
+            }
+            default: {
+                if (value.isEmpty()) {
+                    scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+                } else {
+                    if (Double.parseDouble(value) <= Integer.MAX_VALUE) {
+                        scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+                    } else {
+                        Toast.makeText(context, "숫자가 " + String.valueOf(Integer.MAX_VALUE) + "보다 작아야 합니다.", Toast.LENGTH_SHORT).show();
+                        if (editText != null) {
+                            editText.setText("1");
+                        }
+                    }
+                }
+                break;
+            }
+        }
     }
 
     public void clearItem() {
