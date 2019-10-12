@@ -10,7 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
+        android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         android:background="#00FFFFFF"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -54,8 +54,16 @@
                     android:id="@+id/main_text_allApp"
                     android:textColor="#FFFFFF"/>
 
-                <LinearLayout
+                <TextView
                     android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:textColor="#FFFFFFFF"
+                    android:textSize="10dp"
+                    android:text="* 아직 입력되지 않은 학기 가장 최근 학기 성적으로 대체됩니다."
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginTop="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"

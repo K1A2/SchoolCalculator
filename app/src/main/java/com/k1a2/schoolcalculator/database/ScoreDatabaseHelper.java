@@ -185,4 +185,11 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
             return Float.NaN;
         }
     }
+
+    public int getColumnCount(String table) {
+        final SQLiteDatabase db  = getReadableDatabase();
+        final Cursor cursor = db.rawQuery("SELECT count(*) FROM \'" + table + "\'", null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
 }

@@ -134,10 +134,26 @@ public class GradeCalculator {
                 result3 = 0;
             }
         }
+
+        //32포함
+        float[] inNull = null;
         if (is32Include) {
             if (f11 == null&&f12 == null&&f21 == null&&f22 == null&&f31 == null&&f32 == null) {
                 resultAll = 0;
             } else {
+                if (f32 != null) {
+                    inNull = f32.clone();
+                } else if (f31 != null) {
+                    inNull = f31.clone();
+                } else if (f22 != null) {
+                    inNull = f22.clone();
+                } else if (f21 != null) {
+                    inNull = f21.clone();
+                } else if (f12 != null) {
+                    inNull = f12.clone();
+                } else if (f11 != null) {
+                    inNull = f11.clone();
+                }
                 float ap1 = 0;
                 float ag1 = 0;
                 float ap2 = 0;
@@ -148,26 +164,62 @@ public class GradeCalculator {
                 if (f11 != null) {
                     ag1 += f11[0];
                     ap1 += f11[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("11");
+                    if (count == 0) {
+                        ag1 += inNull[0];
+                        ap1 += inNull[1];
+                    }
                 }
                 if (f12 != null) {
                     ag1 += f12[0];
                     ap1 += f12[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("12");
+                    if (count == 0) {
+                        ag1 += inNull[0];
+                        ap1 += inNull[1];
+                    }
                 }
                 if (f21 != null) {
                     ag2 += f21[0];
                     ap2 += f21[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("21");
+                    if (count == 0) {
+                        ag2 += inNull[0];
+                        ap2 += inNull[1];
+                    }
                 }
                 if (f22 != null) {
                     ag2 += f22[0];
                     ap2 += f22[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("22");
+                    if (count == 0) {
+                        ag2 += inNull[0];
+                        ap2 += inNull[1];
+                    }
                 }
                 if (f31 != null) {
                     ag3 += f31[0];
                     ap3 += f31[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("31");
+                    if (count == 0) {
+                        ag3 += inNull[0];
+                        ap3 += inNull[1];
+                    }
                 }
                 if (f32 != null) {
                     ag3 += f32[0];
                     ap3 += f32[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("32");
+                    if (count == 0) {
+                        ag3 += inNull[0];
+                        ap3 += inNull[1];
+                    }
                 }
 
                 if (r1 == 1&&r2 == 1&&r3 == 1) {
@@ -206,10 +258,24 @@ public class GradeCalculator {
                     resultAll = (float) (Math.round(rr*100)/100.0);
                 }
             }
-        } else {
+        } else {//32미포함
             if (f11 == null&&f12 == null&&f21 == null&&f22 == null&&f31 == null) {
                 resultAll = 0;
             } else {
+                if (f32 != null) {
+                    inNull = f32.clone();
+                } else if (f31 != null) {
+                    inNull = f31.clone();
+                } else if (f22 != null) {
+                    inNull = f22.clone();
+                } else if (f21 != null) {
+                    inNull = f21.clone();
+                } else if (f12 != null) {
+                    inNull = f12.clone();
+                } else if (f11 != null) {
+                    inNull = f11.clone();
+                }
+
                 float ap1 = 0;
                 float ag1 = 0;
                 float ap2 = 0;
@@ -220,22 +286,52 @@ public class GradeCalculator {
                 if (f11 != null) {
                     ag1 += f11[0];
                     ap1 += f11[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("11");
+                    if (count == 0) {
+                        ag1 += inNull[0];
+                        ap1 += inNull[1];
+                    }
                 }
                 if (f12 != null) {
                     ag1 += f12[0];
                     ap1 += f12[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("12");
+                    if (count == 0) {
+                        ag1 += inNull[0];
+                        ap1 += inNull[1];
+                    }
                 }
                 if (f21 != null) {
                     ag2 += f21[0];
                     ap2 += f21[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("21");
+                    if (count == 0) {
+                        ag2 += inNull[0];
+                        ap2 += inNull[1];
+                    }
                 }
                 if (f22 != null) {
                     ag2 += f22[0];
                     ap2 += f22[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("22");
+                    if (count == 0) {
+                        ag2 += inNull[0];
+                        ap2 += inNull[1];
+                    }
                 }
                 if (f31 != null) {
                     ag3 += f31[0];
                     ap3 += f31[1];
+                } else {
+                    final int count = scoreDatabaseHelper.getColumnCount("31");
+                    if (count == 0) {
+                        ag3 += inNull[0];
+                        ap3 += inNull[1];
+                    }
                 }
 
                 if (r1 == 1&&r2 == 1&&r3 == 1) {

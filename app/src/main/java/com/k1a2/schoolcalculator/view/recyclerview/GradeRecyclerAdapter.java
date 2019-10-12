@@ -3,6 +3,7 @@ package com.k1a2.schoolcalculator.view.recyclerview;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -110,7 +111,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                 @Override
                 public void onClick(View view) {
                     final AlertDialog.Builder a = new AlertDialog.Builder(itemView.getContext());
-                    a.setTitle(String.format("%s를 삭제하시겠습니까?", subjectNameView.getText().toString()));
+                    a.setTitle(String.format("\'%s\'를 삭제하시겠습니까?", subjectNameView.getText().toString()));
                     a.setPositiveButton("삭제", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -121,8 +122,15 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                         }
                     });
                     a.setNegativeButton("취소", null);
-                    a.setMessage(String.format("성적에서 %s를 삭제하시겠습니까?", subjectNameView.getText().toString()));
-                    a.show();
+                    a.setMessage(String.format("성적에서 \'%s\'를 삭제하시겠습니까?", subjectNameView.getText().toString()));
+                    final AlertDialog alertDialog = a.create();
+                    alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.rgb(235, 64, 52));
+                        }
+                    });
+                    alertDialog.show();
                 }
             });
 
@@ -212,8 +220,10 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
     }
 
     public void removeItem(int position) {
-        listViewList.remove(position);
-        notifyItemRemoved(position);
+        if (position != -1) {
+            listViewList.remove(position);
+            notifyItemRemoved(position);
+        }
     }
 
     public GradeRecyclerItem getItem(int position) {
