@@ -12,6 +12,7 @@
         <TextView
             android:textSize="13dp"
             android:text="1학년"
+            android:textColor="#FFFFFFFF"
             android:fontFamily="@font/scdream3"
             android:gravity="center"
             android:layout_width="match_parent"
@@ -21,6 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="#FFFFFFFF"
             android:fontFamily="@font/scdream3"
             android:gravity="center_vertical"
             android:text=":"
@@ -31,6 +33,7 @@
             android:text="2학년"
             android:fontFamily="@font/scdream3"
             android:gravity="center"
+            android:textColor="#FFFFFFFF"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -39,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/scdream3"
+            android:textColor="#FFFFFFFF"
             android:gravity="center_vertical"
             android:text=":"
             android:textSize="20dp"/>
@@ -48,6 +52,7 @@
             android:text="3학년"
             android:fontFamily="@font/scdream3"
             android:gravity="center"
+            android:textColor="#FFFFFFFF"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -70,6 +75,9 @@
             android:inputType="number"
             android:layout_height="match_parent"
             android:imeOptions="actionNext"
+            android:theme="@style/edittext_color"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#9DFFFFFF"
             android:layout_weight="1"
             android:hint="1학년"/>
 
@@ -79,6 +87,7 @@
             android:fontFamily="@font/scdream3"
             android:gravity="center_vertical"
             android:text=":"
+            android:textColor="#FFFFFFFF"
             android:textSize="20dp"/>
 
         <EditText
@@ -91,6 +100,9 @@
             android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:theme="@style/edittext_color"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#9DFFFFFF"
             android:imeOptions="actionNext"
             android:hint="2학년"/>
 
@@ -98,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:fontFamily="@font/scdream3"
+            android:textColor="#FFFFFFFF"
             android:gravity="center_vertical"
             android:text=":"
             android:textSize="20dp"/>
@@ -108,6 +121,9 @@
             android:id="@+id/dialog_edit_r3"
             android:gravity="center"
             android:textSize="13dp"
+            android:theme="@style/edittext_color"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#9DFFFFFF"
             android:inputType="number"
             android:layout_weight="1"
             android:layout_width="match_parent"

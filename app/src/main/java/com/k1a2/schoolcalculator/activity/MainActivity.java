@@ -1,10 +1,10 @@
 package com.k1a2.schoolcalculator.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,12 +24,14 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import android.preference.PreferenceManager;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -38,14 +40,11 @@ import android.view.MenuItem;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -110,11 +109,14 @@ public class MainActivity extends AppCompatActivity
     private static final int REQUEST_CODE_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
 
+    private SharedPreferences preference_check = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         preferences_rate = PreferenceManager.getDefaultSharedPreferences(this);
+        preference_check = PreferenceManager.getDefaultSharedPreferences(this);
 //        if (preferences_rate.getBoolean(PreferenceKey.KEY_BOOL_ISDARK_THEME, false)) {
 //            setTheme(R.style.AppTheme_Dark);
 //        }
@@ -190,6 +192,31 @@ public class MainActivity extends AppCompatActivity
         });
         bp.initialize();
 
+        if (preference_check.getBoolean(PreferenceKey.KEY_BOOL_IS_LAUNCH_FIRST, true)) {
+            preference_check.edit().putBoolean(PreferenceKey.KEY_BOOL_IS_LAUNCH_FIRST, false).commit();
+            preference_check.edit().putInt(PreferenceKey.KEY_INT_COUNT_SHOW, 5).commit();
+        }
+
+        final int showrate = preference_check.getInt(PreferenceKey.KEY_INT_COUNT_SHOW, 0);
+        if (showrate == 0) {
+            final AlertDialog.Builder rateDialog = new AlertDialog.Builder(this);
+            final View rateView = View.inflate(this, R.layout.dialog_rating, null);
+            rateDialog.setView(rateView);
+            final AlertDialog alertDialog = rateDialog.create();
+            alertDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_rate));
+            rateView.findViewById(R.id.rate_button_rate).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.k1a2.schoolcalculator")));
+                    alertDialog.dismiss();
+                }
+            });
+            alertDialog.show();
+            preference_check.edit().putInt(PreferenceKey.KEY_INT_COUNT_SHOW, 10).commit();
+        } else {
+            preference_check.edit().putInt(PreferenceKey.KEY_INT_COUNT_SHOW, showrate -1).commit();
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -251,7 +278,6 @@ public class MainActivity extends AppCompatActivity
                 edit_r2.setText(String.valueOf(preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_2, 1)));
                 edit_r3.setText(String.valueOf(preferences_rate.getInt(PreferenceKey.KEY_INT_RATE_NAME_3, 1)));
                 dialog.setView(root);
-                dialog.setTitle("비율 설정");
                 dialog.setPositiveButton("설정", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -282,7 +308,19 @@ public class MainActivity extends AppCompatActivity
                         }
                     }
                 });
-                dialog.show();
+                final ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
+                final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("비율 설정");
+                spannableStringBuilder.setSpan(foregroundColorSpan, 0, 5, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                dialog.setTitle(spannableStringBuilder);
+                final AlertDialog alertDialog = dialog.create();
+                alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface dialogInterface) {
+                        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.WHITE);
+                    }
+                });
+                alertDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_rate));
+                alertDialog.show();
             }
         });
 

@@ -28,11 +28,15 @@
 
     <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
         <item name="android:fontFamily">@font/scdream3</item>
-
     </style>
 
     <style name="item_textcolor_v19" parent="AppTheme">
         <item name="android:textColor">#FF000000</item>
+    </style>
+
+    <style name="edittext_color" parent="AppTheme">
+        <item name="colorAccent">#FFFFFFFF</item>
+        <item name="colorControlNormal">#FFFFFFFF</item>
     </style>
 
     <style name="AppTheme.Dark" parent="AppTheme">
