@@ -52,6 +52,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.api.services.drive.DriveScopes;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.k1a2.schoolcalculator.BillingKey;
 import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
@@ -321,6 +323,53 @@ public class MainActivity extends AppCompatActivity
                 });
                 alertDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_rate));
                 alertDialog.show();
+            }
+        });
+
+        final FirebaseRemoteConfig firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        firebaseRemoteConfig.fetch().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    firebaseRemoteConfig.activateFetched();
+                    final String version = firebaseRemoteConfig.getString("string_app_version");
+                    if (!getString(R.string.app_version).equals(version)) {
+                        final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                        final View a = View.inflate(MainActivity.this, R.layout.dialog_new_version, null);
+                        //final String i = firebaseRemoteConfig.getString("string_update_note");
+                        ((TextView)a.findViewById(R.id.dialog_version_new)).setText(String.format("\'%s\' 버전이 플레이 스토어에 출시되었습니다!\n바로 업데이트 해보세요!", version));
+                        alert.setView(a);
+                        alert.setPositiveButton("업데이트", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.k1a2.schoolcalculator")));
+                            }
+                        });
+                        alert.setNegativeButton("다음에 하기", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+//                        alert.setNeutralButton("다시 보지 않기", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+                        final AlertDialog l = alert.create();
+                        l.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_rate));
+                        l.setOnShowListener(new DialogInterface.OnShowListener() {
+                            @Override
+                            public void onShow(DialogInterface dialogInterface) {
+                                l.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(46, 144, 242));
+                                l.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.rgb(255, 110, 158));
+                                //l.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.rgb(255, 255, 255));
+                            }
+                        });
+                        l.show();
+                    }
+                }
             }
         });
 
