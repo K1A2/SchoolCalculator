@@ -1,12 +1,18 @@
 package com.k1a2.schoolcalculator.view;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -116,4 +122,67 @@ public class CardGradeView extends CardView {
             gradeRecyclerAdapter.addItem(gradeRecyclerItem);
         }
     }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//            switch (view.getId()) {
+//                case R.id.card_info_s: {
+//                    String a = "'과목명'이 뭐죠?";
+//                    String b = "'과목명'은 수강한 과목의 이름을 말합니다.";
+//                    final ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
+//                    final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(a);
+//                    spannableStringBuilder.setSpan(foregroundColorSpan, 0, a.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setTitle(spannableStringBuilder);
+//                    final SpannableStringBuilder spannableStringBuilder1 = new SpannableStringBuilder(b);
+//                    spannableStringBuilder1.setSpan(foregroundColorSpan, 0, b.trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setMessage(spannableStringBuilder1);
+//                    break;
+//                }
+//
+//                case R.id.card_info_g: {
+//                    String a = "'등급'이 뭐죠?";
+//                    String b = "'등급'은 각 과목 전체수강생을 성적순서에 따라 4,11,23,40,60,73,89, 96%의 비율기준으로 나누어 1~9등급으로 나누는 등급배분법을 말합니다.";
+//                    final ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
+//                    final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(a);
+//                    spannableStringBuilder.setSpan(foregroundColorSpan, 0, a.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setTitle(spannableStringBuilder);
+//                    final SpannableStringBuilder spannableStringBuilder1 = new SpannableStringBuilder(b);
+//                    spannableStringBuilder1.setSpan(foregroundColorSpan, 0, b.trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setMessage(spannableStringBuilder1);
+//                    break;
+//                }
+//
+//                case R.id.card_info_u: {
+//                    String a = "'단위'이 뭐죠?";
+//                    String b = "'단위'는 각 과목이 일주일에 수업하는 총 횟수 입니다.";
+//                    final ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
+//                    final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(a);
+//                    spannableStringBuilder.setSpan(foregroundColorSpan, 0, a.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setTitle(spannableStringBuilder);
+//                    final SpannableStringBuilder spannableStringBuilder1 = new SpannableStringBuilder(b);
+//                    spannableStringBuilder1.setSpan(foregroundColorSpan, 0, b.trim().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setMessage(spannableStringBuilder1);
+//                    break;
+//                }
+//
+//                case R.id.card_info_q: {
+//                    String a = "\'과목 계열\'이 뭐죠?";
+//                    String b = "\'과목 계열\'은 각 과목의 성격을 말합니다.";
+//                    final ForegroundColorSpan foregroundColorSpan = new ForegroundColorSpan(Color.WHITE);
+//                    final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(a);
+//                    spannableStringBuilder.setSpan(foregroundColorSpan, 0, a.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setTitle(spannableStringBuilder);
+//                    final SpannableStringBuilder spannableStringBuilder1 = new SpannableStringBuilder(b);
+//                    spannableStringBuilder1.setSpan(foregroundColorSpan, 0, b.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//                    alert.setMessage(spannableStringBuilder1);
+//                    break;
+//                }
+//            }
+//            AlertDialog alertDialog = alert.create();
+//            alertDialog.getWindow().setBackgroundDrawable(getContext().getResources().getDrawable(R.drawable.background_dialog_rate));
+//            alertDialog.show();
+        }
+    };
 }

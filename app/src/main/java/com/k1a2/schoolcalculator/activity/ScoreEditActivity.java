@@ -1,20 +1,29 @@
 package com.k1a2.schoolcalculator.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.gms.ads.AdListener;
@@ -26,6 +35,8 @@ import com.k1a2.schoolcalculator.fragment.Grade1Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade2Fragment;
 import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
 import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
+import com.k1a2.schoolcalculator.view.recyclerview.AskRecyclerAdapter;
+import com.k1a2.schoolcalculator.view.recyclerview.AskRecyclerItem;
 
 /**성적 입력 액티비티**/
 
@@ -37,6 +48,7 @@ public class ScoreEditActivity extends AppCompatActivity {
     private View view_indicator = null;//커스터 인디케이터
     private TabLayout tabLayout = null;//화면전환 버튼
     private ViewPager viewPager = null;//화면전환 영역
+    private ImageButton btn_ask = null;
     private Toolbar toolbar = null;//툴바
     private AdView adView = null;
 
@@ -53,6 +65,49 @@ public class ScoreEditActivity extends AppCompatActivity {
 
         storage = new AppStorage(this);
         adView = findViewById(R.id.ads_s);
+        btn_ask = findViewById(R.id.card_info);
+
+        btn_ask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final View layout_ask = getLayoutInflater().inflate(R.layout.dialog_explain_edit, null);
+                final RecyclerView recycle_Ask = layout_ask.findViewById(R.id.dialog_explain_list);
+
+                final SnapHelper snapHelper = new LinearSnapHelper();
+                snapHelper.attachToRecyclerView(recycle_Ask);
+                recycle_Ask.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+
+                final AskRecyclerAdapter  askRecyclerAdapter = new AskRecyclerAdapter();
+                recycle_Ask.setAdapter(askRecyclerAdapter);
+
+                final String[] title = new String[] {"'과목명'이 뭐죠?", "'등급'이 뭐죠?", "'단위'이 뭐죠?", "'과목 계열'이 뭐죠?"};
+                final String[] subtitle = new String[] {"'과목명'은 수강한 과목의 이름을 말합니다.",
+                        "'등급'은 각 과목 전체수강생을 성적순서에 따라 4,11,23,40,60,73,89, 96%의 비율기준으로 나누어 1~9등급으로 나누는 등급배분법을 말합니다.",
+                        "'단위'는 각 과목이 일주일에 수업하는 총 횟수 입니다.", "\'과목 계열\'은 각 과목의 성격을 말합니다."};
+                final int[] color = new int[] {Color.rgb(47, 64, 115), Color.rgb(4, 140, 126),
+                        Color.rgb(242, 192, 41), Color.rgb(242, 172, 41)};
+                final Drawable[] drawable = new Drawable[] {getResources().getDrawable(R.drawable.baseline_menu_book_white_48),
+                        getResources().getDrawable(R.drawable.baseline_insert_chart_white_48),
+                        getResources().getDrawable(R.drawable.baseline_format_list_numbered_white_48),
+                        getResources().getDrawable(R.drawable.baseline_storage_white_48)};
+
+                for (int i = 0;i < 4;i++) {
+                    final AskRecyclerItem askRecyclerItem = new AskRecyclerItem();
+                    askRecyclerItem.setColor(color[i]);
+                    askRecyclerItem.setTitle(title[i]);
+                    askRecyclerItem.setSubtitle(subtitle[i]);
+                    askRecyclerItem.setImage(drawable[i]);
+                    askRecyclerAdapter.addItem(askRecyclerItem);
+                }
+
+                final AlertDialog.Builder dialog_ask = new AlertDialog.Builder(ScoreEditActivity.this);
+                dialog_ask.setView(layout_ask);
+
+                final AlertDialog dialog_a = dialog_ask.create();
+                dialog_a.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_ask));
+                dialog_a.show();
+            }
+        });
 
         if (storage.purchasedRemoveAds()) {
             adView.setVisibility(View.GONE);

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="wrap_content" android:id="@+id/view_card_back_layout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:textColor="#FFFFFFFF"
+        android:text="이건 뭘까요?"
+        android:gravity="center_horizontal"
+        android:id="@+id/view_card_text_title"
+        android:fontFamily="@font/scdream5"
+        android:textSize="40dp"/>
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view_card_image"
+        android:src="@drawable/baseline_menu_book_white_48"/>
+
+    <TextView
+        android:id="@+id/view_card_text_sub"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textColor="#FFFFFFFF"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:singleLine="false"
+        android:fontFamily="@font/scdream4"
+        android:text="'과목명'은 수강한 과목의 이름을 말합니다."
+        android:layout_marginBottom="30dp"/>
+
+</LinearLayout>
