@@ -14,8 +14,11 @@ import java.util.ArrayList;
 
 public class ScoreDatabaseHelper extends SQLiteOpenHelper {
 
+    private Context context = null;
+
     public ScoreDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+        this.context = context;
     }
 
     //데이터베이스 초기화
@@ -119,7 +122,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
     //3년의 들급과 단위 모두 리턴
     public ArrayList<Integer[]> getGP(String table) {
         final ArrayList<Integer[]> values = new ArrayList<>();
-        final SQLiteDatabase db = getWritableDatabase();
+        final SQLiteDatabase db = getReadableDatabase();
         try {
             final Cursor cursor = db.rawQuery("SELECT grade, point FROM \'" + table + "\'", null);
             if (cursor.getCount() == 0) {

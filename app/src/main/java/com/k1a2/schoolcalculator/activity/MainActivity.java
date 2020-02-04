@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -61,11 +62,21 @@ import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
 import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
 import com.k1a2.schoolcalculator.sharedpreference.PreferenceKey;
+import com.k1a2.schoolcalculator.view.recyclerview.GradeViewItem;
+import com.k1a2.schoolcalculator.view.recyclerview.GradeViewRecyclerAdapter;
+import com.k1a2.schoolcalculator.view.recyclerview.LinePagerIndicatorDecoration;
+import com.k1a2.schoolcalculator.view.recyclerview.listener.SnapPagerScrollListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SnapHelper;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.Menu;
 import android.widget.Button;
@@ -81,6 +92,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private RecyclerView recycler_grade = null;
     private TextView text_rate = null;
     private ImageButton button_rate = null;
     private SharedPreferences preferences_rate = null;
@@ -107,6 +119,7 @@ public class MainActivity extends AppCompatActivity
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
     private AppStorage storage;
     private BillingProcessor bp = null;
+    private GradeViewRecyclerAdapter gradeViewRecyclerAdapter = null;
 
     private static final int REQUEST_CODE_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
@@ -237,27 +250,41 @@ public class MainActivity extends AppCompatActivity
         button_editScore3 = (Button)findViewById(R.id.main_button_editScore3);
         text_rate = (TextView)findViewById(R.id.main_text_rate);
         button_rate = (ImageButton)findViewById(R.id.main_button_rate);
+
         //성적 보여주는 텍스트
-        textView11 = (TextView)findViewById(R.id.main_11text);
-        textView12 = (TextView)findViewById(R.id.main_12text);
-        textView21 = (TextView)findViewById(R.id.main_21text);
-        textView22 = (TextView)findViewById(R.id.main_22text);
-        textView31 = (TextView)findViewById(R.id.main_31text);
-        textView32 = (TextView)findViewById(R.id.main_32text);
+        if (MainActivity.this.getResources().getConfiguration().smallestScreenWidthDp >= 600) {//600dp 이상
+            textView11 = (TextView)findViewById(R.id.main_11text);
+            textView12 = (TextView)findViewById(R.id.main_12text);
+            textView21 = (TextView)findViewById(R.id.main_21text);
+            textView22 = (TextView)findViewById(R.id.main_22text);
+            textView31 = (TextView)findViewById(R.id.main_31text);
+            textView32 = (TextView)findViewById(R.id.main_32text);
+            button_editScore1.setOnClickListener(onScoreEditButton);
+            button_editScore2.setOnClickListener(onScoreEditButton);
+            button_editScore3.setOnClickListener(onScoreEditButton);
+        } else {
+            //성적 리사이클러뷰
+            gradeViewRecyclerAdapter = new GradeViewRecyclerAdapter();
+            recycler_grade = findViewById(R.id.main_recycler_grade);
+            recycler_grade.setAdapter(gradeViewRecyclerAdapter);
+            recycler_grade.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+            final PagerSnapHelper snapHelper = new PagerSnapHelper();
+            snapHelper.attachToRecyclerView(recycler_grade);
+            recycler_grade.addItemDecoration(new LinePagerIndicatorDecoration());
+        }
+
         textViewAll = (TextView)findViewById(R.id.main_text_all);
         textViewAllBar = (TextView)findViewById(R.id.main_text_allApp);
         textSum1 = (TextView)findViewById(R.id.main_1sumtext);
         textSum2 = (TextView)findViewById(R.id.main_2sumtext);
         textSum3 = (TextView)findViewById(R.id.main_3sumtext);
+
         //성적 차트
         chart_analyze = (LineChart)findViewById(R.id.main_chart_analyze);
         //button_goal = (Button)findViewById(R.id.main_button_editGoal);
 
         //리스너 연결
         button_editScoreAll.setOnClickListener(onScoreEditButton);
-        button_editScore1.setOnClickListener(onScoreEditButton);
-        button_editScore2.setOnClickListener(onScoreEditButton);
-        button_editScore3.setOnClickListener(onScoreEditButton);
 
         //성적 분석 보기 버튼 클릭 리스너
         ((Button) findViewById(R.id.main_button_showAnalyze)).setOnClickListener(new View.OnClickListener() {
@@ -564,12 +591,27 @@ public class MainActivity extends AppCompatActivity
         }
 
         //텍스트뷰에 함수 값 연결
-        textView11.setText(String.valueOf(gradeCalculator.getResult11()));
-        textView12.setText(String.valueOf(gradeCalculator.getResult12()));
-        textView21.setText(String.valueOf(gradeCalculator.getResult21()));
-        textView22.setText(String.valueOf(gradeCalculator.getResult22()));
-        textView31.setText(String.valueOf(gradeCalculator.getResult31()));
-        textView32.setText(String.valueOf(gradeCalculator.getResult32()));
+        if (MainActivity.this.getResources().getConfiguration().smallestScreenWidthDp >= 600) {
+            textView11.setText(String.valueOf(gradeCalculator.getResult11()));
+            textView12.setText(String.valueOf(gradeCalculator.getResult12()));
+            textView21.setText(String.valueOf(gradeCalculator.getResult21()));
+            textView22.setText(String.valueOf(gradeCalculator.getResult22()));
+            textView31.setText(String.valueOf(gradeCalculator.getResult31()));
+            textView32.setText(String.valueOf(gradeCalculator.getResult32()));
+        } else {
+            final float[][] grades = new float[][] {{gradeCalculator.getResult11(), gradeCalculator.getResult12()}, {gradeCalculator.getResult21()
+                    ,gradeCalculator.getResult22()}, {gradeCalculator.getResult31(), gradeCalculator.getResult32()}};
+
+            gradeViewRecyclerAdapter.clearItem();
+            for (int i = 0;i < 3;i++) {
+                final GradeViewItem gradeViewItem = new GradeViewItem();
+                gradeViewItem.setGradeTitle((i + 1) + "학년 평균 등급");
+                gradeViewItem.setGrade1(grades[i][0]);
+                gradeViewItem.setGrade2(grades[i][1]);
+                gradeViewRecyclerAdapter.addItem(gradeViewItem);
+            }
+        }
+
         textSum1.setText(String.valueOf(gradeCalculator.getResult1()));
         textSum2.setText(String.valueOf(gradeCalculator.getResult2()));
         textSum3.setText(String.valueOf(gradeCalculator.getResult3()));

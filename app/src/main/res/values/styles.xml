@@ -39,8 +39,18 @@
         <item name="colorControlNormal">#FFFFFFFF</item>
     </style>
 
+    <style name="numberpicker_color" parent="edittext_color">
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+    </style>
+
     <style name="AppTheme.Dark" parent="AppTheme">
         <item name="android:background">#040404</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
+    </style>
+    
+    <style name="PickerAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">#FFFFFFFF</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
     </style>

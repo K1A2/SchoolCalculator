@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -37,6 +38,7 @@ import com.k1a2.schoolcalculator.fragment.Grade3Fragment;
 import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
 import com.k1a2.schoolcalculator.view.recyclerview.AskRecyclerAdapter;
 import com.k1a2.schoolcalculator.view.recyclerview.AskRecyclerItem;
+import com.k1a2.schoolcalculator.view.recyclerview.LinePagerIndicatorDecoration;
 
 /**성적 입력 액티비티**/
 
@@ -73,14 +75,15 @@ public class ScoreEditActivity extends AppCompatActivity {
                 final View layout_ask = getLayoutInflater().inflate(R.layout.dialog_explain_edit, null);
                 final RecyclerView recycle_Ask = layout_ask.findViewById(R.id.dialog_explain_list);
 
-                final SnapHelper snapHelper = new LinearSnapHelper();
+                final PagerSnapHelper snapHelper = new PagerSnapHelper();
                 snapHelper.attachToRecyclerView(recycle_Ask);
-                recycle_Ask.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL));
+                recycle_Ask.setLayoutManager(new LinearLayoutManager(ScoreEditActivity.this, RecyclerView.HORIZONTAL, false));
+                recycle_Ask.addItemDecoration(new LinePagerIndicatorDecoration());
 
                 final AskRecyclerAdapter  askRecyclerAdapter = new AskRecyclerAdapter();
                 recycle_Ask.setAdapter(askRecyclerAdapter);
 
-                final String[] title = new String[] {"'과목명'이 뭐죠?", "'등급'이 뭐죠?", "'단위'이 뭐죠?", "'과목 계열'이 뭐죠?"};
+                final String[] title = new String[] {"'과목명'이 뭐죠?", "'등급'이 뭐죠?", "'단위'가 뭐죠?", "'과목 계열'이 뭐죠?"};
                 final String[] subtitle = new String[] {"'과목명'은 수강한 과목의 이름을 말합니다.",
                         "'등급'은 각 과목 전체수강생을 성적순서에 따라 4,11,23,40,60,73,89, 96%의 비율기준으로 나누어 1~9등급으로 나누는 등급배분법을 말합니다.",
                         "'단위'는 각 과목이 일주일에 수업하는 총 횟수 입니다.", "\'과목 계열\'은 각 과목의 성격을 말합니다."};

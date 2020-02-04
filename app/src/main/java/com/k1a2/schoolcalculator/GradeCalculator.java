@@ -99,6 +99,7 @@ public class GradeCalculator {
             result32 = 0;
         }
 
+        //TODO: 1로 적용되는 오류 고쳐야됨
         if (f11 !=  null&&f12 != null) {
             result1 = (float) (Math.round((f11[0] + f12[0])/(f11[1] + f12[1])*100)/100.0);
         } else if (f11 ==  null&&f12 != null) {

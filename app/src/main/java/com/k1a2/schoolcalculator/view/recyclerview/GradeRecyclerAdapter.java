@@ -3,9 +3,11 @@ package com.k1a2.schoolcalculator.view.recyclerview;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.Editable;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
@@ -16,12 +18,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.NumberPicker;
 import android.widget.Spinner;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.k1a2.schoolcalculator.R;
@@ -60,9 +67,9 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final GradeRecyclerItem item = listViewList.get(position);
         holder.subjectNameView.setText(item.getSubjectName());
-        holder.gradeView.setText(item.getRank());
-        holder.pointView.setText(item.getPoint());
         holder.typeView.setSelection(item.getType());
+        holder.pointButton.setText(item.getPoint());
+        holder.gradeButton.setText(item.getRank());
     }
 
     @Override
@@ -87,24 +94,98 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         EditText subjectNameView = null;
-        EditText gradeView = null;
-        EditText pointView = null;
         ImageButton button_delete = null;
         Spinner typeView = null;
+        Button gradeButton = null;
+        Button pointButton = null;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
 
             subjectNameView = itemView.findViewById(R.id.content_sunjectName);
-            gradeView = itemView.findViewById(R.id.content_grade);
-            pointView = itemView.findViewById(R.id.content_point);
             button_delete = itemView.findViewById(R.id.content_delete);
             typeView = itemView.findViewById(R.id.card_subject);
+            gradeButton = itemView.findViewById(R.id.content_grade_picker);
+            pointButton = itemView.findViewById(R.id.content_point_picker);
+
+            gradeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.PickerAlertDialog);
+                    final View layout = ((AppCompatActivity)context).getLayoutInflater().inflate(R.layout.dialog_nimberpicker, null, false);
+                    final NumberPicker numberPicker = layout.findViewById(R.id.dialog_numberpicker);
+                    builder.setTitle(Html.fromHtml("<font color='#FFFFFFFF'>등급 선택</font>"));
+                    builder.setMessage(Html.fromHtml("<font color='#FFFFFFFF'>해당 과목의 등급을 선택해주세요.</font>"));
+                    numberPicker.setMinValue(1);
+                    numberPicker.setMaxValue(9);
+                    numberPicker.setValue(Integer.parseInt(gradeButton.getText().toString()));
+                    numberPicker.setWrapSelectorWheel(false);
+                    builder.setView(layout);
+                    builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onScoreEditPicker((Button) v, context, DatabaseKey.KEY_VALUE_GRADE, String.valueOf(numberPicker.getValue()), getAdapterPosition());
+                        }
+                    });
+                    builder.setNegativeButton("취소", null);
+                    final AlertDialog alertDialog = builder.create();
+                    alertDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.background_dialog_rate));
+                    alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+//                            Resources resources = alertDialog.getContext().getResources();
+//                            int alertTitleId = resources.getIdentifier("alertTitle", "id", "android");
+//                            int alertMessageId = resources.getIdentifier("alertMessage", "id", "android");
+//                            final TextView alertTitle = (TextView) alertDialog.getWindow().getDecorView().findViewById(alertTitleId);
+//                            final TextView alertMessage = (TextView) alertDialog.getWindow().getDecorView().findViewById(alertMessageId);
+//                            alertTitle.setTextColor(Color.WHITE);
+//                            alertMessage.setTextColor(Color.WHITE);
+                            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(46, 144, 242));
+                            alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.rgb(255, 110, 158));
+                            //l.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.rgb(255, 255, 255));
+                        }
+                    });
+                    alertDialog.show();
+                }
+            });
+            pointButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.PickerAlertDialog);
+                    final View layout = ((AppCompatActivity)context).getLayoutInflater().inflate(R.layout.dialog_nimberpicker, null, false);
+                    final NumberPicker numberPicker = layout.findViewById(R.id.dialog_numberpicker);
+                    builder.setMessage(Html.fromHtml("<font color='#FFFFFFFF'>해당 과목의 단위수을 선택해주세요.</font>"));
+                    builder.setTitle(Html.fromHtml("<font color='#FFFFFFFF'>단위수 선택</font>"));
+                    numberPicker.setMinValue(1);
+                    numberPicker.setMaxValue(150);
+                    numberPicker.setValue(Integer.parseInt(pointButton.getText().toString()));
+                    builder.setView(layout);
+                    builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onScoreEditPicker((Button) v, context, DatabaseKey.KEY_VALUE_POINT, String.valueOf(numberPicker.getValue()), getAdapterPosition());
+                        }
+                    });
+                    builder.setNegativeButton("취소", null);
+                    final AlertDialog alertDialog = builder.create();
+                    alertDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.background_dialog_rate));
+                    alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface dialogInterface) {
+                            alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(46, 144, 242));
+                            alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.rgb(255, 110, 158));
+                            //l.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.rgb(255, 255, 255));
+                        }
+                    });
+                    alertDialog.show();
+                }
+            });
+
+            gradeButton.setText("1");
+            pointButton.setText("1");
 
             subjectNameView.setText("국어");
-            gradeView.setText("1");
-            pointView.setText("1");
             typeView.setSelection(0);
 
             ArrayAdapter<String> a = new ArrayAdapter<String>(itemView.getContext(), R.layout.spinner_background, itemView.getContext().getResources().getStringArray(R.array.subject));
@@ -156,40 +237,6 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                     listViewList.get(getAdapterPosition()).setSubjectName(editable.toString());
                 }
             });
-            gradeView.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    onScoreEdit(gradeView, context, DatabaseKey.KEY_VALUE_GRADE, editable.toString(), getAdapterPosition());
-                    listViewList.get(getAdapterPosition()).setRank(editable.toString());
-                }
-            });
-            pointView.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    onScoreEdit(pointView, context, DatabaseKey.KEY_VALUE_POINT, editable.toString(), getAdapterPosition());//TODO
-                    listViewList.get(getAdapterPosition()).setPoint(editable.toString());
-                }
-            });
             typeView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -205,6 +252,59 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
         }
     }
 
+//    final View.OnClickListener pickerClickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//            final View layout = ((AppCompatActivity)context).getLayoutInflater().inflate(R.layout.dialog_nimberpicker, null, false);
+//            final NumberPicker numberPicker = layout.findViewById(R.id.dialog_numberpicker);
+//            switch (v.getId()) {
+//                case R.id.content_grade_picker: {
+//                    builder.setTitle("등급 선택");
+//                    builder.setMessage("해당 과목의 등급을 선택해주세요.");
+//                    numberPicker.setMinValue(1);
+//                    numberPicker.setMaxValue(9);
+//                    numberPicker.setWrapSelectorWheel(false);
+//                    break;
+//                }
+//                case R.id.content_point_picker: {
+//                    builder.setMessage("해당 과목의 단위수을 선택해주세요.");
+//                    builder.setTitle("단위수 선택");
+//                    numberPicker.setMinValue(1);
+//                    numberPicker.setMaxValue(150);
+//                    break;
+//                }
+//            }
+//            builder.setView(layout);
+//            builder.setPositiveButton("입력", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    switch (v.getId()) {
+//                        case R.id.content_grade_picker: {
+//                            onScoreEdit((Button) v, context, DatabaseKey.KEY_VALUE_GRADE, ((Button) v).getText(), getAdapterPosition());
+//                            break;
+//                        }
+//                        case R.id.content_point_picker: {
+//                            break;
+//                        }
+//                    }
+//                }
+//            });
+//            builder.setNegativeButton("취소", null);
+//            final AlertDialog alertDialog = builder.create();
+//            alertDialog.getWindow().setBackgroundDrawable(context.getResources().getDrawable(R.drawable.background_dialog_rate));
+//            alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+//                @Override
+//                public void onShow(DialogInterface dialogInterface) {
+//                    alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(46, 144, 242));
+//                    alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.rgb(255, 110, 158));
+//                    //l.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.rgb(255, 255, 255));
+//                }
+//            });
+//            alertDialog.show();
+//        }
+//    };
+
     private synchronized void onScoreEdit(EditText editText, Context context, String type, String value, int position) {
         table = String.valueOf(level)+String.valueOf(grade);
         if (scoreDatabaseHelper == null) {
@@ -214,6 +314,18 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
             insertDatabase(position, type, value);
         } else {
             updateDatabase(editText, type, value, position);//TODO
+        }
+    }
+
+    private synchronized void onScoreEditPicker(Button button, Context context, String type, String value, int position) {
+        table = String.valueOf(level)+String.valueOf(grade);
+        if (scoreDatabaseHelper == null) {
+            scoreDatabaseHelper = new ScoreDatabaseHelper(context, DatabaseKey.KEY_DB_NAME, null, 1);
+        }
+        if (!scoreDatabaseHelper.isExisit(table, position)) {
+            insertDatabase(position, type, value);
+        } else {
+            updateDatabase(button, type, value, position);//TODO
         }
     }
 
@@ -309,6 +421,32 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                         }
                     }
                 }
+                break;
+            }
+        }
+    }
+
+    private void updateDatabase(Button button, String type, String value, int position) {
+        switch (type) {
+            case DatabaseKey.KEY_VALUE_SUBJECT: {
+                scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+                break;
+            }
+            default: {
+                button.setText(value);
+                scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+//                if (value.isEmpty()) {
+//                    scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+//                } else {
+//                    if (Double.parseDouble(value) <= Integer.MAX_VALUE) {
+//                        scoreDatabaseHelper.update(String.valueOf(level)+String.valueOf(grade), type, value, position);
+//                    } else {
+//                        Toast.makeText(context, "숫자가 " + String.valueOf(Integer.MAX_VALUE) + "보다 작아야 합니다.", Toast.LENGTH_SHORT).show();
+//                        if (button != null) {
+//                            button.setText("1");
+//                        }
+//                    }
+//                }
                 break;
             }
         }

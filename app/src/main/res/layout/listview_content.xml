@@ -23,27 +23,25 @@
             android:imeOptions="actionNext"
             android:hint="과목명"/>
 
-        <EditText
+        <Button
             android:fontFamily="@font/scdream3"
-            android:singleLine="true"
-            android:id="@+id/content_grade"
             android:gravity="center"
             android:layout_width="45dp"
-            android:inputType="number"
-            android:imeOptions="actionNext"
-            android:layout_height="match_parent"
-            android:hint="등급"/>
+            android:elevation="0dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="1"
+            android:id="@+id/content_grade_picker"
+            android:layout_height="wrap_content"></Button>
 
-        <EditText
+        <Button
             android:fontFamily="@font/scdream3"
-            android:singleLine="true"
-            android:id="@+id/content_point"
             android:gravity="center"
-            android:inputType="number"
             android:layout_width="45dp"
-            android:imeOptions="actionDone"
-            android:layout_height="match_parent"
-            android:hint="단위"/>
+            android:elevation="0dp"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="1"
+            android:id="@+id/content_point_picker"
+            android:layout_height="wrap_content"></Button>
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/card_subject"
