@@ -20,6 +20,19 @@
 
     </PreferenceCategory>
 
+    <!--<PreferenceCategory android:title="계정 설정"-->
+        <!--android:key="pref_category_account">-->
+
+        <!--<Preference android:title="비밀번호 변경"-->
+            <!--android:summary="비밀번호를 변경합니다."-->
+            <!--android:key="pref_pw_change"></Preference>-->
+
+        <!--<Preference android:title="계정 삭제"-->
+            <!--android:summary="계정을 삭제합니다."-->
+            <!--android:key="pref_user_delete"></Preference>-->
+
+    <!--</PreferenceCategory>-->
+
     <PreferenceCategory android:title="구매">
         <Preference android:title="광고 제거하기"
             android:key="qq"

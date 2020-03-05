@@ -1,13 +1,11 @@
 package com.k1a2.schoolcalculator.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
@@ -42,41 +40,30 @@ import android.view.MenuItem;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.api.services.drive.DriveScopes;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.k1a2.schoolcalculator.BillingKey;
 import com.k1a2.schoolcalculator.GradeCalculator;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
+import com.k1a2.schoolcalculator.internet.ServerConnecter;
 import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
 import com.k1a2.schoolcalculator.sharedpreference.PreferenceKey;
 import com.k1a2.schoolcalculator.view.recyclerview.GradeViewItem;
 import com.k1a2.schoolcalculator.view.recyclerview.GradeViewRecyclerAdapter;
 import com.k1a2.schoolcalculator.view.recyclerview.LinePagerIndicatorDecoration;
-import com.k1a2.schoolcalculator.view.recyclerview.listener.SnapPagerScrollListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SnapHelper;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.Menu;
 import android.widget.Button;
@@ -84,6 +71,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -115,14 +105,22 @@ public class MainActivity extends AppCompatActivity
     private LineChart chart_analyze = null;
     private Button button_goal = null;
     private AdView adView = null;
+    private NavigationView navigationView = null;
+    private TextView ti = null;
 
+    private FirebaseAuth firebaseAuth = null;
     private ScoreDatabaseHelper scoreDatabaseHelper = null;
     private AppStorage storage;
     private BillingProcessor bp = null;
     private GradeViewRecyclerAdapter gradeViewRecyclerAdapter = null;
+    private ServerConnecter serverConnecter = new ServerConnecter();
 
-    private static final int REQUEST_CODE_SIGN_IN = 9001;
-    private GoogleSignInClient mGoogleSignInClient;
+    private static final int REQUEST_CODE_SIGN_IN_SAVE = 1;
+    private static final int REQUEST_CODE_SIGN_IN_LOAD = 3;
+    private static final int REQUEST_CODE_SIGN_IN = 5;
+
+    private static final int TASK_DB_SAVE = 99;
+    private static final int TASK_DB_LOAD = 100;
 
     private SharedPreferences preference_check = null;
 
@@ -236,7 +234,7 @@ public class MainActivity extends AppCompatActivity
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -369,7 +367,12 @@ public class MainActivity extends AppCompatActivity
                         alert.setPositiveButton("업데이트", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.k1a2.schoolcalculator")));
+                                try {
+                                    startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("market://details?id=com.k1a2.schoolcalculator")));
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(MainActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                         alert.setNegativeButton("다음에 하기", new DialogInterface.OnClickListener() {
@@ -399,6 +402,20 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        ti = navigationView.getHeaderView(0).findViewById(R.id.login_id);
+        //로그인 여부 검사
+        if (firebaseAuth.getCurrentUser() == null) {
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+            ti.setVisibility(View.GONE);
+        } else {
+            navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+            ti.setText(firebaseAuth.getCurrentUser().getEmail() + "로그인 됨");
+        }
 
         //목표설정 보기 버튼 클릭 리스너
 //        button_goal.setOnClickListener(new View.OnClickListener() {
@@ -488,29 +505,6 @@ public class MainActivity extends AppCompatActivity
 //                });
 //    }
 
-    private void updateUI(int type) {
-        if(type == 0) {
-            // 구글 드라이브 연동 버튼 보이기.
-        }
-        else {
-
-            // 파일리스트 액티비티로 이동 버튼 보이기.
-            // 로그아웃 버튼 보이기.
-        }
-    }
-    // 구글 드라이브 연동 버튼 눌렸을 때.
-    private void loginGoogleDriveBtnPressed() {
-        GoogleSignInOptions signInOptions =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .requestScopes(new Scope(DriveScopes.DRIVE_FILE))
-                        .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, signInOptions);
-
-        // The result of the sign-in Intent is handled in onActivityResult.
-        startActivityForResult(mGoogleSignInClient.getSignInIntent(), REQUEST_CODE_SIGN_IN);
-    }
-
     // 파일 보는 화면으로 이동하는 버튼 눌렸을 때.
     private void goFileListActivity() {
         Intent intent = new Intent(MainActivity.this, ThirdPartyFileListActivity.class);
@@ -520,54 +514,103 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_SIGN_IN) {
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                handleSignInResult(data);
+
+        switch (requestCode) {
+            case REQUEST_CODE_SIGN_IN_SAVE: {
+                switch (resultCode) {
+                    case ActivityKey.LOGIN_RESULT_SUCCESS: {
+                        if (firebaseAuth.getCurrentUser() != null) {
+                            if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                Toast.makeText(MainActivity.this, firebaseAuth.getCurrentUser().getEmail() + "으로 로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+                                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                                navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                                ti.setVisibility(View.VISIBLE);
+                                ti.setText(firebaseAuth.getCurrentUser().getEmail() + "로그인 ");
+                            } else {
+                                Toast.makeText(MainActivity.this, "이메일 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
+                                firebaseAuth.signOut();
+                                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                                ti.setVisibility(View.GONE);
+                            }
+                        }
+                        break;
+                    }
+                    case ActivityKey.LOGIN_RESULT_FAIL: {
+                        if (firebaseAuth.getCurrentUser() != null) {
+                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            case REQUEST_CODE_SIGN_IN_LOAD: {
+                switch (resultCode) {
+                    case ActivityKey.LOGIN_RESULT_SUCCESS: {
+                        if (firebaseAuth.getCurrentUser() != null) {
+                            if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                Toast.makeText(MainActivity.this, firebaseAuth.getCurrentUser().getEmail() + "으로 로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+                                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                                navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                                ti.setVisibility(View.VISIBLE);
+                                ti.setText(firebaseAuth.getCurrentUser().getEmail() + "로그인 ");
+                            } else {
+                                Toast.makeText(MainActivity.this, "이메일 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
+                                firebaseAuth.signOut();
+                                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                                ti.setVisibility(View.GONE);
+                            }
+                        }
+                        break;
+                    }
+                    case ActivityKey.LOGIN_RESULT_FAIL: {
+                        if (firebaseAuth.getCurrentUser() != null) {
+                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    }
+                }
+                break;
+            }
+            case REQUEST_CODE_SIGN_IN: {
+                switch (resultCode) {
+                    case ActivityKey.LOGIN_RESULT_SUCCESS: {
+                        if (firebaseAuth.getCurrentUser() != null) {
+                            if (firebaseAuth.getCurrentUser().isEmailVerified()) {
+                                Toast.makeText(MainActivity.this, firebaseAuth.getCurrentUser().getEmail() + "으로 로그인 되었습니다.", Toast.LENGTH_SHORT).show();
+                                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(true);
+                                navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
+                                ti.setVisibility(View.VISIBLE);
+                                ti.setText(firebaseAuth.getCurrentUser().getEmail() + "로그인 ");
+                                //Toast.makeText(MainActivity.this, firebaseAuth.getCurrentUser().getProviderData()., Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(MainActivity.this, "이메일 인증을 완료해주세요.", Toast.LENGTH_SHORT).show();
+                                firebaseAuth.signOut();
+                                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                                ti.setVisibility(View.GONE);
+                            }
+                        }
+                        break;
+                    }
+                    case ActivityKey.LOGIN_RESULT_FAIL: {
+                        if (firebaseAuth.getCurrentUser() != null) {
+                            Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    }
+                }
+                break;
             }
         }
-    }
-
-    private void handleSignInResult(Intent result) {
-        GoogleSignIn.getSignedInAccountFromIntent(result)
-                .addOnSuccessListener(new OnSuccessListener<GoogleSignInAccount>() {
-                    @Override
-                    public void onSuccess(GoogleSignInAccount googleSignInAccount) {
-                        Log.d("succes", "Signed in as " + googleSignInAccount.getEmail());
-
-                        updateUI(1);
-
-                        // Use the authenticated account to sign in to the Drive service.
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("fail", "Unable to open file from picker.", e);
-                    }
-                });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         setGradeText();
-
-        int type = 0;
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null && account.getGrantedScopes().contains(new Scope(DriveScopes.DRIVE_FILE))) {
-            type = 1;
-        }
-
-        updateUI(type);
-    }
-
-    private void logout(final int type) {
-        mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                updateUI(0);
-            }
-        });
     }
 
     //성적 가져와서 필요한 텍스트/차트에 뿌리는 함수
@@ -809,13 +852,25 @@ public class MainActivity extends AppCompatActivity
                 break;
             }
             case R.id.nav_search: {//대학정보
-                Intent intentS = new Intent(Intent.ACTION_VIEW, Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
-                startActivity(intentS);
+                try {
+                    Intent intentS = new Intent(Intent.ACTION_VIEW);
+                    intentS.setData(Uri.parse("http://adiga.kr/PageLinkAll.do?link=/kcue/ast/eip/eis/inf/univinf/eipUinfGnrl.do&p_menu_id=PG-EIP-01701"));
+                    startActivity(intentS);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
             case R.id.nav_homepage: {//홈페이지 연결
-                Intent intentH = new Intent(Intent.ACTION_VIEW, Uri.parse("https://ldm0830.wixsite.com/schoolcalculator"));
-                startActivity(intentH);
+                try {
+                    Intent intentH = new Intent(Intent.ACTION_VIEW);
+                    intentH.setData(Uri.parse("https://ldm0830.wixsite.com/schoolcalculator"));
+                    startActivity(intentH);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             }
             case R.id.nav_chart: {//분석
@@ -824,18 +879,285 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intentC);
                 break;
             }
+            case R.id.nav_save: {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                    alertDialog.setTitle("로그인 필요");
+                    alertDialog.setMessage("클라우드 저장 기능을 사용하려면 로그인이 필요합니다.");
+                    alertDialog.setPositiveButton("로그인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), REQUEST_CODE_SIGN_IN_SAVE);
+                        }
+                    });
+                    alertDialog.setNegativeButton("그만두기", null);
+                    alertDialog.show();
+                } else {
+                    serverConnecter.new CheckUser(MainActivity.this, firebaseAuth.getCurrentUser().getUid(), TASK_DB_SAVE).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    //FirebaseAuth.getInstance().signOut();
+                }
+                break;
+            }
+            case R.id.nav_logout: {
+                firebaseAuth.signOut();
+                navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
+                navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
+                ti.setVisibility(View.GONE);
+                Toast.makeText(MainActivity.this, "로그아웃 됨", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.nav_load: {
+                if (firebaseAuth.getCurrentUser() == null) {
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                    alertDialog.setTitle("로그인 필요");
+                    alertDialog.setMessage("클라우드 가져오기 기능을 사용하려면 로그인이 필요합니다.");
+                    alertDialog.setPositiveButton("로그인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), REQUEST_CODE_SIGN_IN_LOAD);
+                        }
+                    });
+                    alertDialog.setNegativeButton("그만두기", null);
+                    alertDialog.show();
+                } else {
+                    //FirebaseAuth.getInstance().signOut();
+                    serverConnecter.new CheckUser(MainActivity.this, firebaseAuth.getCurrentUser().getUid(), TASK_DB_LOAD).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    //serverConnecter.new Http(MainActivity.this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+                break;
+            }
+            case R.id.nav_login: {
+                startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), REQUEST_CODE_SIGN_IN);
+            }
         }
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
+//    // 로그아웃
+//    public void signOut() {
+//        mGoogleApiClient.connect();
+//        mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+//            @Override
+//            public void onConnected(@Nullable Bundle bundle) {
+//                mAuth.signOut();
+//                if (mGoogleApiClient.isConnected()) {
+//                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+//                        @Override
+//                        public void onResult(@NonNull Status status) {
+//                            if (status.isSuccess()) {
+//                                Log.v("알림", "로그아웃 성공");
+//                                setResult(1);
+//                            } else {
+//                                setResult(0);
+//                            }
+//                            finish();
+//                        }
+//                    });
+//                }
+//            }
+//
+//            @Override
+//            public void onConnectionSuspended(int i) {
+//                Log.v("알림", "Google API Client Connection Suspended");
+//                setResult(-1);
+//                finish();
+//            }
+//        });
+//    }
+
+    //유저가 저장한 정보가 있는가
+    public void isUserExsist(String e, int code) {
+        try {
+            final JSONObject jsonObject = new JSONObject(e);
+            final String res = jsonObject.getString("res");
+            switch (code) {
+                case TASK_DB_SAVE: {
+                    switch(res) {
+                        case "1": {//이미 존재
+                            final String time = jsonObject.getString("date");
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("이미 저장한 데이터가 있습니다.");
+                            a.setMessage(time + "에 저장한 내신성적을 덮어쓰고 저장하시겠습니까?");
+                            a.setPositiveButton("덮어쓰기", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    serverConnecter.new SaveDB(MainActivity.this, firebaseAuth.getCurrentUser().getUid(), "1").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                }
+                            });
+                            a.setNegativeButton("안하기", null);
+                            a.show();
+                            break;
+                        }
+                        case "0": {//없음
+                            serverConnecter.new SaveDB(MainActivity.this, firebaseAuth.getCurrentUser().getUid(), "0").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                            break;
+                        }
+                        case "sererror": {//서버에러
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("서버 에러");
+                            a.setMessage("서버에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
+                        case "err": {//클라이언트 에러
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("앱 에러");
+                            a.setMessage("앱에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
+                    }
+//                    Toast.makeText(MainActivity.this, e, Toast.LENGTH_LONG).show();
+                    break;
+                }
+                case TASK_DB_LOAD: {
+                    switch(res) {
+                        case "1": {//이미 존재
+                            final String time = jsonObject.getString("date");
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("저장된 데이터가 있습니다.");
+                            a.setMessage(time + "에 이 계정으로 저장된 성적이 있습니다. 저장된 데이터를 불러오면 현재 앱에서 입력한 데이터는 사라지고, 서버에 저장된 데이터가 앱에 저장됩니다.");
+                            a.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    serverConnecter.new LoadDB(MainActivity.this, firebaseAuth.getCurrentUser().getUid()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                                }
+                            });
+                            a.setNegativeButton("취소", null);
+                            a.show();
+                            break;
+                        }
+                        case "0": {//없음final String time = jsonObject.getString("date");
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("저장된 데이터가 없습니다.");
+                            a.setMessage("이 계정으로 저장된 성적이 없습니다.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
+                        case "sererror": {//서버에러
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("서버 에러");
+                            a.setMessage("서버에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
+                        case "err": {//클라이언트 에러
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("앱 에러");
+                            a.setMessage("앱에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+            a.setTitle("서버 에러");
+            a.setMessage("서버에서 잘못된 응답을 전송했습니다. 다음에 다시 시도해주세요.");
+            a.setPositiveButton("확인", null);
+            a.show();
+        }
+    }
+
+    //불러오기 성공 여부
+    public void isLoadSuccess(String result) {
+        switch (result) {
+            case "suc": {
+                Toast.makeText(MainActivity.this, "불러오기에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                setGradeText();
+                break;
+            }
+            case "sererror": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("서버 에러");
+                a.setMessage("서버에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+            case "err": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("앱 에러");
+                a.setMessage("앱에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+            case "dberror": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("데이터베이스 에러");
+                a.setMessage("데이터베이스 조회 과정에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+            case "resoponerror": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("잘못된 값");
+                a.setMessage("서버에서 잘못된 값을 받았습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+        }
+    }
+
+    //저장 성공 여부
+    public void isSaveSuccess(String result) {
+        switch (result) {
+            case "suc": {
+                Toast.makeText(MainActivity.this, "저장에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case "sererror": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("서버 에러");
+                a.setMessage("서버에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+            case "err": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("앱 에러");
+                a.setMessage("앱에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+            case "dberror": {
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("데이터베이스 에러");
+                a.setMessage("데이터베이스 조회 정에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+        }
+    }
+
     @Override
     protected void onDestroy() {
+        super.onDestroy();
+        Log.e("destroy", "destroy");
         if (bp != null) {
             bp.release();
         }
-        super.onDestroy();
+//        if (firebaseAuth != null) {
+//            FirebaseUser user = firebaseAuth.getCurrentUser();
+//            if (user != null) {
+//
+//            }
+//        }
     }
 }

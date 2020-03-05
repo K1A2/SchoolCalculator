@@ -3,11 +3,13 @@ package com.k1a2.schoolcalculator.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.SwitchPreference;
 import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.google.firebase.auth.FirebaseAuth;
 import com.k1a2.schoolcalculator.BillingKey;
 import com.k1a2.schoolcalculator.R;
 import com.k1a2.schoolcalculator.sharedpreference.AppStorage;
@@ -21,14 +23,48 @@ public class PreferenceActivity extends android.preference.PreferenceActivity im
     private SwitchPreference switchPreference = null;
     private SwitchPreference switch_theme = null;
     private Preference pq = null;
+    private Preference pref_pw = null;
+    private Preference pref_delete = null;
+    private PreferenceCategory pref__category = null;
 
     private BillingProcessor bp = null;
     private AppStorage storage;
+
+    private FirebaseAuth firebaseAuth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.activity_preference);
+
+//        pref_pw = (Preference)findPreference("pref_pw_change") ;
+//        pref_delete = (Preference)findPreference("pref_user_delete");
+//        pref__category = (PreferenceCategory)findPreference("pref_category_account");
+
+//        firebaseAuth = FirebaseAuth.getInstance();
+//        if (firebaseAuth.getCurrentUser() == null) {
+//            pref__category.setEnabled(false);
+//        } else {
+//            pref__category.setEnabled(true);
+//            pref_pw.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(Preference preference) {
+//                    Intent intent = new Intent(PreferenceActivity.this, AccountActivity.class);
+//                    intent.putExtra(ActivityKey.KEY_ACTIVITY_ACCOUNT_MODE, ActivityKey.KEY_ACTIVITY_ACCOUNT_PASSWORD);
+//                    startActivity(intent);
+//                    return true;
+//                }
+//            });
+//            pref_delete.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+//                @Override
+//                public boolean onPreferenceClick(Preference preference) {
+//                    Intent intent = new Intent(PreferenceActivity.this, AccountActivity.class);
+//                    intent.putExtra(ActivityKey.KEY_ACTIVITY_ACCOUNT_MODE, ActivityKey.KEY_ACTIVITY_ACCOUNT_DELETE);
+//                    startActivity(intent);
+//                    return true;
+//                }
+//            });
+//        }
 
         switchPreference = (SwitchPreference) findPreference(PreferenceKey.KEY_BOOL_ISINCLUDE_GRADE3);
         switchPreference.setOnPreferenceClickListener(this);
@@ -64,6 +100,11 @@ public class PreferenceActivity extends android.preference.PreferenceActivity im
 //
 //        }
         return false;
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
     }
 
     @Override

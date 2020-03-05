@@ -103,6 +103,12 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    //테이블 안의 모든 데이터 삭제
+    public void deleteAll(String table) {
+        final SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("delete from '" + table + "'; ");
+    }
+
     //데이터배이스의 정보 가져오는 함수(기억 잘 안남)
     public ArrayList<String[]> getScores(String table) {
         final ArrayList<String[]> values = new ArrayList<>();

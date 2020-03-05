@@ -41,4 +41,13 @@
         android:layout_height="wrap_content"
         android:text="내신 등급 관리 앱" />
 
+    <TextView
+        android:fontFamily="@font/scdream2"
+        android:id="@+id/login_id"
+        android:background="#00FFFFFF"
+        android:layout_width="wrap_content"
+        android:textColor="#FFFFFFFF"
+        android:layout_height="wrap_content"
+        android:text="로그인:" />
+
 </LinearLayout>

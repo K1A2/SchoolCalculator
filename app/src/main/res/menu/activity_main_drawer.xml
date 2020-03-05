@@ -22,4 +22,22 @@
             android:title="홈페이지"/>
     </group>
 
+    <item android:title="계정">
+        <menu>
+            <item android:title="내신정보 저장하기"
+                android:icon="@drawable/baseline_cloud_upload_black_18"
+                android:id="@+id/nav_save"/>
+
+            <item android:title="내신정보 불러오기"
+                android:icon="@drawable/baseline_cloud_download_black_18"
+                android:id="@+id/nav_load"/>
+
+            <item android:title="로그인 하기"
+                android:id="@+id/nav_login"/>
+
+            <item android:title="로그아웃 하기"
+                android:id="@+id/nav_logout"/>
+        </menu>
+    </item>
+
 </menu>
