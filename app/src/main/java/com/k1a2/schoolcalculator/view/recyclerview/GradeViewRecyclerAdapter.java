@@ -100,15 +100,18 @@ public class GradeViewRecyclerAdapter extends RecyclerView.Adapter<GradeViewRecy
                 public void onClick(View v) {
                     switch (getAdapterPosition()) {
                         case 0: {
-                            startScoreEditAvtivity(1);
+                            ((MainActivity) context).startActivityScore(1);
+//                            startScoreEditAvtivity(1);
                             break;
                         }
                         case 1: {
-                            startScoreEditAvtivity(2);
+                            ((MainActivity) context).startActivityScore(2);
+//                            startScoreEditAvtivity(2);
                             break;
                         }
                         case 2: {
-                            startScoreEditAvtivity(3);
+                            ((MainActivity) context).startActivityScore(3);
+//                            startScoreEditAvtivity(3);
                             break;
                         }
                     }

@@ -55,4 +55,8 @@
         <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
 
+    <style name="Dialog" parent="AppTheme">
+        <item name="android:windowNoTitle">false</item>
+    </style>
+
 </resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:title="수시"
+        android:id="@+id/in"
+        android:icon="@drawable/baseline_insert_chart_white_48"
+        android:iconTint="#42196C"
+        app:showAsAction="always"/>
+
+    <item android:title="정시"
+        android:id="@+id/out"
+        android:icon="@drawable/baseline_show_chart_black_18"
+        app:showAsAction="always"/>
+
+</menu>

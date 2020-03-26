@@ -163,7 +163,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
                     gA += p*g;
                     pA += p;
                 }
-                values.add((float) (Math.round(gA/pA)));
+                values.add((float) (Math.round(gA/pA * 100) / 100));
             }
             return values;
         } catch (Exception e) {
@@ -189,7 +189,7 @@ public class ScoreDatabaseHelper extends SQLiteOpenHelper {
                     pA += p;
                 }
             }
-            return (float) (Math.round(gA/pA));
+            return (float) (Math.round(gA/pA * 100)/100);
         } catch (Exception e) {
             return Float.NaN;
         }

@@ -1,6 +1,6 @@
 package com.k1a2.schoolcalculator.view.recyclerview;
 
-import android.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AlertDialogLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.k1a2.schoolcalculator.R;
@@ -113,7 +114,7 @@ public class GradeRecyclerAdapter extends RecyclerView.Adapter<GradeRecyclerAdap
                 @Override
                 public void onClick(View v) {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.PickerAlertDialog);
-                    final View layout = ((AppCompatActivity)context).getLayoutInflater().inflate(R.layout.dialog_nimberpicker, null, false);
+                    final View layout = ((AppCompatActivity)context).getLayoutInflater().inflate(R.layout.dialog_nimberpicker, null,  false);
                     final NumberPicker numberPicker = layout.findViewById(R.id.dialog_numberpicker);
                     builder.setTitle(Html.fromHtml("<font color='#FFFFFFFF'>등급 선택</font>"));
                     builder.setMessage(Html.fromHtml("<font color='#FFFFFFFF'>해당 과목의 등급을 선택해주세요.</font>"));

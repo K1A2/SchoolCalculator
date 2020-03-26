@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
@@ -40,6 +41,7 @@ import android.view.MenuItem;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -115,6 +117,8 @@ public class MainActivity extends AppCompatActivity
     private GradeViewRecyclerAdapter gradeViewRecyclerAdapter = null;
     private ServerConnecter serverConnecter = new ServerConnecter();
 
+    private int versionInt = Build.VERSION.SDK_INT;
+
     private static final int REQUEST_CODE_SIGN_IN_SAVE = 1;
     private static final int REQUEST_CODE_SIGN_IN_LOAD = 3;
     private static final int REQUEST_CODE_SIGN_IN = 5;
@@ -123,6 +127,12 @@ public class MainActivity extends AppCompatActivity
     private static final int TASK_DB_LOAD = 100;
 
     private SharedPreferences preference_check = null;
+
+    private InterstitialAd mInterstitialAd = null;
+    private static final int startAnalyzeInt = 8888;
+    private static final int startScoreInt = 7777;
+    private int now = 0;
+    private int scoreIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -200,6 +210,17 @@ public class MainActivity extends AppCompatActivity
                         }
                     });
                     adView.loadAd(adRequest);
+
+                    mInterstitialAd = new InterstitialAd(MainActivity.this);
+                    mInterstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdClosed() {
+                            startActivityAll(now);
+                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                        }
+                    });
+                    mInterstitialAd.setAdUnitId("ca-app-pub-7873521316289922/7375483752");
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 }
             }
         });
@@ -208,6 +229,15 @@ public class MainActivity extends AppCompatActivity
         if (preference_check.getBoolean(PreferenceKey.KEY_BOOL_IS_LAUNCH_FIRST, true)) {
             preference_check.edit().putBoolean(PreferenceKey.KEY_BOOL_IS_LAUNCH_FIRST, false).commit();
             preference_check.edit().putInt(PreferenceKey.KEY_INT_COUNT_SHOW, 5).commit();
+        }
+
+        if (preference_check.getBoolean("310first", true)) {
+            preference_check.edit().putBoolean("310first", false).commit();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("광고에 관한 공지사항");
+            builder.setMessage("서버비용 문제로 인해 부득이하게 전면광고를 추가하게 되었습니다. 사용자분들에게 양해의 말씀드립니다. 전면광고는 메인 화면에서 분석화면이나 점수 입력 화면으로 넘어가기 직전에 보여지게됩니다. 제발 광고 생겼다고 삭제하지 말아주세요..ㅠ");
+            builder.setPositiveButton("확인", null);
+            builder.show();
         }
 
         final int showrate = preference_check.getInt(PreferenceKey.KEY_INT_COUNT_SHOW, 0);
@@ -288,7 +318,17 @@ public class MainActivity extends AppCompatActivity
         ((Button) findViewById(R.id.main_button_showAnalyze)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
+                if (mInterstitialAd == null) {
+                    startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
+                } else {
+                    if (mInterstitialAd.isLoaded()) {
+                        now = startAnalyzeInt;
+                        mInterstitialAd.show();
+                    } else {
+                        startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
+                        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    }
+                }
             }
         });
 
@@ -784,27 +824,7 @@ public class MainActivity extends AppCompatActivity
 
     //성적 입력하기 액티비티 띄우는 함수
     private void startScoreEditAvtivity(Integer mode) {//mode값에 따라 몇학년 탭을 보여줄지 결정
-        Intent intent = new Intent(MainActivity.this, ScoreEditActivity.class);
-        switch (mode) {
-            case 0: {//all
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_ALL);//1학년
-                break;
-            }
-            case 1: {//1
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_FIRST);//1학년
-                break;
-            }
-            case 2: {//2
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_SECOND);//2학년
-                break;
-            }
-            case 3: {//3
-                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_THIRD);//3학년
-                break;
-            }
-        }
-
-        startActivity(intent);
+        startActivityScore(mode);
     }
 
     @Override
@@ -883,6 +903,9 @@ public class MainActivity extends AppCompatActivity
                 if (firebaseAuth.getCurrentUser() == null) {
                     AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
                     alertDialog.setTitle("로그인 필요");
+//                    if (versionInt < Build.VERSION_CODES.M) {
+//                        alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.Dialog);
+//                    }
                     alertDialog.setMessage("클라우드 저장 기능을 사용하려면 로그인이 필요합니다.");
                     alertDialog.setPositiveButton("로그인", new DialogInterface.OnClickListener() {
                         @Override
@@ -1159,5 +1182,74 @@ public class MainActivity extends AppCompatActivity
 //
 //            }
 //        }
+    }
+
+    public void startActivityScore(int mode) {
+        Intent intent = new Intent(MainActivity.this, ScoreEditActivity.class);
+        switch (mode) {
+            case 0: {//all
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_ALL);//1학년
+                scoreIndex = 0;
+                break;
+            }
+            case 1: {//1
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_FIRST);//1학년
+                scoreIndex = 1;
+                break;
+            }
+            case 2: {//2
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_SECOND);//2학년
+                scoreIndex = 2;
+                break;
+            }
+            case 3: {//3
+                intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_THIRD);//3학년
+                scoreIndex = 3;
+                break;
+            }
+        }
+        if (mInterstitialAd == null) {
+            startActivity(intent);
+        } else {
+            if (mInterstitialAd.isLoaded()) {
+                now = startScoreInt;
+                mInterstitialAd.show();
+            } else {
+                startActivity(intent);
+                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        }
+    }
+
+    private void startActivityAll(int code) {
+        switch (code) {
+            case startAnalyzeInt: {
+                startActivity(new Intent(MainActivity.this, AnalyzeActivity.class));
+                break;
+            }
+            case startScoreInt: {
+                Intent intent = new Intent(MainActivity.this, ScoreEditActivity.class);
+                switch (scoreIndex) {
+                    case 0: {//all
+                        intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_ALL);//1학년
+                        break;
+                    }
+                    case 1: {//1
+                        intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_FIRST);//1학년
+                        break;
+                    }
+                    case 2: {//2
+                        intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_SECOND);//2학년
+                        break;
+                    }
+                    case 3: {//3
+                        intent.putExtra(ActivityKey.KEY_ACTIVITY_MODE, ActivityKey.KEY_ACTIVITY_SCORE_THIRD);//3학년
+                        break;
+                    }
+                }
+                startActivity(intent);
+                break;
+            }
+        }
     }
 }
