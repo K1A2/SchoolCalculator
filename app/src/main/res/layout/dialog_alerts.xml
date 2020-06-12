@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:paddingRight="10dp" android:paddingLeft="10dp"
+    android:layout_height="wrap_content" android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    android:background="@drawable/background_dialog_rate">
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="새 버전 출시!"-->
+<!--        android:textColor="#FFFFFFFF"-->
+<!--        android:textSize="20dp"-->
+<!--        android:layout_gravity="center_horizontal"-->
+<!--        android:fontFamily="@font/scdream4"/>-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="#FFFFFFFF"
+        android:text="\'%s\' 버전이 플레이 스토어에 출시되었습니다!\n바로 업데이트 해보세요!"
+        android:id="@+id/dialog_alerts"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#304CF0"/>-->
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#E51919"/>-->
+
+    </LinearLayout>
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="#FFFFFFFF"-->
+        <!--android:id="@+id/dialog_version_new"-->
+        <!--android:text="\'%s\' 버전이 플레이 스토어에 출시되었습니다!"-->
+        <!--android:layout_gravity="center_horizontal"/>-->
+
+</LinearLayout>

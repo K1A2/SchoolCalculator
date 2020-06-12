@@ -995,7 +995,7 @@
                             android:background="#00FFFFFF"
                             android:id="@+id/ads"
                             app:adSize="LARGE_BANNER"
-                            app:adUnitId="ca-app-pub-7873521316289922/9731664027"
+                            app:adUnitId="ca-app-pub-1385482690406133/9504200488"
                             android:layout_height="wrap_content">
                         </com.google.android.gms.ads.AdView>
 

@@ -24,6 +24,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -219,7 +220,7 @@ public class MainActivity extends AppCompatActivity
                             mInterstitialAd.loadAd(new AdRequest.Builder().build());
                         }
                     });
-                    mInterstitialAd.setAdUnitId("ca-app-pub-7873521316289922/7375483752");
+                    mInterstitialAd.setAdUnitId("ca-app-pub-1385482690406133/7999547125");
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
                 }
             }
@@ -397,6 +398,84 @@ public class MainActivity extends AppCompatActivity
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     firebaseRemoteConfig.activateFetched();
+
+                    String alerts = firebaseRemoteConfig.getString("string_main_alert");
+                    if (!alerts.isEmpty()) {
+                        try {
+                            String alert_b = preference_check.getString(PreferenceKey.KEY_STRING_ALERT, "");
+                            boolean alert_Is = preference_check.getBoolean(PreferenceKey.KEY_BOOL_ALERT, false);
+
+                            if (!alerts.equals(alert_b)) {
+                                preference_check.edit().putString(PreferenceKey.KEY_STRING_ALERT, alerts).commit();
+                                preference_check.edit().putBoolean(PreferenceKey.KEY_BOOL_ALERT, true).commit();
+                                final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                                final View a = View.inflate(MainActivity.this, R.layout.dialog_alerts, null);
+                                //final String i = firebaseRemoteConfig.getString("string_update_note");
+                                alert.setView(a);
+                                ((TextView)a.findViewById(R.id.dialog_alerts)).setText(Html.fromHtml(alerts));
+                                alert.setPositiveButton("확인", null);
+                                alert.setNegativeButton("다시 보지 않기", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        preference_check.edit().putBoolean(PreferenceKey.KEY_BOOL_ALERT, false).commit();
+                                    }
+                                });
+//                        alert.setNeutralButton("다시 보지 않기", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+                                final AlertDialog l = alert.create();
+                                l.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_rate));
+                                l.setOnShowListener(new DialogInterface.OnShowListener() {
+                                    @Override
+                                    public void onShow(DialogInterface dialogInterface) {
+                                        l.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(46, 144, 242));
+                                        l.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.rgb(255, 110, 158));
+                                        //l.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.rgb(255, 255, 255));
+                                    }
+                                });
+                                l.show();
+                            } else {
+                                if (alert_Is) {
+                                    final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
+                                    final View a = View.inflate(MainActivity.this, R.layout.dialog_alerts, null);
+                                    //final String i = firebaseRemoteConfig.getString("string_update_note");
+                                    alert.setView(a);
+                                    ((TextView)a.findViewById(R.id.dialog_alerts)).setText(Html.fromHtml(alerts));
+                                    alert.setPositiveButton("확인", null);
+                                    alert.setNegativeButton("다시 보지 않기", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            preference_check.edit().putBoolean(PreferenceKey.KEY_BOOL_ALERT, false).commit();
+                                        }
+                                    });
+//                        alert.setNeutralButton("다시 보지 않기", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                            }
+//                        });
+                                    final AlertDialog l = alert.create();
+                                    l.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background_dialog_rate));
+                                    l.setOnShowListener(new DialogInterface.OnShowListener() {
+                                        @Override
+                                        public void onShow(DialogInterface dialogInterface) {
+                                            l.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(46, 144, 242));
+                                            l.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.rgb(255, 110, 158));
+                                            //l.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.rgb(255, 255, 255));
+                                        }
+                                    });
+                                    l.show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            Log.e("Alert err", e.getMessage());
+                        }
+                    }
+
                     final String version = firebaseRemoteConfig.getString("string_app_version");
                     if (!getString(R.string.app_version).equals(version)) {
                         final AlertDialog.Builder alert = new AlertDialog.Builder(MainActivity.this);
@@ -1033,6 +1112,14 @@ public class MainActivity extends AppCompatActivity
                             a.show();
                             break;
                         }
+                        case "timerr": {//타임아웃 에러
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("타임아웃 에러");
+                            a.setMessage("서버가 응답하지 읺습니다. 다음에 다시 시도해주세요.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
                     }
 //                    Toast.makeText(MainActivity.this, e, Toast.LENGTH_LONG).show();
                     break;
@@ -1074,6 +1161,14 @@ public class MainActivity extends AppCompatActivity
                             AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
                             a.setTitle("앱 에러");
                             a.setMessage("앱에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                            a.setPositiveButton("확인", null);
+                            a.show();
+                            break;
+                        }
+                        case "timerr": {//타임아웃 에러
+                            AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                            a.setTitle("타임아웃 에러");
+                            a.setMessage("서버가 응답하지 읺습니다. 다음에 다시 시도해주세요.");
                             a.setPositiveButton("확인", null);
                             a.show();
                             break;
@@ -1132,6 +1227,14 @@ public class MainActivity extends AppCompatActivity
                 a.show();
                 break;
             }
+            case "timerr": {//타임아웃 에러
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("타임아웃 에러");
+                a.setMessage("서버가 응답하지 읺습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
         }
     }
 
@@ -1162,6 +1265,14 @@ public class MainActivity extends AppCompatActivity
                 AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
                 a.setTitle("데이터베이스 에러");
                 a.setMessage("데이터베이스 조회 정에서 에러가 발생했습니다. 다음에 다시 시도해주세요.");
+                a.setPositiveButton("확인", null);
+                a.show();
+                break;
+            }
+            case "timerr": {//타임아웃 에러
+                AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
+                a.setTitle("타임아웃 에러");
+                a.setMessage("서버가 응답하지 읺습니다. 다음에 다시 시도해주세요.");
                 a.setPositiveButton("확인", null);
                 a.show();
                 break;
