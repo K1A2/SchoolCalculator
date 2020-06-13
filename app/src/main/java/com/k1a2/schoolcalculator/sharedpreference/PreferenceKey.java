@@ -11,5 +11,8 @@ public interface PreferenceKey {
     public String KEY_INT_COUNT_SHOW = "ISR";
     public String KEY_BOOL_IS_LAUNCH_FIRST = "ISLF";
 
+    String KEY_STRING_ALERT = "AST";
+    String KEY_BOOL_ALERT = "ABT";
+
     public String KEY_BOOL_ISDARK_THEME = "theme";
 }

@@ -22,8 +22,10 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 
 public class ServerConnecter {
 
@@ -53,11 +55,13 @@ public class ServerConnecter {
             try {
                 String str;
                 //URL url = new URL("http://10.0.2.2:8080/ScoreCalcolator/TestResponse.jsp");
-                URL url = new URL("http://ec2-15-164-226-142.ap-northeast-2.compute.amazonaws.com:8080/ScoreCalcolator/CheckDB.jsp");
+                URL url = new URL("http://ec2-13-125-247-41.ap-northeast-2.compute.amazonaws.com:8080/ScoreCalcolator/CheckDB.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
                 wr.write(uid);
                 wr.flush();
@@ -65,7 +69,7 @@ public class ServerConnecter {
 //                sendMsg = "id=njk"+"&pw=q";
 //                osw.write(sendMsg);
 //                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
+                if (conn.getResponseCode() == conn.HTTP_OK) {
                     InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
                     BufferedReader reader = new BufferedReader(tmp);
                     StringBuffer buffer = new StringBuffer();
@@ -75,9 +79,12 @@ public class ServerConnecter {
                     receiveMsg = buffer.toString();
                     return receiveMsg;
                 } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
+                    Log.i("통신 결과", conn.getResponseCode() + "에러");
                     return "err";
                 }
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                return "timerr";
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return "err";
@@ -123,12 +130,12 @@ public class ServerConnecter {
                 JSONObject json = new JSONObject();
                 json.put("uid", uid);
                 json.put("isEx", ex);
-                for (int i = 0;i < 3;i++) {
-                    for (int a = 0;a < 2;a++) {
-                        final ArrayList<String[]> values = scoreDatabaseHelper.getScores(String.valueOf(i + 1)+String.valueOf(a + 1));
+                for (int i = 0; i < 3; i++) {
+                    for (int a = 0; a < 2; a++) {
+                        final ArrayList<String[]> values = scoreDatabaseHelper.getScores(String.valueOf(i + 1) + String.valueOf(a + 1));
                         //JSONArray jsonArray = new JSONArray();
                         JSONArray jsonArray1 = new JSONArray();
-                        for (String[] s:values) {
+                        for (String[] s : values) {
                             JSONObject jsonObject1 = new JSONObject();
                             jsonObject1.put("subject", s[0]);
                             jsonObject1.put("rank", s[1]);
@@ -136,17 +143,19 @@ public class ServerConnecter {
                             jsonObject1.put("type", s[3]);
                             jsonArray1.put(jsonObject1);
                         }
-                        json.put(String.valueOf(i + 1)+String.valueOf(a + 1), jsonArray1);
+                        json.put(String.valueOf(i + 1) + String.valueOf(a + 1), jsonArray1);
                     }
                 }
 
                 String str;
                 //URL url = new URL("http://10.0.2.2:8080/ScoreCalcolator/TestResponse.jsp");
-                URL url = new URL("http://ec2-15-164-226-142.ap-northeast-2.compute.amazonaws.com:8080/ScoreCalcolator/SaveDB.jsp");
+                URL url = new URL("http://ec2-13-125-247-41.ap-northeast-2.compute.amazonaws.com:8080/ScoreCalcolator/SaveDB.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
                 wr.write(json.toString());
                 wr.flush();
@@ -154,7 +163,7 @@ public class ServerConnecter {
 //                sendMsg = "id=njk"+"&pw=q";
 //                osw.write(sendMsg);
 //                osw.flush();
-                if(conn.getResponseCode() == conn.HTTP_OK) {
+                if (conn.getResponseCode() == conn.HTTP_OK) {
                     InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
                     BufferedReader reader = new BufferedReader(tmp);
                     StringBuffer buffer = new StringBuffer();
@@ -164,9 +173,12 @@ public class ServerConnecter {
                     receiveMsg = buffer.toString();
                     return receiveMsg;
                 } else {
-                    Log.i("통신 결과", conn.getResponseCode()+"에러");
+                    Log.i("통신 결과", conn.getResponseCode() + "에러");
                     return "err";
                 }
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                return "timerr";
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return "err";
@@ -216,11 +228,13 @@ public class ServerConnecter {
 
                 String str;
                 //URL url = new URL("http://10.0.2.2:8080/ScoreCalcolator/TestResponse.jsp");
-                URL url = new URL("http://ec2-15-164-226-142.ap-northeast-2.compute.amazonaws.com:8080/ScoreCalcolator/LoadDB.jsp");
+                URL url = new URL("http://ec2-13-125-247-41.ap-northeast-2.compute.amazonaws.com:8080/ScoreCalcolator/LoadDB.jsp");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setDoOutput(true);
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestMethod("POST");
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
                 OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream(), "UTF-8");
                 wr.write(json.toString());
                 wr.flush();
@@ -271,6 +285,9 @@ public class ServerConnecter {
                     Log.i("통신 결과", conn.getResponseCode()+"에러");
                     return "err";
                 }
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                return "timerr";
             } catch (MalformedURLException e) {
                 e.printStackTrace();
                 return "err";

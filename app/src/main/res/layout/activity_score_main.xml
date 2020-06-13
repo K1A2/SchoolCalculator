@@ -55,7 +55,7 @@
         android:background="#00FFFFFF"
         app:adSize="BANNER"
         android:layout_marginBottom="5dp"
-        app:adUnitId="ca-app-pub-7873521316289922/1776527660"
+        app:adUnitId="ca-app-pub-1385482690406133/4251873809"
         android:layout_height="wrap_content"
         ></com.google.android.gms.ads.AdView>
 
