@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="모의고사 성적은 아직 서버 저장을 구현하지 못했습니다. 상황이 좀더 여유로워지면 개발하도록 하겠습니다. 감사합니다."/>
+
+        <androidx.cardview.widget.CardView
+            app:cardElevation="4dp"
+            app:contentPadding="10dp"
+            app:cardUseCompatPadding="true"
+            android:id="@+id/test_card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:background="#00FFFFFF"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="성적 분석"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:background="#00FFFFFF"
+                        android:fontFamily="@font/scdream3"
+                        />
+
+                    <Spinner
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="right"
+                        android:id="@+id/test_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:padding="5dp"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/test_chart_analyze"
+                    android:layout_width="match_parent"
+                    android:background="#00FFFFFF"
+                    android:layout_height="200dp"></com.github.mikephil.charting.charts.LineChart>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <CheckBox
+                            android:id="@+id/test_check_ko"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="국어"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine"/>
+
+                        <CheckBox
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/test_check_ma"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="수학"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine2"/>
+
+                        <CheckBox
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/test_check_en"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="영어"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine3"/>
+
+                        <CheckBox
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/test_check_hi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="한국사"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine4"/>
+
+                        <CheckBox
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/test_check_tam1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="탐구1"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine5"/>
+
+                        <CheckBox
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/test_check_tam2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="탐구2"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine6"/>
+
+                        <CheckBox
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/test_check_lan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="제2외국어"
+                            android:fontFamily="@font/scdream3"
+                            android:buttonTint="@color/colorChartLine7"/>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <Button
+                    android:id="@+id/test_button_add"
+                    android:layout_gravity="right"
+                    android:text="성적 입력 하기"
+                    android:padding="3dp"
+                    android:textColor="#F18B8D"
+                    android:drawableTint="#F18B8D"
+                    android:drawableRight="@drawable/baseline_trending_flat_black_24"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:fontFamily="@font/scdream3"
+                    android:gravity="center_vertical"
+                    android:backgroundTint="#00FFFFFF"
+                    android:backgroundTintMode="add"
+                    android:elevation="0dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            app:cardElevation="2dp"
+            app:cardUseCompatPadding="true"
+            android:id="@+id/test_card_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:padding="10dp"
+                android:background="#00FFFFFF"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="광고"
+                    android:textStyle="bold"
+                    android:background="#00FFFFFF"
+                    android:textSize="17dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/scdream3"
+                    />
+
+                <com.google.android.gms.ads.AdView
+                    android:layout_width="match_parent"
+                    android:id="@+id/ads_test"
+                    android:background="#00FFFFFF"
+                    app:adSize="LARGE_BANNER"
+                    app:adUnitId="ca-app-pub-1385482690406133/1260466078"
+                    android:layout_height="wrap_content">
+                </com.google.android.gms.ads.AdView>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            app:cardElevation="2dp"-->
+<!--            app:cardUseCompatPadding="true"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <LinearLayout-->
+<!--                android:orientation="vertical"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:id="@+id/main_recycler_grade"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>-->
+
+
+
+<!--            </LinearLayout>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPadding="10dp"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_gravity="right"
+            android:id="@+id/test_data_delete"
+            android:backgroundTint="#00FFFFFF"
+            android:backgroundTintMode="add"
+            android:layout_width="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:layout_height="match_parent"
+            style="?android:attr/borderlessButtonStyle"
+            android:tint="#606060"
+            android:src="@drawable/baseline_delete_black_24"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:visibility="invisible"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:gravity="center"
+                android:textSize="13dp"
+                android:layout_width="90dp"
+                android:fontFamily="@font/scdream3"
+                android:layout_height="wrap_content"
+                android:text="과목명"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:textSize="13dp"
+                android:text="원점수"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:textSize="13dp"
+                android:text="표준점수"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:textSize="13dp"
+                android:text="등급"/>
+
+            <TextView
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:textSize="13dp"
+                android:text="백분위"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/i1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_korean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/koreantest_check_subject"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="국어"/>
+
+            <Button
+                android:id="@+id/koreantest_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:id="@+id/koreantest_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/koreantest_check_section"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/koreantest_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_math"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_gravity="center_vertical"
+                android:id="@+id/mathtest_check_subject"
+                android:fontFamily="@font/scdream3"
+                android:textAlignment="center"
+                android:layout_width="90dp"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:entries="@array/math"/>
+
+            <Button
+                android:id="@+id/mathtest_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:id="@+id/mathtest_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/mathtest_check_section"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/mathtest_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_english"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/englishtest_check_subject"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="90dp"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="영어"/>
+
+            <Button
+                android:id="@+id/englishtest_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:id="@+id/englishtest_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/englishtest_check_section"
+                android:layout_weight="1"
+                android:textSize="13dp"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:id="@+id/englishtest_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:textSize="13dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:id="@+id/historytest_check_subject"
+                android:textSize="13dp"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="한국사"/>
+
+            <Button
+                android:id="@+id/historytest_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:id="@+id/historytest_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:textSize="13dp"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/historytest_check_section"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/historytest_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_tamgu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_gravity="center_vertical"
+                android:textSize="13dp"
+                android:id="@+id/tamgutest_check_subject"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="90dp"
+                android:textAlignment="center"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:entries="@array/tamgu"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgutest_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgutest_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgutest_check_section"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgutest_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_tamgu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_gravity="center_vertical"
+                android:id="@+id/tamgu2test_check_subject"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:background="@null"
+                android:entries="@array/tamgu"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgu2test_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgu2test_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgu2test_check_section"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/tamgu2test_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/test_check_forign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_gravity="center_vertical"
+                android:id="@+id/forigntest_check_subject"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:background="@null"
+                android:entries="@array/forgin"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/forigntest_check_original_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="15"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/forigntest_check_grade"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/forigntest_check_section"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="1"/>
+
+            <Button
+                android:textSize="13dp"
+                android:id="@+id/forigntest_check_percent"
+                android:layout_weight="1"
+                android:fontFamily="@font/scdream3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/borderlessButtonStyle"
+                android:elevation="0dp"
+                android:text="11.11"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

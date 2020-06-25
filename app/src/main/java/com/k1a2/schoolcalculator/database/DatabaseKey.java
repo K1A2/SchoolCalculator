@@ -23,4 +23,7 @@ public interface DatabaseKey {
     public Integer KEY_DB_TYPE_R = 5;
     public Integer KEY_DB_TYPE_SC = 4;
     public Integer KEY_DB_TYPE_S = 3;
+
+
+    public String KEY_DB_NAME_TEST = "test.db";
 }

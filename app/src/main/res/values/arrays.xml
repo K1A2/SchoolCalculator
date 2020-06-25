@@ -8,4 +8,76 @@
         <item>사회탐구</item>
         <item>기타</item>
     </string-array>
+    <string-array name="testTypes">
+        <item>원점수</item>
+        <item>표준점수</item>
+        <item>등급</item>
+        <item>백분위</item>
+    </string-array>
+    <string-array name="testYear">
+        <item>1학년</item>
+        <item>2학년</item>
+        <item>3학년</item>
+    </string-array>
+    <string-array name="testMonth">
+        <item>1월</item>
+        <item>2월</item>
+        <item>3월</item>
+        <item>4월</item>
+        <item>5월</item>
+        <item>6월</item>
+        <item>7월</item>
+        <item>8월</item>
+        <item>9월</item>
+        <item>10월</item>
+        <item>11월</item>
+        <item>12월</item>
+    </string-array>
+    <string-array name="math">
+        <item>수학(고1)</item>
+        <item>수학 가</item>
+        <item>수학 나</item>
+    </string-array>
+    <string-array name="tamgu">
+        <item>통합사회</item>
+        <item>한국지리</item>
+        <item>세계지리</item>
+        <item>동아시아사</item>
+        <item>세계사</item>
+        <item>법과 정치</item>
+        <item>경제</item>
+        <item>사회문화</item>
+        <item>생활과 윤리</item>
+        <item>윤리와 사상</item>
+        <item>통합과학</item>
+        <item>물리I</item>
+        <item>물리II</item>
+        <item>화학I</item>
+        <item>화학II</item>
+        <item>지구과학I</item>
+        <item>지구과학II</item>
+        <item>생명과학I</item>
+        <item>생명과학II</item>
+        <item>농업이해</item>
+        <item>농업기초기술</item>
+        <item>공업일반</item>
+        <item>기초제도</item>
+        <item>상업경제</item>
+        <item>회계원리</item>
+        <item>해양의이해</item>
+        <item>수산해운산업기초</item>
+        <item>인간발달</item>
+        <item>생활서비스산업의이해</item>
+    </string-array>
+    <string-array name="forgin">
+        <item>한문</item>
+        <item>독일어</item>
+        <item>프랑스어</item>
+        <item>스페인어</item>
+        <item>중국어</item>
+        <item>일본어</item>
+        <item>러시아어</item>
+        <item>아랍어</item>
+        <item>베트남어</item>
+    </string-array>
 </resources>
