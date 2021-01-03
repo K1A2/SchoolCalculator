@@ -288,6 +288,8 @@ public class SchoolFragment extends Fragment {
 
         ti = navigationView.getHeaderView(0).findViewById(R.id.login_id);
         //로그인 여부 검사
+        if (firebaseAuth == null) firebaseAuth = FirebaseAuth.getInstance();
+
         if (firebaseAuth.getCurrentUser() == null) {
             navigationView.getMenu().findItem(R.id.nav_logout).setVisible(false);
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(true);
@@ -297,9 +299,6 @@ public class SchoolFragment extends Fragment {
             navigationView.getMenu().findItem(R.id.nav_login).setVisible(false);
             ti.setText(firebaseAuth.getCurrentUser().getEmail() + "로그인 됨");
         }
-
-
-        loadAd();
         return root;
     }
 
@@ -551,6 +550,7 @@ public class SchoolFragment extends Fragment {
         super.onResume();
         setGradeText();
         Log.d("Resume main", "resume");
+        loadAd();
     }
 
     public void loadAd() {
@@ -610,16 +610,20 @@ public class SchoolFragment extends Fragment {
                     });
                     adView.loadAd(adRequest);
 
-                    mInterstitialAd = new InterstitialAd(getContext());
-                    mInterstitialAd.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdClosed() {
-                            startActivityAll(now);
-                            mInterstitialAd.loadAd(new AdRequest.Builder().build());
-                        }
-                    });
-                    mInterstitialAd.setAdUnitId("ca-app-pub-1385482690406133/7999547125");
-                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    try {
+                        mInterstitialAd = new InterstitialAd(mainActivity.getApplicationContext());
+                        mInterstitialAd.setAdListener(new AdListener() {
+                            @Override
+                            public void onAdClosed() {
+                                startActivityAll(now);
+                                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                            }
+                        });
+                        mInterstitialAd.setAdUnitId("ca-app-pub-1385482690406133/7999547125");
+                        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.k1a2.schoolcalculator.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -124,7 +125,6 @@ public class TestFragment extends Fragment {
                 }
             }
         });
-        loadAd();
 
         return root;
     }
@@ -314,6 +314,7 @@ public class TestFragment extends Fragment {
         super.onResume();
         setList();
         Log.d("Resume test", "resume");
+        loadAd();
     }
 
     public void loadAd() {
@@ -373,19 +374,33 @@ public class TestFragment extends Fragment {
                     });
                     adView.loadAd(adRequest);
 
-                    mInterstitialAd = new InterstitialAd(getContext());
-                    mInterstitialAd.setAdListener(new AdListener() {
-                        @Override
-                        public void onAdClosed() {
-                            startActivity(new Intent(getContext(), TestInputActivity.class));
+                    if (context != null) {
+                        try {
+                            mInterstitialAd = new InterstitialAd(context);
+                            mInterstitialAd.setAdListener(new AdListener() {
+                                @Override
+                                public void onAdClosed() {
+                                    startActivity(new Intent(context, TestInputActivity.class));
+                                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                                }
+                            });
+                            mInterstitialAd.setAdUnitId("ca-app-pub-1385482690406133/9574070368");
                             mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
-                    mInterstitialAd.setAdUnitId("ca-app-pub-1385482690406133/9574070368");
-                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    }
                 }
             }
         });
         bp.initialize();
+    }
+
+    private Context context = null;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 }
