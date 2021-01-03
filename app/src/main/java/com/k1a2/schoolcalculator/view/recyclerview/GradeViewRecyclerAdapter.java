@@ -28,6 +28,7 @@ import com.k1a2.schoolcalculator.activity.MainActivity;
 import com.k1a2.schoolcalculator.activity.ScoreEditActivity;
 import com.k1a2.schoolcalculator.database.DatabaseKey;
 import com.k1a2.schoolcalculator.database.ScoreDatabaseHelper;
+import com.k1a2.schoolcalculator.fragment.SchoolFragment;
 import com.uni.unitor.unitorm2.view.recycler.listener.RecyclerItemClickListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -43,6 +44,11 @@ public class GradeViewRecyclerAdapter extends RecyclerView.Adapter<GradeViewRecy
     private ArrayList<GradeViewItem> listViewList = new  ArrayList<GradeViewItem>();
     private int itemHeight = 0;
     private Context context;
+    private SchoolFragment schoolFragment = null;
+
+    public GradeViewRecyclerAdapter(SchoolFragment schoolFragment) {
+        this.schoolFragment = schoolFragment;
+    }
 
     @NonNull
     @Override
@@ -100,17 +106,17 @@ public class GradeViewRecyclerAdapter extends RecyclerView.Adapter<GradeViewRecy
                 public void onClick(View v) {
                     switch (getAdapterPosition()) {
                         case 0: {
-                            ((MainActivity) context).startActivityScore(1);
+                            schoolFragment.startActivityScore(1);
 //                            startScoreEditAvtivity(1);
                             break;
                         }
                         case 1: {
-                            ((MainActivity) context).startActivityScore(2);
+                            schoolFragment.startActivityScore(2);
 //                            startScoreEditAvtivity(2);
                             break;
                         }
                         case 2: {
-                            ((MainActivity) context).startActivityScore(3);
+                            schoolFragment.startActivityScore(3);
 //                            startScoreEditAvtivity(3);
                             break;
                         }

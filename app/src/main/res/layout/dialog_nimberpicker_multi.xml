@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:padding="20dp">
+
+    <NumberPicker
+        android:layout_weight="1"
+        android:gravity="right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_numberpicker_1"
+        android:theme="@style/numberpicker_color"></NumberPicker>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textColor="#FFFFFFFF"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:layout_height="match_parent"
+        android:text="."/>
+
+    <NumberPicker
+        android:layout_weight="1"
+        android:gravity="left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_numberpicker_2"
+        android:theme="@style/numberpicker_color"></NumberPicker>
+
+</LinearLayout>
