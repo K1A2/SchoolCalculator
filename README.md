@@ -11,7 +11,7 @@
 -----
 1. 학기별 과목 추가, 등급/단위수(일주일에 해당 수업을 하는 횟수)/과목 카테고리/과목 이름 수정, 과목 삭제 기능
 2. 입력한 성적의 전체 합산, 학년별/학기별 합산 표시
-3. 2번애서 구한 데이터를 그래프로 표기 ([mpAndroidChart](https://github.com/PhilJay/MPAndroidChart) 이용)
+3. 2번에서 구한 데이터를 그래프로 표기 ([mpAndroidChart](https://github.com/PhilJay/MPAndroidChart) 이용)
 4. 입력한 데이터 서버에 저장 후, 불러오기 가능 -> aws 서비스 이용
 
 
